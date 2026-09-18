@@ -1,0 +1,39 @@
+{
+  "name": "experiments",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Experiments monorepo",
+  "type": "module",
+  "packageManager": "pnpm@10.30.3",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "build": "pnpm --loglevel=info -r --stream build",
+    "typecheck": "pnpm --loglevel=info -r --stream typecheck",
+    "test": "pnpm --loglevel=info -r --stream test",
+    "format:prettier": "prettier --write .",
+    "format:eslint": "eslint . --fix || true",
+    "format": "pnpm run format:eslint && pnpm run format:prettier",
+    "lint:prettier": "prettier --check .",
+    "lint:eslint": "eslint .",
+    "lint": "pnpm run lint:prettier; p=$?; pnpm run lint:eslint; exit $((p|$?))"
+  },
+  "prettier": {
+    "plugins": [
+      "@ianvs/prettier-plugin-sort-imports"
+    ],
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
+    "@types/node": "^24.10.1",
+    "eslint": "^9.39.1",
+    "prettier": "3.6.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1",
+    "vitest": "^4.1.5"
+  }
+}

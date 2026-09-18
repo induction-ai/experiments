@@ -1,0 +1,10 @@
+**/__recordings__/
+*.har
+
+# Ephemeral agent / Claude scratch
+.temp/
+
+# Build output & deps
+**/dist/
+**/node_modules/
+pnpm-lock.yaml
