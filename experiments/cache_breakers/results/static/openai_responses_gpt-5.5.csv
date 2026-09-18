@@ -1,0 +1,496 @@
+timestamp,batch,run,provider,model,variant,group,seed,nonce,section_words,first_cached,warm_attempts,warmed,base_input,base_cached,status,error,input,cached,cache_write,output,reasoning
+2026-09-18T22:33:53.094Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,tools_edit_end,probe,1284644036,858d00536755,1500,0,2,true,6166,5632,200,,6167,0,0,5,0
+2026-09-18T22:33:53.408Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,late_edit_start,probe,719692177,e785de39ddac,1500,0,2,true,6166,5632,200,,6166,2560,0,5,0
+2026-09-18T22:33:53.506Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,tools_edit_start,probe,1403564591,20fe05532520,1500,0,2,true,6146,5632,200,,6146,0,0,5,0
+2026-09-18T22:33:53.886Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,early_edit_start,probe,1173208508,d123ee6dcc51,1500,0,2,true,6151,5632,200,,6151,2560,0,5,0
+2026-09-18T22:33:54.131Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,system_edit_end,probe,1386278624,a368c262c987,1500,0,2,true,6143,5632,200,,6144,2560,0,5,0
+2026-09-18T22:33:54.197Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,system_edit_start,probe,29119623,ea007636ca00,1500,0,2,true,6154,5632,200,,6154,0,0,5,0
+2026-09-18T22:33:54.700Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,control,control,221417279,946fe3ab5786,1500,0,2,true,6155,5632,200,,6155,5632,0,5,0
+2026-09-18T22:33:57.389Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,early_edit_end,probe,1038003463,a3af737209aa,1500,0,2,true,6155,5632,200,,6156,2560,0,5,0
+2026-09-18T22:33:59.340Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,final_edit,probe,453502073,dff1f8b7a35b,1500,0,2,true,6155,5632,200,,6156,5632,0,5,0
+2026-09-18T22:33:59.685Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,late_edit_end,probe,1413059459,490efaf2d213,1500,0,2,true,6154,5632,200,,6155,4608,0,5,0
+2026-09-18T22:33:59.929Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_5,sweep,1941890818,021060d91d66,1500,0,2,true,6140,5632,200,,6140,2560,0,5,0
+2026-09-18T22:34:00.579Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_5,sweep,1458199585,f578800a67ff,1500,0,2,true,6162,5632,200,,6162,0,0,5,0
+2026-09-18T22:34:03.042Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_17.5,sweep,342177386,4cc4fa54782f,1500,0,2,true,6166,5632,200,,6166,0,0,5,0
+2026-09-18T22:34:03.202Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sibling_then_late_edit,probe,256483181,c575dac682e0,1500,0,2,true,6158,5632,200,,6159,4608,0,5,0
+2026-09-18T22:34:05.038Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,prev_turn_then_final_edit,probe,640379440,1c71f32d32b7,1500,0,2,true,6181,5632,200,,6182,5632,0,5,0
+2026-09-18T22:34:05.378Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_30,sweep,470837274,5f22628539a9,1500,0,2,true,6165,5632,200,,6165,0,0,5,0
+2026-09-18T22:34:05.875Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_30,sweep,169085129,2209e967c394,1500,0,2,true,6156,5632,200,,6156,2560,0,5,0
+2026-09-18T22:34:05.968Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_17.5,sweep,705949819,1ff6471be581,1500,0,2,true,6148,5632,200,,6148,0,0,5,0
+2026-09-18T22:34:06.194Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_42.5,sweep,1554852393,b1d3b7352a17,1500,0,2,true,6161,5632,200,,6161,0,0,5,0
+2026-09-18T22:34:06.948Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,prev_turn_then_late_reply_edit,probe,1407261095,c301d3610b41,1500,0,2,true,6150,5632,200,,6151,5632,0,5,0
+2026-09-18T22:34:09.334Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_42.5,sweep,1941512828,f6ad0eb970ec,1500,0,2,true,6158,5632,200,,6157,2560,0,5,0
+2026-09-18T22:34:10.033Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_55,sweep,879872741,2894c5325747,1500,0,2,true,6144,5632,200,,6144,0,0,5,0
+2026-09-18T22:34:10.786Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_67.5,sweep,2046319402,111c1cfc6549,1500,0,2,true,6164,5632,200,,6164,0,0,5,0
+2026-09-18T22:34:10.883Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_55,sweep,13219870,494d0f124aed,1500,0,2,true,6158,5632,200,,6158,2560,0,5,0
+2026-09-18T22:34:11.707Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_80,sweep,2090035918,544a85ee5a53,1500,0,2,true,6160,5632,200,,6160,2560,0,5,0
+2026-09-18T22:34:12.411Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_80,sweep,1567476939,a337aa0c80ce,1500,0,2,true,6161,5632,200,,6161,2560,0,5,0
+2026-09-18T22:34:14.083Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_67.5,sweep,2137550473,09a56e0a89b1,1500,0,2,true,6184,5632,200,,6184,2560,0,5,0
+2026-09-18T22:34:15.669Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_92.5,sweep,87258522,217c32f264a7,1500,0,2,true,6163,5632,200,,6163,0,0,5,0
+2026-09-18T22:34:15.943Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_92.5,sweep,821303003,f76d5a3ca552,1500,0,2,true,6169,5632,200,,6169,2560,0,5,0
+2026-09-18T22:34:16.234Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_add,tools,803381644,32eb66a6d9cd,1500,0,2,true,6162,5632,200,,6347,0,0,5,0
+2026-09-18T22:34:16.695Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_remove_last,tools,693471988,afd37b76bd7a,1500,0,2,true,6166,5632,200,,5981,0,0,5,0
+2026-09-18T22:34:17.240Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,tools_reorder,tools,842070549,8b51b5aac62f,1500,0,2,true,6181,5632,200,,6181,0,0,5,0
+2026-09-18T22:34:17.908Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,tools_remove_all,tools,409414360,863b79885e0a,1500,0,2,true,6169,5632,200,,4657,0,0,5,0
+2026-09-18T22:34:19.261Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_strict_off,tools,1884611247,f078812e1154,1500,0,2,true,6150,5632,200,,6150,5632,0,5,0
+2026-09-18T22:34:22.508Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,parallel_tool_calls_off,tools,1948360813,d8e2df2d2cf3,1500,0,2,true,6166,5632,200,,6244,0,0,5,0
+2026-09-18T22:34:22.553Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_choice_required,tools,558782319,35db35993315,1500,0,2,true,6159,5632,200,,6159,5504,0,25,0
+2026-09-18T22:34:22.735Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_choice_none,tools,426333850,3aa6d29b6232,1500,0,2,true,6167,5632,200,,6167,5504,0,5,0
+2026-09-18T22:34:22.926Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_schema_key_order,tools,497803330,83136759d45b,1500,0,3,true,6155,5632,200,,6155,5632,0,5,0
+2026-09-18T22:34:22.962Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,system_as_developer_message,system,957634893,d3a4d2782ab5,1500,0,2,true,6159,5632,200,,6159,5632,0,5,0
+2026-09-18T22:34:24.045Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_choice_function,tools,1040837429,c902192f306e,1500,0,2,true,6139,5632,200,,6139,5504,0,24,0
+2026-09-18T22:34:24.422Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,system_as_system_message,system,712682219,b246f0dc7391,1500,0,2,true,6157,5632,200,,6157,5632,0,5,0
+2026-09-18T22:34:25.273Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,append_turn,messages,1814554151,bc7a25470552,1500,0,2,true,6157,5632,200,,6213,5632,0,5,0
+2026-09-18T22:34:28.492Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none,reasoning,650038769,6ed0af025042,1500,0,2,true,6157,5632,200,,6157,0,0,5,0
+2026-09-18T22:34:28.613Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,image_in_final,messages,1564995127,fe7eebd88d1c,1500,0,2,true,6177,5632,200,,6182,0,0,5,0
+2026-09-18T22:34:29.034Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,content_as_parts,messages,302872069,4ed3c7afbcf2,1500,0,2,true,6160,5632,200,,6160,5632,0,5,0
+2026-09-18T22:34:29.233Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium,reasoning,73974084,e04ac42e207c,1500,0,2,true,6154,5632,200,,6154,0,0,5,0
+2026-09-18T22:34:30.267Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_medium,reasoning,1412566522,1630e788f9f6,1500,0,2,true,6160,5632,200,,6160,0,0,5,0
+2026-09-18T22:34:30.367Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,model_switch,model,1004615877,7ef65c4d04ea,1500,0,3,true,6170,5632,200,,6170,0,0,14,7
+2026-09-18T22:34:31.083Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_low,reasoning,1786909214,7e172aa719dc,1500,0,2,true,6154,5632,200,,6154,0,0,5,0
+2026-09-18T22:34:31.785Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_high,reasoning,1126153430,39d471e230d2,1500,0,2,true,6163,5632,200,,6163,0,0,5,0
+2026-09-18T22:34:33.530Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_max,reasoning,2018895239,488b56f769aa,1500,0,2,true,6148,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:34:34.887Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_xhigh,reasoning,1810267987,79ea5665887c,1500,0,2,true,6153,5632,200,,6153,0,0,23,16
+2026-09-18T22:34:34.981Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none_omitted,reasoning,1477099926,96eea0082d66,1500,0,2,true,6142,5632,200,,6142,0,0,5,0
+2026-09-18T22:34:35.270Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_high,reasoning,764384419,d328cb7d5d1f,1500,0,2,true,6180,5632,200,,6180,0,0,5,0
+2026-09-18T22:34:35.674Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_max,reasoning,1629213290,a6f847bf692e,1500,0,2,true,6157,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:34:36.860Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_xhigh,reasoning,640727867,d5c2fc7037bd,1500,0,2,true,6169,5632,200,,6169,0,0,24,17
+2026-09-18T22:34:36.953Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_low_omitted,reasoning,1353258901,38805a87803a,1500,0,2,true,6146,5632,200,,6146,0,0,5,0
+2026-09-18T22:34:37.604Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_none,reasoning,1561405951,1c602c9a6a18,1500,0,2,true,6166,5632,200,,6166,0,0,5,0
+2026-09-18T22:34:39.702Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_low,reasoning,1948576353,bc133820ce73,1500,0,2,true,6152,5632,200,,6152,0,0,5,0
+2026-09-18T22:34:41.207Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_xhigh,reasoning,615552244,0c8737d11388,1500,0,2,true,6148,5632,200,,6148,0,0,21,14
+2026-09-18T22:34:41.349Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_high,reasoning,742526211,024f302913aa,1500,0,2,true,6141,5632,200,,6141,0,0,18,11
+2026-09-18T22:34:41.863Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_max,reasoning,1083402226,64772dfc818a,1500,0,2,true,6158,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:34:41.865Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium_omitted,reasoning,2014140894,9d86177a5f5b,1500,0,2,true,6158,5632,200,,6158,5632,0,5,0
+2026-09-18T22:34:42.588Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_none,reasoning,1137102906,366e23abdede,1500,0,2,true,6157,5632,200,,6157,0,0,5,0
+2026-09-18T22:34:42.730Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_low,reasoning,31413024,ad916f95c420,1500,0,2,true,6154,5632,200,,6154,0,0,5,0
+2026-09-18T22:34:43.854Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_medium,reasoning,1905825775,ba1d2778ce09,1500,0,2,true,6173,5632,200,,6173,0,0,5,0
+2026-09-18T22:34:46.180Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_xhigh,reasoning,137822045,d0e293101caa,1500,0,2,true,6153,5632,200,,6153,0,0,22,15
+2026-09-18T22:34:46.853Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_high_omitted,reasoning,1671854868,3cbb3cc3577e,1500,0,2,true,6165,5632,200,,6165,0,0,5,0
+2026-09-18T22:34:47.119Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_none,reasoning,1801095778,29a86dbd236b,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:34:47.275Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_low,reasoning,55887988,fd01963e8783,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:34:47.447Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_medium,reasoning,914583372,5dabdd88ed91,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:34:47.606Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_high,reasoning,784185576,162d04dcb414,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:34:47.776Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_xhigh,reasoning,1920952715,102b48379273,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:34:47.994Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_max_omitted,reasoning,99821024,ee8605ac132f,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:34:48.084Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_max,reasoning,1968697878,486124fee7b0,1500,0,2,true,6153,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:34:49.037Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_none,reasoning,283468348,3d5aca14343e,1500,0,2,true,6161,5632,200,,6161,0,0,5,0
+2026-09-18T22:34:49.056Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_low,reasoning,1802038963,a072237583ce,1500,0,2,true,6159,5632,200,,6159,0,0,5,0
+2026-09-18T22:34:49.146Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_medium,reasoning,1171287457,5f479e5f3a41,1500,0,2,true,6183,5632,200,,6183,0,0,5,0
+2026-09-18T22:34:49.269Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_high,reasoning,240256875,114a3856a358,1500,0,2,true,6175,5632,200,,6175,0,0,5,0
+2026-09-18T22:34:50.279Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_max,reasoning,1840779430,0e4e197415e8,1500,0,2,true,6166,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:34:52.403Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_omitted,reasoning,2119687403,c76ed6a8ec82,1500,0,2,true,6167,5632,200,,6167,0,0,5,0
+2026-09-18T22:34:54.064Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,reasoning_summary,reasoning,306314611,d06c0576a114,1500,0,2,true,6138,5632,200,,6138,5632,0,5,0
+2026-09-18T22:34:54.702Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,max_output_tokens,output,2089637620,29514d253153,1500,0,2,true,6161,5632,200,,6161,5632,0,5,0
+2026-09-18T22:34:54.774Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,include_encrypted_reasoning,reasoning,885425246,c4fb72c06ea6,1500,0,2,true,6160,5632,200,,6160,5632,0,5,0
+2026-09-18T22:34:55.098Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,json_schema_format,output,1533523385,f0296a8624b8,1500,0,2,true,6159,5632,200,,6180,0,0,12,0
+2026-09-18T22:34:55.248Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,temperature,sampling,299770255,b427d91efb82,1500,0,2,true,6187,5632,400,Unsupported parameter: 'temperature' is not supported with this model.,,,,,
+2026-09-18T22:34:55.415Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,verbosity_high,output,651493193,0dfb27bdcf23,1500,0,2,true,6179,5632,200,,6179,0,0,5,0
+2026-09-18T22:34:56.787Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_switch_back,reasoning,1597266517,95f7e383faf5,1500,0,2,true,6166,5632,200,,6166,5632,0,5,0
+2026-09-18T22:34:57.683Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,top_p,sampling,2031579564,cb40af557db2,1500,0,2,true,6157,5632,400,Unsupported parameter: 'top_p' is not supported with this model.,,,,,
+2026-09-18T22:34:59.762Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,cache_key_changed,routing,100998015,1a833a8e9337,1500,0,2,true,6188,5632,200,,6188,0,0,5,0
+2026-09-18T22:35:01.436Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,safety_identifier,routing,1562368018,a6a11ddf1691,1500,0,2,true,6161,5632,200,,6161,5632,0,5,0
+2026-09-18T22:35:01.534Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,cache_key_removed,routing,1314958048,94d640c80916,1500,0,2,true,6161,5632,200,,6161,0,0,5,0
+2026-09-18T22:35:01.684Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,store_true,routing,1188179894,23a58f34ba77,1500,0,2,true,6169,5632,200,,6169,5632,0,5,0
+2026-09-18T22:35:01.684Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,metadata,routing,1172928952,879ff253a9dc,1500,0,2,true,6152,5632,200,,6152,5632,0,5,0
+2026-09-18T22:35:01.685Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,cache_retention_24h,routing,1995186590,0f0f79a7101f,1500,0,2,true,6172,5632,200,,6172,5632,0,5,0
+2026-09-18T22:35:03.151Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,service_tier_flex,routing,1844478785,83973bcfb579,1500,0,2,true,6147,5632,200,,6147,0,0,5,0
+2026-09-18T22:35:04.120Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,service_tier_priority,routing,397806369,b2ed368e8efe,1500,0,2,true,6163,5632,200,,6163,0,0,5,0
+2026-09-18T22:35:05.736Z,2026-09-18T22:33:47.695Z,0,openai_responses_gpt-5.5,gpt-5.5,truncation_auto,routing,1139784367,e04267fb3b14,1500,0,2,true,6146,5632,200,,6146,5632,0,5,0
+2026-09-18T22:35:37.199Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,early_edit_start,probe,2008811387,58413641454c,1500,0,2,true,6175,5632,200,,6175,2560,0,5,0
+2026-09-18T22:35:37.455Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,early_edit_end,probe,1095877265,d580686541b1,1500,0,2,true,6164,5632,200,,6165,2560,0,5,0
+2026-09-18T22:35:37.763Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,late_edit_start,probe,49447497,8692220c6dad,1500,0,2,true,6163,5632,200,,6163,2560,0,5,0
+2026-09-18T22:35:37.891Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,tools_edit_start,probe,6612638,1060b607a4c6,1500,0,2,true,6169,5632,200,,6169,0,0,5,0
+2026-09-18T22:35:37.929Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,system_edit_end,probe,1039944581,fbd70c5eb428,1500,0,2,true,6166,5632,200,,6167,2560,0,5,0
+2026-09-18T22:35:38.146Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,tools_edit_end,probe,2025397218,4cf35e394427,1500,0,2,true,6159,5632,200,,6160,0,0,5,0
+2026-09-18T22:35:38.977Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,system_edit_start,probe,1345709397,797cb28e2837,1500,0,2,true,6162,5632,200,,6162,0,0,5,0
+2026-09-18T22:35:39.449Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,control,control,365880372,621009b42d04,1500,0,2,true,6166,5632,200,,6166,5632,0,5,0
+2026-09-18T22:35:43.565Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,final_edit,probe,1818533774,dedd337f5182,1500,0,2,true,6160,5632,200,,6161,5632,0,5,0
+2026-09-18T22:35:43.655Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_5,sweep,1912378440,9601c9f8d91f,1500,0,2,true,6171,5632,200,,6171,0,0,5,0
+2026-09-18T22:35:45.082Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_5,sweep,2063336154,50e2f55f3d03,1500,0,2,true,6164,5632,200,,6164,2560,0,5,0
+2026-09-18T22:35:45.570Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,late_edit_end,probe,181443417,e9e96a85c1ee,1500,0,2,true,6164,5632,200,,6165,4608,0,5,0
+2026-09-18T22:35:46.208Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sibling_then_late_edit,probe,555642976,00ce4a37fa67,1500,0,2,true,6164,5632,200,,6165,4608,0,5,0
+2026-09-18T22:35:46.537Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_17.5,sweep,879298333,fd38c40c84a5,1500,0,2,true,6156,5632,200,,6156,0,0,5,0
+2026-09-18T22:35:47.889Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,prev_turn_then_final_edit,probe,1899431986,88559d121e18,1500,0,2,true,6151,5632,200,,6152,0,0,5,0
+2026-09-18T22:35:49.501Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_17.5,sweep,494107867,560d81069e6c,1500,0,2,true,6172,5632,200,,6172,2560,0,5,0
+2026-09-18T22:35:49.699Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_30,sweep,1247648800,e7e2fa327b35,1500,0,2,true,6155,5632,200,,6155,0,0,5,0
+2026-09-18T22:35:52.224Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_42.5,sweep,1906485406,c16981901d26,1500,0,2,true,6151,5632,200,,6151,0,0,5,0
+2026-09-18T22:35:52.537Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_30,sweep,451696516,1efdeff746a4,1500,0,2,true,6155,5632,200,,6155,2560,0,5,0
+2026-09-18T22:35:52.881Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_55,sweep,969448431,b6cbe267fe10,1500,0,2,true,6157,5632,200,,6157,0,0,5,0
+2026-09-18T22:35:52.935Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_42.5,sweep,1900419686,cf7f057b7dd3,1500,0,2,true,6167,5632,200,,6167,2560,0,5,0
+2026-09-18T22:35:52.967Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,prev_turn_then_late_reply_edit,probe,408258847,14b7ad6ebcc0,1500,0,2,true,6151,5632,200,,6152,5632,0,5,0
+2026-09-18T22:35:53.697Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_55,sweep,1032238163,bb6297d65975,1500,0,2,true,6138,5632,200,,6138,2560,0,5,0
+2026-09-18T22:35:55.031Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_67.5,sweep,2006051267,7fbf4d118c83,1500,0,2,true,6172,5632,200,,6172,2560,0,5,0
+2026-09-18T22:35:55.748Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_67.5,sweep,2068929225,4920b3fbe54d,1500,0,2,true,6181,5632,200,,6181,0,0,5,0
+2026-09-18T22:35:58.133Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_80,sweep,754432525,1b8c85d58d3f,1500,0,2,true,6164,5632,200,,6164,2560,0,5,0
+2026-09-18T22:35:58.169Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_92.5,sweep,710439356,b6203bb4bc78,1500,0,2,true,6169,5632,200,,6169,2560,0,5,0
+2026-09-18T22:35:58.327Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_system_80,sweep,1363705529,dce9fba8c3a5,1500,0,2,true,6171,5632,200,,6171,2560,0,5,0
+2026-09-18T22:35:58.806Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_add,tools,1027829272,5e2501dd423d,1500,0,2,true,6166,5632,200,,6350,0,0,5,0
+2026-09-18T22:35:59.048Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,sweep_early_92.5,sweep,1039002848,fe92d16bc07c,1500,0,2,true,6171,5632,200,,6171,2560,0,5,0
+2026-09-18T22:35:59.994Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_remove_last,tools,594239276,c9b601b0a144,1500,0,2,true,6157,5632,200,,5971,0,0,5,0
+2026-09-18T22:36:01.061Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,tools_reorder,tools,131607564,041725d7e804,1500,0,2,true,6170,5632,200,,6170,0,0,5,0
+2026-09-18T22:36:01.888Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,tools_remove_all,tools,1024886673,7e8b4ead4b0b,1500,0,2,true,6175,5632,200,,4657,0,0,5,0
+2026-09-18T22:36:04.066Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_schema_key_order,tools,2032993612,dd41ec874675,1500,0,2,true,6157,5632,200,,6157,5632,0,5,0
+2026-09-18T22:36:04.526Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_choice_required,tools,445595389,53cdf5380b89,1500,0,2,true,6160,5632,200,,6160,5504,0,31,0
+2026-09-18T22:36:04.768Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_choice_none,tools,1303811666,e723abf14139,1500,0,2,true,6164,5632,200,,6164,5504,0,5,0
+2026-09-18T22:36:05.225Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_strict_off,tools,1273585985,73bdd43e42e8,1500,0,2,true,6168,5632,200,,6168,5632,0,5,0
+2026-09-18T22:36:05.465Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,tool_choice_function,tools,627700405,bbd4cbd4084c,1500,0,2,true,6153,5632,200,,6153,5504,0,25,0
+2026-09-18T22:36:06.116Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,parallel_tool_calls_off,tools,1039749156,9487fec608a5,1500,0,2,true,6147,5632,200,,6225,0,0,5,0
+2026-09-18T22:36:08.673Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,system_as_system_message,system,1575032121,d1de5344da55,1500,0,2,true,6172,5632,200,,6172,5632,0,5,0
+2026-09-18T22:36:10.225Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,append_turn,messages,754101677,db5b2d1187cd,1500,0,2,true,6165,5632,200,,6221,5632,0,5,0
+2026-09-18T22:36:10.662Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,image_in_final,messages,2102629482,2c56db32e9f5,1500,0,2,true,6171,5632,200,,6176,0,0,5,0
+2026-09-18T22:36:10.759Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,model_switch,model,2047256545,e4ff3128ccc4,1500,0,2,true,6156,5632,200,,6156,0,0,14,7
+2026-09-18T22:36:11.072Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,content_as_parts,messages,212272825,4de7e9b0d29e,1500,0,2,true,6156,5632,200,,6156,5632,0,5,0
+2026-09-18T22:36:11.465Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,system_as_developer_message,system,753353423,793fddf42909,1500,0,3,true,6173,5632,200,,6173,5632,0,5,0
+2026-09-18T22:36:11.802Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none,reasoning,1621557063,39de3ffbcb04,1500,0,2,true,6182,5632,200,,6182,0,0,5,0
+2026-09-18T22:36:13.454Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium,reasoning,309654790,b83f04a355eb,1500,0,2,true,6140,5632,200,,6140,0,0,5,0
+2026-09-18T22:36:15.037Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_low,reasoning,1577216419,6999137429cc,1500,0,2,true,6144,5632,200,,6144,0,0,5,0
+2026-09-18T22:36:15.954Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_medium,reasoning,895108814,11330a0dfac5,1500,0,2,true,6167,5632,200,,6167,0,0,5,0
+2026-09-18T22:36:16.433Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_high,reasoning,857303023,36e056d58abc,1500,0,2,true,6145,5632,200,,6145,0,0,22,15
+2026-09-18T22:36:16.488Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_max,reasoning,612498489,a54c22e69dfd,1500,0,2,true,6167,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:36:17.207Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_xhigh,reasoning,100297092,5b342f1fcb97,1500,0,2,true,6160,5632,200,,6160,0,0,38,31
+2026-09-18T22:36:17.555Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_high,reasoning,789954251,71c8d9718b69,1500,0,2,true,6176,5632,200,,6176,0,0,5,0
+2026-09-18T22:36:18.657Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_none_omitted,reasoning,1438594167,d870902e4a6e,1500,0,2,true,6153,5632,200,,6153,0,0,5,0
+2026-09-18T22:36:20.498Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_xhigh,reasoning,1875417601,11f652990185,1500,0,2,true,6152,5632,200,,6152,0,0,21,14
+2026-09-18T22:36:20.998Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_max,reasoning,1371209386,209e564fb640,1500,0,2,true,6157,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:36:22.250Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_none,reasoning,544037974,dbb8815d3ca3,1500,0,2,true,6150,5632,200,,6150,0,0,5,0
+2026-09-18T22:36:22.261Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_low_omitted,reasoning,1686899899,85eac14b4d2e,1500,0,2,true,6193,5632,200,,6193,0,0,5,0
+2026-09-18T22:36:23.030Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_low,reasoning,1596474997,a2eba1c04978,1500,0,2,true,6153,5632,200,,6153,0,0,5,0
+2026-09-18T22:36:23.722Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_max,reasoning,1657506492,6202531b7f51,1500,0,2,true,6156,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:36:23.768Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_high,reasoning,1488568028,844b96bc8e24,1500,0,2,true,6151,5632,200,,6151,0,0,18,11
+2026-09-18T22:36:24.068Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_xhigh,reasoning,341984272,b3c61a5ba050,1500,0,2,true,6175,5632,200,,6175,0,0,25,18
+2026-09-18T22:36:26.155Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_medium_omitted,reasoning,1944723563,1ee7a46a6293,1500,0,2,true,6169,5632,200,,6169,5632,0,5,0
+2026-09-18T22:36:26.663Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_none,reasoning,154951053,391e32382600,1500,0,2,true,6134,5632,200,,6134,0,0,5,0
+2026-09-18T22:36:28.467Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_low,reasoning,599250146,4ff8e29dc7b7,1500,0,2,true,6174,5632,200,,6174,0,0,5,0
+2026-09-18T22:36:29.058Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_max,reasoning,1320589766,ff45f72461b5,1500,0,2,true,6156,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:36:29.852Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_medium,reasoning,694420189,99c325a1f7f6,1500,0,2,true,6189,5632,200,,6189,0,0,5,0
+2026-09-18T22:36:30.010Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_high_omitted,reasoning,582797605,5b586dda6c6a,1500,0,2,true,6177,5632,200,,6177,0,0,5,0
+2026-09-18T22:36:30.203Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_none,reasoning,1678833751,1a7af96a73c3,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:36:30.647Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_low,reasoning,125334048,2b319d232f34,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:36:30.791Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_none,reasoning,605458453,37020d268777,1500,0,2,true,6156,5632,200,,6156,0,0,5,0
+2026-09-18T22:36:30.866Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_medium,reasoning,820060266,9ef1ff7b83eb,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:36:31.003Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_high,reasoning,1738910010,1637c702073f,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:36:31.071Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_xhigh,reasoning,80597528,9e5edeae48fb,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:36:31.145Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_max_omitted,reasoning,441654006,7c59d357da41,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:36:32.279Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_xhigh,reasoning,1260125766,c53d20f77c59,1500,0,3,true,6168,5632,200,,6168,0,0,25,18
+2026-09-18T22:36:32.499Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_low,reasoning,539352901,50011f765865,1500,0,2,true,6166,5632,200,,6166,0,0,5,0
+2026-09-18T22:36:32.809Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_medium,reasoning,632155979,e41ee5ee698e,1500,0,2,true,6159,5632,200,,6159,0,0,5,0
+2026-09-18T22:36:35.522Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_high,reasoning,1183576707,679b605e7dcd,1500,0,2,true,6161,5632,200,,6161,0,0,18,11
+2026-09-18T22:36:36.509Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,reasoning_summary,reasoning,2133559715,8045616e0bc6,1500,0,2,true,6169,5632,200,,6169,5632,0,5,0
+2026-09-18T22:36:36.655Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_omitted,reasoning,173073332,d566ab70fcb7,1500,0,2,true,6150,5632,200,,6150,0,0,5,0
+2026-09-18T22:36:37.263Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_max,reasoning,550954958,d475212012a5,1500,0,2,true,6160,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:36:38.130Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,include_encrypted_reasoning,reasoning,906059289,e0ab7079728a,1500,0,2,true,6158,5632,200,,6158,5632,0,5,0
+2026-09-18T22:36:38.239Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,max_output_tokens,output,1413819659,f2642ca3d3ed,1500,0,2,true,6163,5632,200,,6163,5632,0,5,0
+2026-09-18T22:36:39.280Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,json_schema_format,output,898596398,ad7431555a48,1500,0,2,true,6163,5632,200,,6184,0,0,12,0
+2026-09-18T22:36:40.344Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,effort_switch_back,reasoning,786819495,a1ac11280964,1500,0,2,true,6156,5632,200,,6156,5632,0,5,0
+2026-09-18T22:36:41.539Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,temperature,sampling,762846540,34f8d47a2836,1500,0,2,true,6155,5632,400,Unsupported parameter: 'temperature' is not supported with this model.,,,,,
+2026-09-18T22:36:42.135Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,verbosity_high,output,804102762,dc53235b5f2e,1500,0,2,true,6157,5632,200,,6157,0,0,5,0
+2026-09-18T22:36:43.073Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,cache_key_changed,routing,1527814256,9789f287fecd,1500,0,2,true,6172,5632,200,,6172,0,0,5,0
+2026-09-18T22:36:43.977Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,cache_key_removed,routing,327010744,65de75a5e07e,1500,0,2,true,6155,5632,200,,6155,0,0,5,0
+2026-09-18T22:36:44.265Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,cache_retention_24h,routing,1632268948,87efeaff21de,1500,0,2,true,6170,5632,200,,6170,5632,0,5,0
+2026-09-18T22:36:46.163Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,safety_identifier,routing,1646104718,4a9710744e6e,1500,0,2,true,6160,5632,200,,6160,5632,0,5,0
+2026-09-18T22:36:46.311Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,metadata,routing,173911136,771cb53f10ad,1500,0,2,true,6152,5632,200,,6152,5632,0,5,0
+2026-09-18T22:36:46.913Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,store_true,routing,1326946162,bb60f6d5ede1,1500,0,2,true,6170,5632,200,,6170,5632,0,5,0
+2026-09-18T22:36:47.413Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,top_p,sampling,1813755120,10aff90c3633,1500,0,4,true,6162,5632,400,Unsupported parameter: 'top_p' is not supported with this model.,,,,,
+2026-09-18T22:36:48.488Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,service_tier_flex,routing,2097893711,23a440f4e1ce,1500,0,2,true,6160,5632,200,,6160,0,0,5,0
+2026-09-18T22:36:48.553Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,service_tier_priority,routing,286815772,514bb64435c0,1500,0,2,true,6150,5632,200,,6150,0,0,5,0
+2026-09-18T22:36:49.875Z,2026-09-18T22:35:31.718Z,0,openai_responses_gpt-5.5,gpt-5.5,truncation_auto,routing,128276437,1a2f6e430516,1500,0,2,true,6170,5632,200,,6170,5632,0,5,0
+2026-09-18T22:36:50.137Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,control,control,1115586414,010a76046d92,1500,0,2,true,6158,5632,200,,6158,5632,0,5,0
+2026-09-18T22:36:52.570Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,system_edit_start,probe,624628193,1857d1db202c,1500,0,2,true,6164,5632,200,,6164,0,0,5,0
+2026-09-18T22:36:52.846Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,tools_edit_end,probe,362945831,31c8988fd1f7,1500,0,2,true,6157,5632,200,,6158,0,0,5,0
+2026-09-18T22:36:53.546Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,system_edit_end,probe,269728592,5986ba8b697b,1500,0,2,true,6163,5632,200,,6164,2560,0,5,0
+2026-09-18T22:36:54.853Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,tools_edit_start,probe,104122410,584b0f278c90,1500,0,3,true,6167,5632,200,,6167,0,0,5,0
+2026-09-18T22:36:55.010Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,early_edit_start,probe,1998649921,d78733003214,1500,0,2,true,6151,5632,200,,6151,2560,0,5,0
+2026-09-18T22:36:55.013Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,early_edit_end,probe,1340192251,1b17ec7c49c2,1500,0,2,true,6171,5632,200,,6172,2560,0,5,0
+2026-09-18T22:36:56.380Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,late_edit_start,probe,552010560,398c5e9c17e6,1500,0,2,true,6146,5632,200,,6146,2560,0,5,0
+2026-09-18T22:36:56.658Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,late_edit_end,probe,1258883121,a6e2c8282eb0,1500,0,2,true,6165,5632,200,,6166,4608,0,5,0
+2026-09-18T22:36:58.855Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,final_edit,probe,1335664786,29b6cceb51d0,1500,0,2,true,6163,5632,200,,6164,0,0,5,0
+2026-09-18T22:37:01.660Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_early_5,sweep,119210590,d72372ffed2f,1500,0,2,true,6182,5632,200,,6182,2560,0,5,0
+2026-09-18T22:37:02.325Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_early_17.5,sweep,884555901,6b39c6a5da27,1500,0,2,true,6163,5632,200,,6163,2560,0,5,0
+2026-09-18T22:37:02.836Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,prev_turn_then_final_edit,probe,1446529139,83897c875ff8,1500,0,2,true,6163,5632,200,,6164,5632,0,5,0
+2026-09-18T22:37:03.142Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_system_5,sweep,831937254,547d37de980d,1500,0,3,true,6148,5632,200,,6148,0,0,5,0
+2026-09-18T22:37:03.378Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_system_17.5,sweep,1590106015,714af591c464,1500,0,2,true,6149,5632,200,,6149,0,0,5,0
+2026-09-18T22:37:03.645Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sibling_then_late_edit,probe,554517489,4ae5aa7d2eaa,1500,0,2,true,6167,5632,200,,6168,4608,0,5,0
+2026-09-18T22:37:04.827Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_system_30,sweep,720637370,d64323640c89,1500,0,2,true,6140,5632,200,,6140,0,0,5,0
+2026-09-18T22:37:07.064Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_early_30,sweep,2110244164,9acb4861f56d,1500,0,2,true,6167,5632,200,,6167,2560,0,5,0
+2026-09-18T22:37:08.334Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,prev_turn_then_late_reply_edit,probe,1296384388,a1ae3f860677,1500,0,2,true,6150,5632,200,,6151,5632,0,5,0
+2026-09-18T22:37:08.711Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_system_42.5,sweep,171221569,996f71101c37,1500,0,2,true,6157,5632,200,,6157,0,0,5,0
+2026-09-18T22:37:08.951Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_system_55,sweep,309328062,b690da32a773,1500,0,2,true,6153,5632,200,,6153,0,0,5,0
+2026-09-18T22:37:09.158Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_early_55,sweep,256007118,d3156caf4a5f,1500,0,2,true,6171,5632,200,,6171,2560,0,5,0
+2026-09-18T22:37:09.656Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_early_42.5,sweep,2093102825,042d768586a7,1500,0,2,true,6144,5632,200,,6144,2560,0,5,0
+2026-09-18T22:37:10.113Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_system_67.5,sweep,1602201140,7ed7f36680a9,1500,0,2,true,6176,5632,200,,6176,0,0,5,0
+2026-09-18T22:37:11.126Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_early_67.5,sweep,1842540409,27b4d600431b,1500,0,2,true,6143,5632,200,,6143,2560,0,5,0
+2026-09-18T22:37:13.060Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_system_80,sweep,1023948027,d59bab0a34d2,1500,0,2,true,6151,5632,200,,6151,2560,0,5,0
+2026-09-18T22:37:13.874Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_early_80,sweep,2078417716,9c41aa8da096,1500,0,2,true,6159,5632,200,,6159,2560,0,5,0
+2026-09-18T22:37:14.869Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_early_92.5,sweep,658593748,fd310bfa5986,1500,0,2,true,6164,5632,200,,6164,2560,0,5,0
+2026-09-18T22:37:15.347Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,sweep_system_92.5,sweep,1964272484,1d5999fb7b0e,1500,0,2,true,6182,5632,200,,6182,2560,0,5,0
+2026-09-18T22:37:15.420Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,tool_remove_last,tools,744140361,0ab028fed6af,1500,0,2,true,6172,5632,200,,5987,0,0,5,0
+2026-09-18T22:37:15.709Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,tool_add,tools,1230181302,f3219f1af23b,1500,0,2,true,6161,5632,200,,6348,0,0,5,0
+2026-09-18T22:37:15.982Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,tools_reorder,tools,179919146,d232712c54fc,1500,0,2,true,6166,5632,200,,6166,0,0,5,0
+2026-09-18T22:37:16.497Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,tools_remove_all,tools,1303787261,ddec3e10a83e,1500,0,2,true,6170,5632,200,,4652,0,0,5,0
+2026-09-18T22:37:19.916Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,tool_strict_off,tools,54270503,18f426d3df85,1500,0,2,true,6177,5632,200,,6177,5632,0,5,0
+2026-09-18T22:37:20.955Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,tool_choice_required,tools,612830879,974b75b8714d,1500,0,2,true,6164,5632,200,,6164,5504,0,25,0
+2026-09-18T22:37:21.321Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,tool_choice_none,tools,1483672267,efdc6fc1b74e,1500,0,2,true,6165,5632,200,,6165,5504,0,5,0
+2026-09-18T22:37:21.379Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,parallel_tool_calls_off,tools,648010306,4a919f8677b3,1500,0,2,true,6143,5632,200,,6221,0,0,5,0
+2026-09-18T22:37:21.475Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,tool_choice_function,tools,2125792853,b7b26b0192d4,1500,0,2,true,6157,5632,200,,6157,5504,0,25,0
+2026-09-18T22:37:21.873Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,tool_schema_key_order,tools,1905832793,944336bb6af8,1500,0,2,true,6146,5632,200,,6146,5632,0,5,0
+2026-09-18T22:37:22.165Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,system_as_developer_message,system,1776742973,5308817e8173,1500,0,2,true,6152,5632,200,,6152,5632,0,5,0
+2026-09-18T22:37:22.598Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,system_as_system_message,system,1976382844,2f57bd9beff1,1500,0,2,true,6149,5632,200,,6149,5632,0,5,0
+2026-09-18T22:37:25.864Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,append_turn,messages,880160575,8c09b7737dd2,1500,0,2,true,6170,5632,200,,6226,5632,0,5,0
+2026-09-18T22:37:27.140Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,model_switch,model,527715027,a93b27f4dad3,1500,0,2,true,6163,5632,200,,6163,0,0,15,8
+2026-09-18T22:37:27.829Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_none,reasoning,941124061,4af4941115d3,1500,0,2,true,6170,5632,200,,6170,0,0,5,0
+2026-09-18T22:37:27.894Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,content_as_parts,messages,1698049982,c8795ba13edd,1500,0,2,true,6157,5632,200,,6157,5632,0,5,0
+2026-09-18T22:37:28.179Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,image_in_final,messages,1194022137,f10712040825,1500,0,2,true,6147,5632,200,,6152,0,0,5,0
+2026-09-18T22:37:28.268Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_low,reasoning,181756983,a87f7acfe49b,1500,0,2,true,6146,5632,200,,6146,0,0,5,0
+2026-09-18T22:37:28.385Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_medium,reasoning,1257116744,835b5ccab77b,1500,0,2,true,6161,5632,200,,6161,0,0,5,0
+2026-09-18T22:37:28.830Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_medium,reasoning,940846704,f7dbcd9e6384,1500,0,2,true,6146,5632,200,,6146,0,0,5,0
+2026-09-18T22:37:31.866Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_high,reasoning,1343003511,6a167e2dd21b,1500,0,2,true,6161,5632,200,,6161,0,0,5,0
+2026-09-18T22:37:33.045Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_max,reasoning,267957300,9e83b3d033d8,1500,0,2,true,6173,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:37:33.445Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_xhigh,reasoning,871506549,006f5bb39f1a,1500,0,2,true,6160,5632,200,,6160,0,0,21,14
+2026-09-18T22:37:33.577Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_max,reasoning,1051925862,75c2a2d423ce,1500,0,2,true,6173,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:37:33.838Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_high,reasoning,1485394128,c0e00d93780c,1500,0,2,true,6158,5632,200,,6158,0,0,5,0
+2026-09-18T22:37:34.237Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_none_omitted,reasoning,1340862289,0e152b8482d1,1500,0,2,true,6166,5632,200,,6166,0,0,5,0
+2026-09-18T22:37:35.080Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_xhigh,reasoning,995341175,dd3b362e11a8,1500,0,2,true,6167,5632,200,,6167,0,0,38,31
+2026-09-18T22:37:35.221Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_low_omitted,reasoning,752540998,e5d36412588e,1500,0,2,true,6166,5632,200,,6166,0,0,5,0
+2026-09-18T22:37:38.138Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_none,reasoning,918136710,32c5753fdc1f,1500,0,2,true,6171,5632,200,,6171,0,0,5,0
+2026-09-18T22:37:38.908Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_high,reasoning,145432095,cc3516784b7f,1500,0,2,true,6148,5632,200,,6148,0,0,5,0
+2026-09-18T22:37:39.239Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_max,reasoning,2129127579,86d74a2a1991,1500,0,2,true,6175,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:37:39.929Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_xhigh,reasoning,1350892649,f9ef9fa2cc78,1500,0,2,true,6154,5632,200,,6154,0,0,29,22
+2026-09-18T22:37:39.978Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_low,reasoning,1030931482,3437b1f842aa,1500,0,2,true,6158,5632,200,,6158,0,0,5,0
+2026-09-18T22:37:40.565Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_medium_omitted,reasoning,1259495682,1df066b52b24,1500,0,2,true,6178,5632,200,,6178,5632,0,5,0
+2026-09-18T22:37:41.518Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_low,reasoning,601770991,26c966570a93,1500,0,2,true,6173,5632,200,,6173,0,0,5,0
+2026-09-18T22:37:42.060Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_none,reasoning,176102905,0bcb48631b4d,1500,0,2,true,6187,5632,200,,6187,0,0,5,0
+2026-09-18T22:37:43.677Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_medium,reasoning,1476652827,93de740bcc3a,1500,0,2,true,6175,5632,200,,6175,0,0,5,0
+2026-09-18T22:37:45.964Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_max,reasoning,265570974,8ad2059c39b7,1500,0,2,true,6160,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:37:46.097Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_none,reasoning,2063941045,78976cb05d67,1500,0,2,true,6169,5632,200,,6169,0,0,5,0
+2026-09-18T22:37:46.121Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_high_omitted,reasoning,1462607343,6b177d29aeca,1500,0,2,true,6163,5632,200,,6163,0,0,5,0
+2026-09-18T22:37:46.278Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_none,reasoning,747744332,2f6452291d96,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:37:46.288Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_low,reasoning,1009744276,1c599d177f47,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:37:46.465Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_medium,reasoning,728482451,b797e2a9e2ef,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:37:46.525Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_high,reasoning,280913976,ae2551c71281,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:37:46.675Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_xhigh,reasoning,854723002,6ce5d6ebb177,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:37:46.701Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_max_omitted,reasoning,1749482849,bb03672bcf75,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:37:46.968Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_low,reasoning,1228164615,ff82b1183084,1500,0,2,true,6165,5632,200,,6165,0,0,5,0
+2026-09-18T22:37:48.027Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_xhigh,reasoning,835561229,f270a8f58350,1500,0,3,true,6153,5632,200,,6153,0,0,37,30
+2026-09-18T22:37:48.149Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_high,reasoning,1645248253,70fe4eea09b6,1500,0,2,true,6151,5632,200,,6151,0,0,5,0
+2026-09-18T22:37:48.452Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_medium,reasoning,1792676417,8a85ae958fc9,1500,0,2,true,6151,5632,200,,6151,0,0,5,0
+2026-09-18T22:37:49.382Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_max,reasoning,215437333,d8aff45a8ff9,1500,0,2,true,6160,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:37:52.212Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_omitted,reasoning,1912359615,2b1bd5c4d230,1500,0,2,true,6171,5632,200,,6171,0,0,5,0
+2026-09-18T22:37:52.383Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,reasoning_summary,reasoning,1299347617,b95e05149619,1500,0,2,true,6159,5632,200,,6159,0,0,5,0
+2026-09-18T22:37:52.589Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,include_encrypted_reasoning,reasoning,1842938078,d25be9b85228,1500,0,2,true,6150,5632,200,,6150,5632,0,5,0
+2026-09-18T22:37:53.405Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,max_output_tokens,output,1243634694,b3acfede5478,1500,0,2,true,6145,5632,200,,6145,5632,0,5,0
+2026-09-18T22:37:54.228Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,json_schema_format,output,879542865,921cb9230005,1500,0,2,true,6132,5632,200,,6153,0,0,12,0
+2026-09-18T22:37:54.557Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,verbosity_high,output,226455673,08e0576b8dba,1500,0,2,true,6164,5632,200,,6164,0,0,5,0
+2026-09-18T22:37:55.077Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,temperature,sampling,1182952352,83a054ffc1f0,1500,0,2,true,6150,5632,400,Unsupported parameter: 'temperature' is not supported with this model.,,,,,
+2026-09-18T22:37:55.422Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,effort_switch_back,reasoning,482886297,398aa0f997ba,1500,0,2,true,6160,5632,200,,6160,5632,0,5,0
+2026-09-18T22:37:57.209Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,top_p,sampling,1835048201,f0eeaa6d72b9,1500,0,2,true,6182,5632,400,Unsupported parameter: 'top_p' is not supported with this model.,,,,,
+2026-09-18T22:37:58.448Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,cache_key_removed,routing,1781639103,5d552e459796,1500,0,2,true,6147,5632,200,,6147,0,0,5,0
+2026-09-18T22:37:59.266Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,cache_key_changed,routing,1688186765,5b2112c805fa,1500,0,2,true,6162,5632,200,,6162,0,0,5,0
+2026-09-18T22:38:00.279Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,cache_retention_24h,routing,116493863,5eea52c7c4c7,1500,0,2,true,6197,5632,200,,6197,5632,0,5,0
+2026-09-18T22:38:00.769Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,metadata,routing,168751391,de584a3145a1,1500,0,2,true,6173,5632,200,,6173,5632,0,5,0
+2026-09-18T22:38:01.130Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,service_tier_flex,routing,1752266913,452027d58cb0,1500,0,2,true,6139,5632,200,,6139,0,0,5,0
+2026-09-18T22:38:01.404Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,safety_identifier,routing,1082746675,1c3efe0748cf,1500,0,2,true,6165,5632,200,,6165,5632,0,5,0
+2026-09-18T22:38:01.564Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,store_true,routing,972098714,8d81a09d5a25,1500,0,2,true,6153,5632,200,,6153,5632,0,5,0
+2026-09-18T22:38:02.671Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,service_tier_priority,routing,153453630,0bcc3441d112,1500,0,2,true,6145,5632,200,,6145,0,0,5,0
+2026-09-18T22:38:03.958Z,2026-09-18T22:35:31.718Z,1,openai_responses_gpt-5.5,gpt-5.5,truncation_auto,routing,1517107253,b621e56aac46,1500,0,2,true,6163,5632,200,,6163,5632,0,5,0
+2026-09-18T22:38:05.113Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,control,control,787356286,27257de303ff,1500,0,2,true,6155,5632,200,,6155,5632,0,5,0
+2026-09-18T22:38:06.339Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,tools_edit_start,probe,1317194260,fc4405a203b6,1500,0,2,true,6155,5632,200,,6155,0,0,5,0
+2026-09-18T22:38:06.532Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,system_edit_start,probe,100830574,30c4dd31dbe6,1500,0,2,true,6161,5632,200,,6161,0,0,5,0
+2026-09-18T22:38:07.114Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,system_edit_end,probe,1913953707,fbdaaafe5c78,1500,0,2,true,6163,5632,200,,6164,2560,0,5,0
+2026-09-18T22:38:07.739Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,early_edit_start,probe,42339207,420f4aa28e8d,1500,0,2,true,6169,5632,200,,6169,2560,0,5,0
+2026-09-18T22:38:08.989Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,early_edit_end,probe,16846562,8a1263d38f48,1500,0,2,true,6170,5632,200,,6171,2560,0,5,0
+2026-09-18T22:38:09.905Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,tools_edit_end,probe,1754588162,a1656a0f579e,1500,0,3,true,6173,5632,200,,6174,0,0,5,0
+2026-09-18T22:38:11.240Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,late_edit_end,probe,1795161226,714228428453,1500,0,2,true,6162,5632,200,,6163,4608,0,5,0
+2026-09-18T22:38:12.543Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,final_edit,probe,514509539,6d5d49638374,1500,0,2,true,6162,5632,200,,6163,5632,0,5,0
+2026-09-18T22:38:12.691Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,late_edit_start,probe,2039571277,e1492fc26623,1500,0,3,true,6151,5632,200,,6151,2560,0,5,0
+2026-09-18T22:38:14.723Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_system_5,sweep,1521002198,f41c43abecab,1500,0,2,true,6143,5632,200,,6143,0,0,5,0
+2026-09-18T22:38:15.541Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_early_5,sweep,358665011,2a3f1a3a24b3,1500,0,2,true,6169,5632,200,,6169,2560,0,5,0
+2026-09-18T22:38:16.777Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_system_17.5,sweep,2082036358,91b52d5c2268,1500,0,2,true,6172,5632,200,,6172,0,0,5,0
+2026-09-18T22:38:16.995Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sibling_then_late_edit,probe,1615485767,02513721047e,1500,0,2,true,6166,5632,200,,6167,4608,0,5,0
+2026-09-18T22:38:17.637Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,prev_turn_then_late_reply_edit,probe,1679690095,b98394715c37,1500,0,2,true,6152,5632,200,,6153,5632,0,5,0
+2026-09-18T22:38:18.634Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_early_17.5,sweep,211509960,cd847f8dfb44,1500,0,2,true,6162,5632,200,,6162,2560,0,5,0
+2026-09-18T22:38:18.865Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_system_30,sweep,1050035692,17eb3f9aa964,1500,0,2,true,6164,5632,200,,6164,0,0,5,0
+2026-09-18T22:38:19.797Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,prev_turn_then_final_edit,probe,466237614,76dc896d39a8,1500,0,2,true,6142,5632,200,,6143,5632,0,5,0
+2026-09-18T22:38:20.693Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_early_30,sweep,637321934,a174b8e8a141,1500,0,2,true,6164,5632,200,,6164,2560,0,5,0
+2026-09-18T22:38:21.681Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_system_42.5,sweep,1208389283,654d85dbbfcc,1500,0,2,true,6176,5632,200,,6176,0,0,5,0
+2026-09-18T22:38:22.450Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_system_55,sweep,254364913,50ed7cd945b3,1500,0,2,true,6146,5632,200,,6146,0,0,5,0
+2026-09-18T22:38:24.106Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_early_55,sweep,68168726,6d759be05da7,1500,0,2,true,6162,5632,200,,6162,2560,0,5,0
+2026-09-18T22:38:24.369Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_system_67.5,sweep,1605226576,029189053a65,1500,0,2,true,6173,5632,200,,6173,0,0,5,0
+2026-09-18T22:38:24.731Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_early_67.5,sweep,552889654,4607c5bf0378,1500,0,2,true,6173,5632,200,,6173,2560,0,5,0
+2026-09-18T22:38:25.367Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_early_42.5,sweep,2007026665,d7200e7ebc88,1500,0,3,true,6139,5632,200,,6139,2560,0,5,0
+2026-09-18T22:38:26.397Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_system_80,sweep,1719590451,4833c1c1cb05,1500,0,2,true,6147,5632,200,,6147,2560,0,5,0
+2026-09-18T22:38:26.636Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_early_80,sweep,783982485,852aa1c7ae9d,1500,0,2,true,6141,5632,200,,6141,2560,0,5,0
+2026-09-18T22:38:27.408Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_system_92.5,sweep,539640645,f347123eccd5,1500,0,2,true,6168,5632,200,,6168,0,0,5,0
+2026-09-18T22:38:28.507Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,sweep_early_92.5,sweep,309712773,4e28327d2a41,1500,0,2,true,6161,5632,200,,6161,2560,0,5,0
+2026-09-18T22:38:29.805Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,tool_add,tools,289688399,16136aaaecf5,1500,0,2,true,6160,5632,200,,6346,0,0,5,0
+2026-09-18T22:38:30.164Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,tool_remove_last,tools,1396676244,fd2625347df1,1500,0,2,true,6166,5632,200,,5980,0,0,5,0
+2026-09-18T22:38:31.521Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,tools_reorder,tools,1533565338,705280a3346e,1500,0,2,true,6153,5632,200,,6153,0,0,5,0
+2026-09-18T22:38:31.876Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,tools_remove_all,tools,696453863,56d3da4d2947,1500,0,2,true,6186,5632,200,,4660,0,0,5,0
+2026-09-18T22:38:32.434Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,tool_strict_off,tools,2041084919,f4aba82360af,1500,0,2,true,6160,5632,200,,6160,5632,0,5,0
+2026-09-18T22:38:33.476Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,tool_schema_key_order,tools,1074089735,7b5abc758756,1500,0,2,true,6153,5632,200,,6153,5632,0,5,0
+2026-09-18T22:38:34.168Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,tool_choice_required,tools,1430892353,f83f6d24ebd8,1500,0,2,true,6173,5632,200,,6173,5504,0,24,0
+2026-09-18T22:38:34.432Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,tool_choice_none,tools,1661109740,6c044413da06,1500,0,2,true,6165,5632,200,,6165,5504,0,5,0
+2026-09-18T22:38:36.199Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,parallel_tool_calls_off,tools,1749369103,767c5f0aa747,1500,0,2,true,6156,5632,200,,6234,0,0,5,0
+2026-09-18T22:38:36.228Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,tool_choice_function,tools,550430792,479f70af48ef,1500,0,2,true,6184,5632,200,,6184,5504,0,24,0
+2026-09-18T22:38:37.073Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,system_as_developer_message,system,94417479,f0d9b9c9dd3e,1500,0,2,true,6168,5632,200,,6168,5632,0,5,0
+2026-09-18T22:38:37.761Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,system_as_system_message,system,2109248334,2cb893e59393,1500,0,2,true,6140,5632,200,,6140,5632,0,5,0
+2026-09-18T22:38:38.124Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,append_turn,messages,710354455,d265e6c60ccf,1500,0,2,true,6167,5632,200,,6223,5632,0,5,0
+2026-09-18T22:38:39.242Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,image_in_final,messages,316044104,7edef36abac5,1500,0,2,true,6157,5632,200,,6162,0,0,5,0
+2026-09-18T22:38:39.842Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,content_as_parts,messages,2112473741,d002fd8fec5b,1500,0,2,true,6146,5632,200,,6146,5632,0,5,0
+2026-09-18T22:38:40.606Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,model_switch,model,1027227645,527ac009c17d,1500,0,2,true,6164,5632,200,,6164,0,0,16,9
+2026-09-18T22:38:41.394Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_none,reasoning,1144842049,dc8323ab7cc2,1500,0,2,true,6159,5632,200,,6159,0,0,5,0
+2026-09-18T22:38:42.406Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_medium,reasoning,291854456,4aab6d92cd0f,1500,0,2,true,6175,5632,200,,6175,0,0,5,0
+2026-09-18T22:38:43.291Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_low,reasoning,2009825580,654f3a54eea2,1500,0,2,true,6164,5632,200,,6164,0,0,5,0
+2026-09-18T22:38:43.679Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_high,reasoning,732927316,92d0ca32d98e,1500,0,2,true,6176,5632,200,,6176,0,0,5,0
+2026-09-18T22:38:43.793Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_medium,reasoning,1466012599,1458a3870ae0,1500,0,2,true,6162,5632,200,,6162,0,0,5,0
+2026-09-18T22:38:45.005Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_max,reasoning,1494629527,c02a86dc35e7,1500,0,2,true,6159,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:38:45.099Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_xhigh,reasoning,1508404850,46dc7eb3eafb,1500,0,2,true,6157,5632,200,,6157,0,0,25,18
+2026-09-18T22:38:46.369Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_none_omitted,reasoning,1678180356,157d5db17180,1500,0,2,true,6143,5632,200,,6143,0,0,5,0
+2026-09-18T22:38:47.364Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_high,reasoning,270717478,960cb929ae5d,1500,0,2,true,6152,5632,200,,6152,0,0,20,13
+2026-09-18T22:38:48.425Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_xhigh,reasoning,116513737,6130a6a37241,1500,0,2,true,6163,5632,200,,6163,0,0,22,15
+2026-09-18T22:38:48.751Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_max,reasoning,796312372,7959fb55d3b2,1500,0,2,true,6166,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:38:49.711Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_low_omitted,reasoning,1015438814,aaf915da5d0a,1500,0,2,true,6165,5632,200,,6165,0,0,18,11
+2026-09-18T22:38:50.048Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_none,reasoning,1408946874,ad4d736c6fdf,1500,0,2,true,6156,5632,200,,6156,0,0,5,0
+2026-09-18T22:38:50.674Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_high,reasoning,102073293,b54693db129a,1500,0,2,true,6160,5632,200,,6160,0,0,18,11
+2026-09-18T22:38:50.984Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_low,reasoning,1468292172,be6e6454a858,1500,0,2,true,6148,5632,200,,6148,0,0,5,0
+2026-09-18T22:38:52.365Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_max,reasoning,1769026200,62bf86e7d832,1500,0,2,true,6177,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:38:52.674Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_xhigh,reasoning,1732067704,00a1e15ce5ed,1500,0,2,true,6159,5632,200,,6159,0,0,25,18
+2026-09-18T22:38:54.476Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_medium_omitted,reasoning,1362330132,9c93040526d4,1500,0,2,true,6153,5632,200,,6153,5632,0,18,11
+2026-09-18T22:38:54.722Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_none,reasoning,1842147252,f0d258959d5d,1500,0,2,true,6169,5632,200,,6169,0,0,5,0
+2026-09-18T22:38:56.218Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_low,reasoning,812905219,8296ace20829,1500,0,2,true,6162,5632,200,,6162,0,0,5,0
+2026-09-18T22:38:56.619Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_xhigh,reasoning,973170715,948866e9f29e,1500,0,2,true,6156,5632,200,,6156,0,0,27,20
+2026-09-18T22:38:56.635Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_max,reasoning,1952977395,48b67a841e99,1500,0,2,true,6184,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:38:57.181Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_medium,reasoning,1110057245,337f39c3c3f2,1500,0,2,true,6168,5632,200,,6168,0,0,5,0
+2026-09-18T22:38:57.414Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_none,reasoning,1744530250,e465f441d062,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:38:57.760Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_low,reasoning,441975225,eeeb413d8900,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:38:57.978Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_medium,reasoning,668574934,5d202cdbd527,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:38:58.273Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_high,reasoning,1775836803,ebd445632970,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:38:58.489Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_xhigh,reasoning,1508145254,3e9c4c94d65a,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:38:58.690Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_max_omitted,reasoning,1063938273,ccb458dfd9c0,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:38:58.793Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_high_omitted,reasoning,758882483,2a8455032d90,1500,0,2,true,6145,5632,200,,6145,0,0,5,0
+2026-09-18T22:38:59.009Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_none,reasoning,1094258469,76d214fef892,1500,0,2,true,6171,5632,200,,6171,0,0,5,0
+2026-09-18T22:39:00.731Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_low,reasoning,108006939,4a98165c6725,1500,0,2,true,6151,5632,200,,6151,0,0,5,0
+2026-09-18T22:39:01.326Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_medium,reasoning,358081949,581b7d258ed8,1500,0,2,true,6161,5632,200,,6161,0,0,5,0
+2026-09-18T22:39:02.612Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_max,reasoning,793351239,c0f1e609267d,1500,0,2,true,6164,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:39:02.914Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_omitted,reasoning,2137368631,90dc5c2b56d8,1500,0,2,true,6166,5632,200,,6166,0,0,5,0
+2026-09-18T22:39:04.919Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,include_encrypted_reasoning,reasoning,1211443665,843deb8b0d98,1500,0,2,true,6155,5632,200,,6155,5632,0,5,0
+2026-09-18T22:39:04.978Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,reasoning_summary,reasoning,706060789,77b94d9d6756,1500,0,2,true,6175,5632,200,,6175,5632,0,5,0
+2026-09-18T22:39:06.700Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,max_output_tokens,output,1683916645,af9fd3f6158c,1500,0,2,true,6163,5632,200,,6163,5632,0,5,0
+2026-09-18T22:39:06.763Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_high,reasoning,1552646548,c1a7a096e42e,1500,0,2,true,6157,5632,200,,6157,0,0,18,11
+2026-09-18T22:39:07.638Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,effort_switch_back,reasoning,2035962288,2211d4adec4d,1500,0,2,true,6151,5632,200,,6151,5632,0,5,0
+2026-09-18T22:39:07.847Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,json_schema_format,output,1725425946,4b3ec8debf61,1500,0,2,true,6170,5632,200,,6191,0,0,12,0
+2026-09-18T22:39:08.019Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,temperature,sampling,842972845,550561c81445,1500,0,2,true,6130,5632,400,Unsupported parameter: 'temperature' is not supported with this model.,,,,,
+2026-09-18T22:39:08.191Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,verbosity_high,output,489400183,49cd872fac86,1500,0,2,true,6140,5632,200,,6140,0,0,5,0
+2026-09-18T22:39:09.417Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,top_p,sampling,554962977,79609e54d848,1500,0,2,true,6171,5632,400,Unsupported parameter: 'top_p' is not supported with this model.,,,,,
+2026-09-18T22:39:11.801Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,cache_key_changed,routing,1062295068,4deceb67963f,1500,0,2,true,6168,5632,200,,6168,0,0,5,0
+2026-09-18T22:39:12.790Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,cache_key_removed,routing,714220024,b21e8f32e77b,1500,0,2,true,6161,5632,200,,6161,0,0,5,0
+2026-09-18T22:39:12.929Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,cache_retention_24h,routing,1335816350,9984194f62a2,1500,0,2,true,6168,5632,200,,6168,5632,0,5,0
+2026-09-18T22:39:13.335Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,safety_identifier,routing,237270861,0ca284469b8e,1500,0,2,true,6151,5632,200,,6151,5632,0,5,0
+2026-09-18T22:39:13.899Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,metadata,routing,1000923345,2ad43da2a597,1500,0,2,true,6159,5632,200,,6159,5632,0,5,0
+2026-09-18T22:39:14.791Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,store_true,routing,1728452373,793f268fe792,1500,0,2,true,6150,5632,200,,6150,5632,0,5,0
+2026-09-18T22:39:14.928Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,service_tier_flex,routing,158498919,be0f090effa1,1500,0,2,true,6166,5632,200,,6166,0,0,5,0
+2026-09-18T22:39:15.370Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,service_tier_priority,routing,1647058257,3d26ffab3fc7,1500,0,2,true,6157,5632,200,,6157,0,0,5,0
+2026-09-18T22:39:18.118Z,2026-09-18T22:35:31.718Z,2,openai_responses_gpt-5.5,gpt-5.5,truncation_auto,routing,1173570660,f06a7d2cc86b,1500,0,2,true,6161,5632,200,,6161,5632,0,5,0
+2026-09-18T22:39:19.039Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,control,control,1020167191,988b37f34356,1500,0,2,true,6160,5632,200,,6160,5632,0,5,0
+2026-09-18T22:39:19.208Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,tools_edit_start,probe,884194785,ff6cf34384a0,1500,0,2,true,6164,5632,200,,6164,0,0,5,0
+2026-09-18T22:39:19.580Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,tools_edit_end,probe,234187260,563b2cc606e1,1500,0,2,true,6136,5632,200,,6137,0,0,5,0
+2026-09-18T22:39:20.167Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,system_edit_start,probe,1145609118,1e18ab8a9454,1500,0,2,true,6156,5632,200,,6156,0,0,5,0
+2026-09-18T22:39:21.023Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,early_edit_end,probe,876087748,c65a309fd6a1,1500,0,2,true,6156,5632,200,,6157,2560,0,5,0
+2026-09-18T22:39:21.095Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,system_edit_end,probe,877117835,95107b8fa26f,1500,0,2,true,6155,5632,200,,6156,2560,0,5,0
+2026-09-18T22:39:21.146Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,early_edit_start,probe,640225089,67d08a929c66,1500,0,2,true,6159,5632,200,,6159,2560,0,5,0
+2026-09-18T22:39:24.523Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,late_edit_start,probe,490496122,6f5cbf384935,1500,0,2,true,6157,5632,200,,6157,2560,0,5,0
+2026-09-18T22:39:24.671Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,late_edit_end,probe,669184567,fd0a7128fc37,1500,0,2,true,6158,5632,200,,6159,4608,0,5,0
+2026-09-18T22:39:25.180Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,final_edit,probe,868630759,970be56aabfc,1500,0,2,true,6158,5632,200,,6159,5632,0,5,0
+2026-09-18T22:39:26.922Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_system_5,sweep,334808131,1a2e555e3cf1,1500,0,2,true,6162,5632,200,,6162,0,0,5,0
+2026-09-18T22:39:27.776Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_early_5,sweep,596853069,dd25340234b0,1500,0,2,true,6162,5632,200,,6162,2560,0,5,0
+2026-09-18T22:39:30.696Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_system_17.5,sweep,259781587,a1aa79c99439,1500,0,2,true,6175,5632,200,,6175,0,0,5,0
+2026-09-18T22:39:30.827Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sibling_then_late_edit,probe,1617995764,d7e084ee2396,1500,0,2,true,6158,5632,200,,6159,4608,0,5,0
+2026-09-18T22:39:30.847Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,prev_turn_then_final_edit,probe,1020165298,ac7e1cab68df,1500,0,2,true,6153,5632,200,,6154,5632,0,5,0
+2026-09-18T22:39:31.222Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_early_17.5,sweep,712451910,d3dd6bd3055f,1500,0,2,true,6160,5632,200,,6160,0,0,5,0
+2026-09-18T22:39:32.622Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_early_30,sweep,820758679,ac8578d0bc85,1500,0,2,true,6155,5632,200,,6155,2560,0,5,0
+2026-09-18T22:39:33.709Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,prev_turn_then_late_reply_edit,probe,78890437,e69dc5f73df8,1500,0,2,true,6175,5632,200,,6176,5632,0,5,0
+2026-09-18T22:39:33.742Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_system_42.5,sweep,1427676224,10a7e6a1132e,1500,0,2,true,6172,5632,200,,6172,0,0,5,0
+2026-09-18T22:39:34.392Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_system_30,sweep,1454195375,fd8bfa5e3c63,1500,0,3,true,6171,5632,200,,6171,0,0,5,0
+2026-09-18T22:39:35.992Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_system_55,sweep,938539237,8f1cd2785af6,1500,0,2,true,6157,5632,200,,6157,0,0,5,0
+2026-09-18T22:39:36.438Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_early_42.5,sweep,412918644,65c88bdb904d,1500,0,2,true,6159,5632,200,,6159,2560,0,5,0
+2026-09-18T22:39:37.034Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_system_67.5,sweep,955028918,7ca99f8a833a,1500,0,2,true,6156,5632,200,,6156,0,0,5,0
+2026-09-18T22:39:37.049Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_early_55,sweep,301811291,fd40badc233a,1500,0,2,true,6149,5632,200,,6149,2560,0,5,0
+2026-09-18T22:39:38.423Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_early_67.5,sweep,2060923830,c8d4a98fe198,1500,0,2,true,6150,5632,200,,6150,2560,0,5,0
+2026-09-18T22:39:39.731Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_system_92.5,sweep,1525803759,5ea69efc9a64,1500,0,2,true,6155,5632,200,,6155,0,0,5,0
+2026-09-18T22:39:39.747Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_early_80,sweep,2081131365,8a2785f5f36d,1500,0,2,true,6176,5632,200,,6176,2560,0,5,0
+2026-09-18T22:39:40.341Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_system_80,sweep,1105430614,f3e25e39b8d6,1500,0,2,true,6164,5632,200,,6164,2560,0,5,0
+2026-09-18T22:39:41.901Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,sweep_early_92.5,sweep,1719043963,4630022e910f,1500,0,2,true,6159,5632,200,,6159,2560,0,5,0
+2026-09-18T22:39:42.956Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,tool_remove_last,tools,1709146703,92461772a6ae,1500,0,2,true,6158,5632,200,,5970,0,0,5,0
+2026-09-18T22:39:43.055Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,tool_add,tools,933971524,e60bc63021d1,1500,0,2,true,6147,5632,200,,6336,0,0,5,0
+2026-09-18T22:39:43.213Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,tools_reorder,tools,1588186167,15337d75b57b,1500,0,2,true,6164,5632,200,,6164,0,0,5,0
+2026-09-18T22:39:44.244Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,tools_remove_all,tools,1719416208,46ebb1d89631,1500,0,2,true,6164,5632,200,,4647,0,0,5,0
+2026-09-18T22:39:45.764Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,tool_schema_key_order,tools,1505307919,c780ea73d268,1500,0,2,true,6144,5632,200,,6144,5632,0,5,0
+2026-09-18T22:39:45.843Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,tool_strict_off,tools,1307057490,fb78d74f6af2,1500,0,2,true,6182,5632,200,,6182,5632,0,5,0
+2026-09-18T22:39:46.462Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,tool_choice_required,tools,723191654,0818a20a84f6,1500,0,2,true,6165,5632,200,,6165,5504,0,25,0
+2026-09-18T22:39:47.873Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,tool_choice_none,tools,1920245837,baa757f2d870,1500,0,2,true,6147,5632,200,,6147,5504,0,5,0
+2026-09-18T22:39:48.958Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,parallel_tool_calls_off,tools,1021243166,3d479c9a6244,1500,0,2,true,6162,5632,200,,6240,0,0,5,0
+2026-09-18T22:39:49.021Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,system_as_developer_message,system,1284816481,21f16f45726d,1500,0,2,true,6149,5632,200,,6149,5632,0,5,0
+2026-09-18T22:39:49.055Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,tool_choice_function,tools,1903603917,deb936ca455c,1500,0,2,true,6144,5632,200,,6144,5504,0,24,0
+2026-09-18T22:39:50.647Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,system_as_system_message,system,553205693,3d8ead8465ef,1500,0,2,true,6156,5632,200,,6156,0,0,5,0
+2026-09-18T22:39:51.817Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,append_turn,messages,1648582971,c9da3f2609e8,1500,0,2,true,6155,5632,200,,6212,5632,0,5,0
+2026-09-18T22:39:52.034Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,image_in_final,messages,141003471,07c336f15427,1500,0,2,true,6155,5632,200,,6160,0,0,5,0
+2026-09-18T22:39:52.583Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,content_as_parts,messages,614514658,a97a743ba674,1500,0,2,true,6144,5632,200,,6144,5632,0,5,0
+2026-09-18T22:39:54.996Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_low,reasoning,1766503260,6bac25d05f27,1500,0,2,true,6161,5632,200,,6161,0,0,5,0
+2026-09-18T22:39:55.033Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_none,reasoning,2027249245,eae6cc6bcc33,1500,0,2,true,6169,5632,200,,6169,0,0,5,0
+2026-09-18T22:39:56.083Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_medium,reasoning,293843533,99cd09df2132,1500,0,2,true,6153,5632,200,,6153,0,0,5,0
+2026-09-18T22:39:56.120Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,model_switch,model,1477569519,abb729d9f1c2,1500,0,3,true,6182,5632,200,,6182,0,0,14,7
+2026-09-18T22:39:57.238Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_high,reasoning,1944075306,97357dd9bc72,1500,0,2,true,6164,5632,200,,6164,0,0,5,0
+2026-09-18T22:39:57.663Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_max,reasoning,1594155411,ac8c4a8932d0,1500,0,2,true,6186,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:39:58.310Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_xhigh,reasoning,1038415803,bfe4009ba55f,1500,0,2,true,6172,5632,200,,6172,0,0,37,30
+2026-09-18T22:39:59.360Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_none_to_medium,reasoning,1156253889,7735e24c370d,1500,0,3,true,6150,5632,200,,6150,0,0,5,0
+2026-09-18T22:40:00.773Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_none_omitted,reasoning,210733831,b2c5f2142dbc,1500,0,2,true,6182,5632,200,,6182,0,0,5,0
+2026-09-18T22:40:00.982Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_high,reasoning,792005385,a7f2f7c5916e,1500,0,2,true,6182,5632,200,,6182,0,0,5,0
+2026-09-18T22:40:01.832Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_xhigh,reasoning,36211530,08fc62c60ac6,1500,0,2,true,6164,5632,200,,6164,0,0,22,15
+2026-09-18T22:40:02.044Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_low_to_max,reasoning,1607560146,13ba88234ac9,1500,0,2,true,6162,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:40:03.540Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_none,reasoning,444996910,06e7b35bbee7,1500,0,2,true,6168,5632,200,,6168,0,0,5,0
+2026-09-18T22:40:03.571Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_low_omitted,reasoning,1708196434,4b65b06d55d7,1500,0,2,true,6172,5632,200,,6172,0,0,5,0
+2026-09-18T22:40:05.111Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_low,reasoning,188627209,a9a7856c3b97,1500,0,2,true,6164,5632,200,,6164,0,0,5,0
+2026-09-18T22:40:06.085Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_high,reasoning,1167231515,beb0e0c4a8e9,1500,0,2,true,6183,5632,200,,6183,0,0,18,11
+2026-09-18T22:40:06.781Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_xhigh,reasoning,1774013356,7b51b7dcd1c7,1500,0,2,true,6164,5632,200,,6164,0,0,25,18
+2026-09-18T22:40:07.915Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_medium_omitted,reasoning,976748399,67957a861a61,1500,0,2,true,6169,5632,200,,6169,5632,0,5,0
+2026-09-18T22:40:08.297Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_none,reasoning,1758067903,b001f13219a0,1500,0,2,true,6169,5632,200,,6169,0,0,5,0
+2026-09-18T22:40:09.095Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_medium_to_max,reasoning,1026469611,877cc5f5642c,1500,0,3,true,6167,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:40:09.820Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_medium,reasoning,440529752,cfb15dd3314a,1500,0,2,true,6160,5632,200,,6160,0,0,5,0
+2026-09-18T22:40:10.423Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_low,reasoning,229472317,6c2df1d09080,1500,0,2,true,6166,5632,200,,6166,0,0,5,0
+2026-09-18T22:40:11.122Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_max,reasoning,695300685,d4f7774cc3f8,1500,0,2,true,6165,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:40:11.165Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_high_to_xhigh,reasoning,1623012407,c0dd53651b4b,1500,0,2,true,6170,5632,200,,6170,0,0,29,22
+2026-09-18T22:40:11.341Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_none,reasoning,2005216298,16128126d065,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:40:11.525Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_low,reasoning,187215697,76195ae5e1e9,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:40:11.706Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_medium,reasoning,1023477918,61745b254a14,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:40:12.394Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_high_omitted,reasoning,2052878809,795857862996,1500,0,2,true,6148,5632,200,,6148,0,0,5,0
+2026-09-18T22:40:12.546Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_xhigh,reasoning,858110005,2eb264e0ad70,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:40:12.757Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_max_omitted,reasoning,488284450,eff930c86015,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:40:12.870Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_max_to_high,reasoning,735692327,ea0d5e96e3b1,1500,,1,false,,,0,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:40:14.394Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_none,reasoning,229744937,08393b326fdf,1500,0,2,true,6154,5632,200,,6154,0,0,5,0
+2026-09-18T22:40:14.771Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_low,reasoning,1685709035,b12d94b6023f,1500,0,2,true,6161,5632,200,,6161,0,0,5,0
+2026-09-18T22:40:15.894Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_medium,reasoning,1582479455,d2edeb7d72ee,1500,0,2,true,6168,5632,200,,6168,0,0,5,0
+2026-09-18T22:40:16.089Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_max,reasoning,1230234637,defb2c4e04fc,1500,0,2,true,6163,5632,400,"Unsupported value: 'max' is not supported with the 'gpt-5.5' model. Supported values are: 'none', 'low', 'medium', 'high', and 'xhigh'.",,,,,
+2026-09-18T22:40:16.239Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_to_high,reasoning,1787967448,9705a7159adc,1500,0,2,true,6161,5632,200,,6161,0,0,5,0
+2026-09-18T22:40:17.501Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_xhigh_omitted,reasoning,1806631957,0af0b4fc2323,1500,0,2,true,6166,5632,200,,6166,0,0,5,0
+2026-09-18T22:40:18.932Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,reasoning_summary,reasoning,139250046,5df9b8ab964b,1500,0,2,true,6182,5632,200,,6182,5632,0,5,0
+2026-09-18T22:40:20.124Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,max_output_tokens,output,2030289837,37901a68f652,1500,0,2,true,6143,5632,200,,6143,5632,0,5,0
+2026-09-18T22:40:20.715Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,include_encrypted_reasoning,reasoning,1786083983,3ae30601ce02,1500,0,2,true,6157,5632,200,,6157,5632,0,5,0
+2026-09-18T22:40:20.972Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,effort_switch_back,reasoning,1326722470,7ebdb39e7fc9,1500,0,2,true,6169,5632,200,,6169,5632,0,5,0
+2026-09-18T22:40:21.896Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,json_schema_format,output,1578543225,30a0aad6a38c,1500,0,2,true,6157,5632,200,,6178,0,0,12,0
+2026-09-18T22:40:22.211Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,verbosity_high,output,959358028,a1e2fa2583d6,1500,0,2,true,6164,5632,200,,6164,0,0,5,0
+2026-09-18T22:40:22.644Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,top_p,sampling,467925486,444e31e53760,1500,0,2,true,6144,5632,400,Unsupported parameter: 'top_p' is not supported with this model.,,,,,
+2026-09-18T22:40:23.075Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,temperature,sampling,1041399892,7d1448eb5fd5,1500,0,2,true,6154,5632,400,Unsupported parameter: 'temperature' is not supported with this model.,,,,,
+2026-09-18T22:40:25.019Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,cache_key_changed,routing,1917255964,0bd1defcde36,1500,0,2,true,6162,5632,200,,6162,0,0,5,0
+2026-09-18T22:40:26.131Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,cache_key_removed,routing,434537641,01e5d112ea90,1500,0,2,true,6164,5632,200,,6164,0,0,5,0
+2026-09-18T22:40:27.253Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,metadata,routing,561218935,c420e5b1e364,1500,0,2,true,6159,5632,200,,6159,5632,0,5,0
+2026-09-18T22:40:27.439Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,cache_retention_24h,routing,2042508144,b24cbd196ad1,1500,0,2,true,6157,5632,200,,6157,5632,0,5,0
+2026-09-18T22:40:27.957Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,store_true,routing,1370761603,c339b0ce9755,1500,0,2,true,6147,5632,200,,6147,5632,0,5,0
+2026-09-18T22:40:28.662Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,safety_identifier,routing,496523140,fd4d926a5d64,1500,0,3,true,6166,5632,200,,6166,5632,0,5,0
+2026-09-18T22:40:28.934Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,service_tier_priority,routing,345661822,558052a8cd95,1500,0,2,true,6154,5632,200,,6154,0,0,5,0
+2026-09-18T22:40:30.631Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,truncation_auto,routing,654186598,8649013e77c0,1500,0,2,true,6151,5632,200,,6151,5632,0,5,0
+2026-09-18T22:40:36.198Z,2026-09-18T22:35:31.718Z,3,openai_responses_gpt-5.5,gpt-5.5,service_tier_flex,routing,1198551193,e54a5f1e061d,1500,0,2,true,6172,5632,200,,6172,0,0,5,0
+2026-09-18T23:19:30.285Z,2026-09-18T23:19:24.721Z,2,openai_responses_gpt-5.5,gpt-5.5,system_message_appended,system,2065989464,25927809ccae,1500,0,2,true,6145,5632,200,,6155,5632,0,5,0
+2026-09-18T23:19:30.572Z,2026-09-18T23:19:24.721Z,4,openai_responses_gpt-5.5,gpt-5.5,system_message_appended,system,1114913284,438a9c6dcf1f,1500,0,2,true,6175,5632,200,,6185,5632,0,5,0
+2026-09-18T23:19:30.691Z,2026-09-18T23:19:24.721Z,0,openai_responses_gpt-5.5,gpt-5.5,system_message_appended,system,14965072,f2a1ab73d6b2,1500,0,2,true,6166,5632,200,,6176,5632,0,5,0
+2026-09-18T23:19:30.777Z,2026-09-18T23:19:24.721Z,3,openai_responses_gpt-5.5,gpt-5.5,system_message_appended,system,1280869009,7bb8750775e7,1500,0,2,true,6185,5632,200,,6195,5632,0,5,0
+2026-09-18T23:19:32.028Z,2026-09-18T23:19:24.721Z,1,openai_responses_gpt-5.5,gpt-5.5,system_message_appended,system,1186624110,51c3a304eef1,1500,0,2,true,6145,5632,200,,6155,5632,0,5,0

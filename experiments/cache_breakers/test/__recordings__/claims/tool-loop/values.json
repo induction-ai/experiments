@@ -1,0 +1,14 @@
+{
+  "tool loop > control: replaying the output items as returned reuses everything :: nonce:openai_responses:tool_loop:control": "348e39d1dfad",
+  "tool loop > strip_item_ids: stripping the items' ids reuses everything :: nonce:openai_responses:tool_loop:strip_item_ids": "86235a67363d",
+  "tool loop > reasoning_by_reference: the reasoning item as an item_reference reuses everything :: nonce:openai_responses:tool_loop:reasoning_by_reference": "beda8afd1f65",
+  "tool loop > output_items_by_reference: both output items as item_references reuses everything :: nonce:openai_responses:tool_loop:output_items_by_reference": "3234125b6b11",
+  "tool loop > previous_response_id: previous_response_id plus only the tool result reuses everything :: nonce:openai_responses:tool_loop:previous_response_id": "b31518b6c9c9",
+  "tool loop > then_user_turn: a new user turn after the tool result reuses everything :: nonce:openai_responses:tool_loop:then_user_turn": "7de3013b1521",
+  "tool loop > a new user turn doesn't strip earlier reasoning: input grows only by the new turn :: nonce:openai_responses:tool_loop:then_user_turn": "e073e2fb138b",
+  "tool loop > dropping the reasoning item while the function_call keeps its id is rejected :: nonce:openai_responses:tool_loop:drop_reasoning": "14d511e044e1",
+  "tool loop > dropping the reasoning item (ids stripped) falls back to the previous request's end :: nonce:openai_responses:tool_loop:tool_output_edit": "cea2e5ca7c00",
+  "tool loop > dropping the reasoning item (ids stripped) falls back to the previous request's end :: nonce:openai_responses:tool_loop:drop_reasoning_strip_ids": "7dd314eabf2c",
+  "tool loop > editing the tool result re-writes the unchanged reasoning and call too :: nonce:openai_responses:tool_loop:tool_output_edit": "5d22d7b63b2a",
+  "tool loop > changing reasoning effort mid-loop reuses nothing :: nonce:openai_responses:tool_loop:effort_medium": "bd9fa641f4f7"
+}

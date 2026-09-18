@@ -1,0 +1,18 @@
+{
+  "OpenAI Responses, gpt-5.5 > an edit in the late history keeps more than one in the early history :: nonce:openai_responses_gpt-5.5:static:early_edit_start": "4b681bf4da5e",
+  "OpenAI Responses, gpt-5.5 > an edit in the late history keeps more than one in the early history :: nonce:openai_responses_gpt-5.5:static:late_edit_end": "2951c058917c",
+  "OpenAI Responses, gpt-5.5 > tool_add: adding a tool reuses nothing, as on gpt-5.6-sol :: nonce:openai_responses_gpt-5.5:static:tool_add": "8ce5907c1017",
+  "OpenAI Responses, gpt-5.5 > model_switch: switching to gpt-5.4 reuses nothing, as on gpt-5.6-sol :: nonce:openai_responses_gpt-5.5:static:model_switch": "c15b8d37affa",
+  "OpenAI Responses, gpt-5.5 > effort_medium: reasoning effort low \u2192 medium reuses nothing, as on gpt-5.6-sol :: nonce:openai_responses_gpt-5.5:static:effort_medium": "0a5e85f56af8",
+  "OpenAI Responses, gpt-5.5 > json_schema_format: a text.format JSON schema reuses nothing, as on gpt-5.6-sol :: nonce:openai_responses_gpt-5.5:static:json_schema_format": "adbe196b6eab",
+  "OpenAI Responses, gpt-5.5 > verbosity_high: text.verbosity: high reuses nothing, as on gpt-5.6-sol :: nonce:openai_responses_gpt-5.5:static:verbosity_high": "719ed71fd124",
+  "OpenAI Responses, gpt-5.5 > cache_key_changed: a different prompt_cache_key reuses nothing, as on gpt-5.6-sol :: nonce:openai_responses_gpt-5.5:static:cache_key_changed": "5e0473484c46",
+  "OpenAI Responses, gpt-5.5 > omitting reasoning is the same as medium: full reuse after medium :: nonce:openai_responses_gpt-5.5:static:effort_medium_omitted": "9bdb868ad0e2",
+  "OpenAI Responses, gpt-5.5 > tool_choice: required bills a small tail uncached and writes nothing :: nonce:openai_responses_gpt-5.5:static:tool_choice_required": "77e3935ed97c",
+  "OpenAI Responses, gpt-5.5 > the max effort level is rejected on gpt-5.5 :: nonce:openai_responses_gpt-5.5:static:effort_low_to_max": "285fa7486c32",
+  "OpenAI Responses, gpt-5.5 > an edit late in the instructions keeps a block that ends inside them :: nonce:openai_responses_gpt-5.5:static:sweep_system_30": "e140190e8195",
+  "OpenAI Responses, gpt-5.5 > an edit late in the instructions keeps a block that ends inside them :: nonce:openai_responses_gpt-5.5:static:sweep_system_80": "450c9fcf8b5d",
+  "OpenAI Responses, gpt-5.5, 6-turn thread > truncate_after_a4: cutting after reply 4 keeps past the previous turn's end, into reply 4 :: nonce:thread:gpt-5.5:truncate_after_a4:first": "7bfa7d7532d0",
+  "OpenAI Responses, gpt-5.5, 6-turn thread > edit_u4: editing user message 4 lands on a block point, never past the previous turn's end :: nonce:thread:gpt-5.5:edit_u4:first": "168791047371",
+  "OpenAI Responses, gpt-5.5, 6-turn thread > branch_at_u4: branching at turn 4 lands on a block point, never past the previous turn's end :: nonce:thread:gpt-5.5:branch_at_u4:first": "842bd49819ff"
+}

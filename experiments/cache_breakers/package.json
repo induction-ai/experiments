@@ -1,0 +1,23 @@
+{
+  "name": "@experiments/cache_breakers",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "static": "tsx scripts/run-static.ts",
+    "tool-loop": "tsx scripts/run-tool-loop.ts",
+    "minimum": "tsx scripts/run-minimum.ts",
+    "thread": "tsx scripts/run-thread.ts",
+    "models": "tsx scripts/run-models.ts",
+    "report": "tsx scripts/build-report.ts"
+  },
+  "dependencies": {
+    "@experiments/shared": "workspace:*",
+    "marked": "^18.0.13"
+  },
+  "devDependencies": {
+    "@experiments/test": "workspace:*"
+  }
+}

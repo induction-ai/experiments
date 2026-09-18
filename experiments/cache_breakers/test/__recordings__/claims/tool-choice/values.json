@@ -1,0 +1,5 @@
+{
+  "tool_choice > tool_choice_none leaves input unchanged, writes nothing, and bills ~72 tokens uncached :: nonce:openai_responses:static:tool_choice_none": "babbdf41a955",
+  "tool_choice > tool_choice_required leaves input unchanged, writes nothing, and bills ~119 tokens uncached :: nonce:openai_responses:static:tool_choice_required": "c58f65d34e9a",
+  "tool_choice > tool_choice_function leaves input unchanged, writes nothing, and bills ~129 tokens uncached :: nonce:openai_responses:static:tool_choice_function": "7822b3478853"
+}

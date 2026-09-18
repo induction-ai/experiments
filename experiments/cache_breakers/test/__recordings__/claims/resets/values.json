@@ -1,0 +1,17 @@
+{
+  "resets the cache to zero > tool_add: adding a tool reuses nothing :: nonce:openai_responses:static:tool_add": "c88c8e9c07f8",
+  "resets the cache to zero > tool_remove_last: removing a tool reuses nothing :: nonce:openai_responses:static:tool_remove_last": "2dca0bcb3b1d",
+  "resets the cache to zero > tools_reorder: reordering tools reuses nothing :: nonce:openai_responses:static:tools_reorder": "f093592be85e",
+  "resets the cache to zero > tools_remove_all: removing all tools reuses nothing :: nonce:openai_responses:static:tools_remove_all": "a32034b5cdaa",
+  "resets the cache to zero > model_switch: switching to the sibling model reuses nothing :: nonce:openai_responses:static:model_switch": "8b65a0a3eda7",
+  "resets the cache to zero > parallel_tool_calls_off: parallel_tool_calls: false reuses nothing :: nonce:openai_responses:static:parallel_tool_calls_off": "00fa8c050a66",
+  "resets the cache to zero > json_schema_format: a text.format JSON schema reuses nothing :: nonce:openai_responses:static:json_schema_format": "9e077f714ba1",
+  "resets the cache to zero > verbosity_high: text.verbosity: high reuses nothing :: nonce:openai_responses:static:verbosity_high": "ae3d0865f1e9",
+  "resets the cache to zero > cache_key_changed: a different prompt_cache_key reuses nothing :: nonce:openai_responses:static:cache_key_changed": "f8b8c849c0f1",
+  "resets the cache to zero > cache_key_removed: omitting prompt_cache_key reuses nothing :: nonce:openai_responses:static:cache_key_removed": "4d67d4804f2b",
+  "resets the cache to zero > service_tier_flex: service_tier: flex reuses nothing :: nonce:openai_responses:static:service_tier_flex": "28687bca6ee4",
+  "resets the cache to zero > service_tier_priority: service_tier: priority reuses nothing :: nonce:openai_responses:static:service_tier_priority": "eaa951082b0c",
+  "resets the cache to zero > parallel_tool_calls: false is rendered into the prompt (+~80 input tokens) :: nonce:openai_responses:static:parallel_tool_calls_off": "ce938a309a67",
+  "rejected by gpt-5.6-sol > temperature is an unsupported parameter :: nonce:openai_responses:static:temperature": "eeacce944645",
+  "rejected by gpt-5.6-sol > top_p is an unsupported parameter :: nonce:openai_responses:static:top_p": "a9e67a864725"
+}

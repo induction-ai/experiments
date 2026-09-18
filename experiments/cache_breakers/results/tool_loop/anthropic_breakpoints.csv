@@ -1,0 +1,8 @@
+timestamp,batch,run,provider,model,variant,group,seed,nonce,section_words,first_cached,warm_attempts,warmed,base_input,base_cached,status,error,input,cached,cache_write,output,reasoning
+2026-09-18T21:47:36.372Z,2026-09-18T21:47:23.845Z,0,anthropic_breakpoints,claude-opus-5,thinking_signature_edit,loop,1461544022,2590896667a8,1500,12050,2,true,12730,12050,400,messages.5.content.0: Invalid `signature` in `thinking` block,,,,,
+2026-09-18T21:47:36.652Z,2026-09-18T21:47:23.845Z,0,anthropic_breakpoints,claude-opus-5,tool_result_edit,loop,613480338,d21b9c6f2665,1500,11730,2,true,12370,11730,200,,12373,11730,0,4,
+2026-09-18T21:47:38.087Z,2026-09-18T21:47:23.845Z,0,anthropic_breakpoints,claude-opus-5,control,control,879747832,43282c052a2d,1500,11941,2,true,12613,11941,200,,12613,11941,0,4,
+2026-09-18T21:47:39.929Z,2026-09-18T21:47:23.845Z,0,anthropic_breakpoints,claude-opus-5,then_user_turn,loop,1253557228,058229774782,1500,12023,2,true,12755,12023,200,,12835,12023,0,4,
+2026-09-18T21:47:39.968Z,2026-09-18T21:47:23.845Z,0,anthropic_breakpoints,claude-opus-5,then_user_turn_drop_thinking,loop,1707641026,1b67884fad48,1500,11972,2,true,12675,11972,200,,12592,11972,0,4,
+2026-09-18T21:47:41.336Z,2026-09-18T21:47:23.845Z,0,anthropic_breakpoints,claude-opus-5,drop_thinking,loop,1615795187,eb23bff6aebe,1500,11825,2,true,12480,11825,200,,12347,11825,0,4,
+2026-09-18T21:47:49.677Z,2026-09-18T21:47:23.845Z,0,anthropic_breakpoints,claude-opus-5,effort_medium,reasoning,1163474645,3b1ee8a6e6e3,1500,11961,2,true,12648,11961,200,,12648,0,11961,4,

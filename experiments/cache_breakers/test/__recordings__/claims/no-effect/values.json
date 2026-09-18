@@ -1,0 +1,16 @@
+{
+  "no effect on the cache > system_as_developer_message: system prompt as a developer message reuses everything :: nonce:openai_responses:static:system_as_developer_message": "5a93c02d26a9",
+  "no effect on the cache > system_as_system_message: system prompt as a system message reuses everything :: nonce:openai_responses:static:system_as_system_message": "a7205c2964b9",
+  "no effect on the cache > tool_strict_off: strict: false on every tool reuses everything :: nonce:openai_responses:static:tool_strict_off": "43180c4ed240",
+  "no effect on the cache > tool_schema_key_order: reordered keys in a tool schema reuses everything :: nonce:openai_responses:static:tool_schema_key_order": "69b5e23691c3",
+  "no effect on the cache > content_as_parts: a message as input_text parts instead of a string reuses everything :: nonce:openai_responses:static:content_as_parts": "b12be1230387",
+  "no effect on the cache > max_output_tokens: a different max_output_tokens reuses everything :: nonce:openai_responses:static:max_output_tokens": "42378e63ec31",
+  "no effect on the cache > reasoning_summary: reasoning.summary: auto reuses everything :: nonce:openai_responses:static:reasoning_summary": "fcc5e16441e6",
+  "no effect on the cache > include_encrypted_reasoning: include encrypted reasoning reuses everything :: nonce:openai_responses:static:include_encrypted_reasoning": "811e06336c27",
+  "no effect on the cache > store_true: store: true reuses everything :: nonce:openai_responses:static:store_true": "e5f4ee27a2e6",
+  "no effect on the cache > metadata: metadata reuses everything :: nonce:openai_responses:static:metadata": "90bed9b7aff1",
+  "no effect on the cache > safety_identifier: safety_identifier reuses everything :: nonce:openai_responses:static:safety_identifier": "c33bdba54f37",
+  "no effect on the cache > truncation_auto: truncation: auto reuses everything :: nonce:openai_responses:static:truncation_auto": "bf76f196bdc9",
+  "no effect on the cache > cache_retention_24h: prompt_cache_retention: 24h reuses everything :: nonce:openai_responses:static:cache_retention_24h": "8412f8bbc8b3",
+  "no effect on the cache > system_message_appended: a developer message appended mid-conversation reuses everything :: nonce:openai_responses:static:system_message_appended": "703fa43ab917"
+}

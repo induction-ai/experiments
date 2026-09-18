@@ -1,0 +1,8 @@
+{
+  "anthropic tool loop > replaying the assistant turn verbatim reuses everything :: nonce:anthropic_auto:tool_loop:control": "21dfa06e4aec",
+  "anthropic tool loop > a new user turn after the tool result reuses everything (thinking isn't stripped) :: nonce:anthropic_auto:tool_loop:then_user_turn": "3179058c6810",
+  "anthropic tool loop > drop_thinking: dropping the thinking block is accepted and falls back to exactly the previous request's end :: nonce:anthropic_auto:tool_loop:drop_thinking": "f7a3c7260f1c",
+  "anthropic tool loop > tool_result_edit: editing the tool result falls back to exactly the previous request's end :: nonce:anthropic_auto:tool_loop:tool_result_edit": "73a21573cabf",
+  "anthropic tool loop > an edited thinking signature is rejected :: nonce:anthropic_auto:tool_loop:thinking_signature_edit": "6f2893fda089",
+  "anthropic tool loop > changing effort mid-loop reuses nothing :: nonce:anthropic_auto:tool_loop:effort_medium": "a18082b3a9bc"
+}

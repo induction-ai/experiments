@@ -1,0 +1,19 @@
+{
+  "checkpoints > control: resending the warm request unchanged reuses everything :: nonce:openai_responses:static:control": "4ac58fff2ed6",
+  "checkpoints > an edit at the start or end of the system prompt reuses nothing :: nonce:openai_responses:static:system_edit_start": "845060ed90dd",
+  "checkpoints > an edit at the start or end of the system prompt reuses nothing :: nonce:openai_responses:static:system_edit_end": "f101df6f6fbc",
+  "checkpoints > an edit at the start or end of the tools reuses nothing :: nonce:openai_responses:static:tools_edit_start": "6a32bbd40be5",
+  "checkpoints > an edit at the start or end of the tools reuses nothing :: nonce:openai_responses:static:tools_edit_end": "c9807a92c0db",
+  "checkpoints > a system prompt edit reuses nothing even with ~8000 unchanged tokens before it :: nonce:openai_responses:static:system_edit_end": "2c3f7cbced30",
+  "checkpoints > any history edit, even to the last message, falls back to the end of tools + instructions :: nonce:openai_responses:static:early_edit_start": "480076e5480e",
+  "checkpoints > any history edit, even to the last message, falls back to the end of tools + instructions :: nonce:openai_responses:static:late_edit_end": "4c1adb3ca712",
+  "checkpoints > any history edit, even to the last message, falls back to the end of tools + instructions :: nonce:openai_responses:static:final_edit": "9796b50e869f",
+  "checkpoints > any history edit, even to the last message, falls back to the end of tools + instructions :: nonce:header-only": "d86be2668610",
+  "checkpoints > after the previous turn has been sent, an edit falls back to that turn's end instead :: nonce:openai_responses:static:final_edit": "695b9684ae49",
+  "checkpoints > after the previous turn has been sent, an edit falls back to that turn's end instead :: nonce:openai_responses:static:prev_turn_then_final_edit": "d36eda197c79",
+  "checkpoints > a sibling request that diverges after the shared history gives no extra reuse :: nonce:openai_responses:static:final_edit": "e8df318ef527",
+  "checkpoints > a sibling request that diverges after the shared history gives no extra reuse :: nonce:openai_responses:static:sibling_then_late_edit": "7a74ce30293a",
+  "checkpoints > appending a turn (normal conversation growth) reuses everything before it :: nonce:openai_responses:static:append_turn": "87bfae9288db",
+  "checkpoints > an image in the final message falls back like any other final-message edit :: nonce:openai_responses:static:final_edit": "2d0d752f28c8",
+  "checkpoints > an image in the final message falls back like any other final-message edit :: nonce:openai_responses:static:image_in_final": "8d52963a3ac4"
+}

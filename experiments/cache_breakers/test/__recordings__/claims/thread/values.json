@@ -1,0 +1,11 @@
+{
+  "OpenAI Responses, 6-turn thread > edit_u4: editing user message 4 keeps exactly up to the end of the last intact earlier turn :: nonce:thread:openai_responses:edit_u4": "c2cd7382c89f",
+  "OpenAI Responses, 6-turn thread > branch_at_u4: branching the thread at turn 4 keeps exactly up to the end of the last intact earlier turn :: nonce:thread:openai_responses:branch_at_u4": "ec4bcbcc633a",
+  "OpenAI Responses, 6-turn thread > truncate_after_a4: cutting the thread after reply 4 and asking something new keeps exactly up to the end of the last intact earlier turn :: nonce:thread:openai_responses:truncate_after_a4": "ed2d3b15fe48",
+  "Anthropic automatic caching, 6-turn thread > edit_u4: editing user message 4 keeps exactly up to the end of the last intact earlier turn :: nonce:thread:anthropic_auto:edit_u4": "478426839892",
+  "Anthropic automatic caching, 6-turn thread > branch_at_u4: branching the thread at turn 4 keeps exactly up to the end of the last intact earlier turn :: nonce:thread:anthropic_auto:branch_at_u4": "b2c08def4fc1",
+  "Anthropic automatic caching, 6-turn thread > truncate_after_a4: cutting the thread after reply 4 and asking something new keeps exactly up to the end of the last intact earlier turn :: nonce:thread:anthropic_auto:truncate_after_a4": "a1918a1e606d",
+  "Anthropic explicit breakpoints, 6-turn thread > edit_u4: editing user message 4 keeps exactly up to the end of the last intact earlier turn :: nonce:thread:anthropic_breakpoints:edit_u4": "006ed0b8a30b",
+  "Anthropic explicit breakpoints, 6-turn thread > branch_at_u4: branching the thread at turn 4 keeps exactly up to the end of the last intact earlier turn :: nonce:thread:anthropic_breakpoints:branch_at_u4": "e310292bb3d3",
+  "Anthropic explicit breakpoints, 6-turn thread > truncate_after_a4: cutting the thread after reply 4 and asking something new keeps exactly up to the end of the last intact earlier turn :: nonce:thread:anthropic_breakpoints:truncate_after_a4": "076478b4067d"
+}

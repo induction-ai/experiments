@@ -1,0 +1,18 @@
+{
+  "anthropic explicit breakpoints > the cache is laid out tools → system → messages: each edit keeps exactly the sections before it :: nonce:anthropic_breakpoints:static:tools_edit_start": "da48a8b291ec",
+  "anthropic explicit breakpoints > the cache is laid out tools → system → messages: each edit keeps exactly the sections before it :: nonce:anthropic_breakpoints:static:system_edit_start": "f2d69026d5a1",
+  "anthropic explicit breakpoints > the cache is laid out tools → system → messages: each edit keeps exactly the sections before it :: nonce:anthropic_breakpoints:static:early_edit_start": "fe56e434ddeb",
+  "anthropic explicit breakpoints > the cache is laid out tools → system → messages: each edit keeps exactly the sections before it :: nonce:anthropic_breakpoints:static:late_edit_start": "3a67961fed1b",
+  "anthropic explicit breakpoints > an edit at the end of a section falls back to the same breakpoint as one at its start :: nonce:anthropic_breakpoints:static:system_edit_start": "bae4a4098548",
+  "anthropic explicit breakpoints > an edit at the end of a section falls back to the same breakpoint as one at its start :: nonce:anthropic_breakpoints:static:system_edit_end": "10e21a52da08",
+  "anthropic explicit breakpoints > tool_choice any or a named tool keeps tools + system and loses only the messages :: nonce:anthropic_breakpoints:static:early_edit_start": "e714cfbae58f",
+  "anthropic explicit breakpoints > tool_choice any or a named tool keeps tools + system and loses only the messages :: nonce:anthropic_breakpoints:static:tool_choice_any": "464c0f44675b",
+  "anthropic explicit breakpoints > tool_choice any or a named tool keeps tools + system and loses only the messages :: nonce:anthropic_breakpoints:static:tool_choice_tool": "f88df08dc237",
+  "anthropic explicit breakpoints > a JSON-schema output format keeps only the tools :: nonce:anthropic_breakpoints:static:system_edit_start": "2430534cb201",
+  "anthropic explicit breakpoints > a JSON-schema output format keeps only the tools :: nonce:anthropic_breakpoints:static:json_schema_format": "a7a60860f8c1",
+  "anthropic explicit breakpoints > model_switch: switching model reuses nothing, even with a breakpoint on the tools :: nonce:anthropic_breakpoints:static:model_switch": "35a406e15e55",
+  "anthropic explicit breakpoints > thinking_disabled: turning thinking off reuses nothing, even with a breakpoint on the tools :: nonce:anthropic_breakpoints:static:thinking_disabled": "7929748d39c0",
+  "anthropic explicit breakpoints > inference_geo_us: inference_geo: us reuses nothing, even with a breakpoint on the tools :: nonce:anthropic_breakpoints:static:inference_geo_us": "570975239f3a",
+  "anthropic explicit breakpoints > tool_choice_none: tool_choice: none reuses everything :: nonce:anthropic_breakpoints:static:tool_choice_none": "86e4bcb081d1",
+  "anthropic explicit breakpoints > system_message_appended: a mid-conversation system message reuses everything :: nonce:anthropic_breakpoints:static:system_message_appended": "12825340c38b"
+}

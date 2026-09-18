@@ -1,0 +1,6 @@
+{
+  "minimum cacheable size > a whole prompt with fewer than 1024 cacheable tokens is never cached :: nonce:whole:966": "49151d99acb8",
+  "minimum cacheable size > a whole prompt with more than 1024 cacheable tokens is cached on repeat :: nonce:whole:1006": "67cafb3cdbfd",
+  "minimum cacheable size > a header under 1024 tokens is not reusable on its own, even in a large prompt :: nonce:header:962": "2f4aea17b780",
+  "minimum cacheable size > a header over 1024 tokens is reused when a later message changes :: nonce:header:1006": "3cda4d0770b3"
+}
