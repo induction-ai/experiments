@@ -77,7 +77,7 @@ The code is the _means_; these are the _output_. Every experiment has, alongside
 - **`blog.md`** — the final deliverable. A post explaining what the experiment does, how it works, and what was found.
 - **`log.md`** — running log of **what you tried and what you found**. Chronological. Append as you go, not at the end. Dead-ends count.
 - **`results/*.csv`** — running results. One row per trial/run.
-- **`scripts/`** — for every CSV in `results/`, a script here that produces it. Re-running the script regenerates the CSV. CSVs are never hand-written.
+- **`scripts/`** — for every CSV in `results/`, a script here that produces it. Running it with `RUNS=N` appends N more trials per condition (`FRESH=true` starts over), so certainty grows with each run. CSVs are never hand-written.
 
 Scaffold all four when you create the experiment. Update `log.md` and append to CSVs as you go; refine `blog.md` throughout, drawing from both.
 
@@ -86,7 +86,7 @@ Scaffold all four when you create the experiment. Update `log.md` and append to 
 Shared code lives at `packages/shared` (`@experiments/shared`). The repo-root `.env` is loaded automatically on import.
 
 ```sh
-pnpm --filter @experiments/my-thing add @experiments/shared
+pnpm --filter @experiments/my-thing add '@experiments/shared@workspace:*'
 ```
 
 Two types:
@@ -128,7 +128,7 @@ All three throw with a clear message if the required env var is missing.
 Add it to an experiment:
 
 ```sh
-pnpm --filter @experiments/my-thing add -D @experiments/test vitest
+pnpm --filter @experiments/my-thing add -D '@experiments/test@workspace:*'
 ```
 
 Import `it` / `describe` / `expect` (and the other vitest helpers) from `@experiments/test` instead of `vitest`. Every `it` body is automatically wrapped in recording/replay; `.only` / `.skip` / `.todo` / `.concurrent` / `.each` still work.

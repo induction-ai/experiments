@@ -82,8 +82,8 @@ Add one script entry per run script (e.g. `"bench": "tsx scripts/run-bench.ts"`)
 Then add deps with pnpm, never by hand-editing versions:
 
 ```sh
-pnpm --filter @experiments/<name> add @experiments/shared ai
-pnpm --filter @experiments/<name> add -D @experiments/test
+pnpm --filter @experiments/<name> add '@experiments/shared@workspace:*' ai
+pnpm --filter @experiments/<name> add -D '@experiments/test@workspace:*'
 ```
 
 Shared dev tooling (typescript, tsx, eslint, prettier, vitest, `@types/node`)
@@ -95,7 +95,7 @@ lives at the repo root. Don't reinstall it per workspace.
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": { "outDir": "dist" },
-  "include": ["src/**/*", "scripts/**/*"]
+  "include": ["src/**/*", "scripts/**/*", "vitest.config.ts"]
 }
 ```
 
@@ -129,34 +129,76 @@ filled in as results arrive, not at the end.
 
 Use real dates (today's date from context), never "today" or "yesterday".
 
-## 3. Tests
+## 3. Tests: the proof of work
 
-Tests pin down the behaviour the experiment depends on: helpers in `src/`,
-request shapes, parsing of provider responses, and small end-to-end sanity
-calls. Import `describe` / `it` / `expect` from `@experiments/test`, not
-`vitest`. Every `it` is wrapped in Polly recording, so LLM calls are recorded
-once and replayed after.
+An experiment is a **reproducible study**. Someone who has never seen the
+conversation that produced it must be able to verify every claim in `blog.md`
+by running the tests, without an agent and without trusting the CSVs. The
+tests and their committed recordings are the proof of work.
+
+Two kinds of test, both co-located in `src/`:
+
+- **Harness tests** pin down the machinery: helpers, request shapes, parsing
+  of provider responses.
+- **Claim tests** (`src/claims/*.test.ts`) reproduce the findings. **Every
+  claim in `blog.md` has a claim test**, named as the claim in plain words
+  (`"an edit to the system prompt reuses nothing"`), which runs the same live
+  procedure the scripts use and asserts the outcome the blog states. One
+  test may cover a family (`it.each` over all 30 pairs), but no claim goes
+  untested. The blog cites the test file next to each claim. The same goes
+  for claims of the form "X has no effect" and for tests that rule out an
+  alternative explanation (see § 6).
+
+Import `describe` / `it` / `expect` from `@experiments/test`, not `vitest`.
+Every `it` is wrapped in Polly recording, so LLM calls are recorded once and
+replayed after:
 
 ```sh
-RECORD=true pnpm --filter @experiments/<name> test  # wipe and re-record
-RECORD=new  pnpm --filter @experiments/<name> test  # replay known, record new
-pnpm --filter @experiments/<name> test              # replay only (default)
+pnpm --filter @experiments/<name> test              # replay: verify every claim offline
+RECORD=true pnpm --filter @experiments/<name> test  # re-verify every claim live, re-record
+RECORD=new  pnpm --filter @experiments/<name> test  # record only tests with no recording yet
 ```
 
-Commit the recordings under `test/__recordings__/`. Don't mark recorded tests
-`.concurrent`.
+Rules that keep this honest:
 
-Tests are for correctness of the harness. The measurements themselves come
-from `scripts/`, which hit live APIs.
+- **Fresh on record, identical on replay.** Anything that must differ
+  between live runs (nonces, cache keys, random seeds that shape a request)
+  comes from `recordedValue(key, make)` in `@experiments/test`: generated
+  when recording, stored next to the HARs, read back on replay. A live
+  re-run must never be able to pass by hitting state left by the previous
+  recording.
+- **Assert the claim, not the recorded numbers.** Assertions state what the
+  blog states ("cached is 0", "input tokens unchanged", "within 2 tokens of
+  a 119-token tail"), so a live re-run can pass or fail on its merits.
+- **Commit the recordings** under `test/__recordings__/` together with
+  `values.json`. If the provider changes behaviour, a live re-run fails the
+  specific claim that no longer holds; update the blog, not the assertion.
+- Don't mark recorded tests `.concurrent`; split long suites across files
+  (vitest runs files in parallel).
+
+Claim tests show that each claim reproduces; the scripts and CSVs (§ 4)
+show how consistently, with n trials per condition. A claim needs both.
 
 ## 4. Scripts and results
 
 - Every CSV in `results/` has exactly one script in `scripts/` that produces it.
-  Re-running the script regenerates the CSV from scratch. CSVs are never
-  hand-written or hand-edited.
-- One row per trial/run. Include enough columns to re-derive every number
+  CSVs are never hand-written or hand-edited.
+- **Every run script can be run N more times to increase certainty.** It takes
+  `RUNS=N` (trials per condition, default small) and **appends** N new trials
+  per condition to its CSV rather than overwriting, so evidence accumulates
+  across invocations. `FRESH=true` wipes the CSV first. If the columns change,
+  the script refuses to append and asks for `FRESH=true`.
+- One row per trial. Include enough columns to re-derive every number
   quoted in the blog (model, variant, seed, raw token counts, timestamps),
-  not just the summary.
+  not just the summary, plus a `batch` id (the invocation's start time) and
+  `run` index so trials from different invocations stay distinguishable.
+- Each trial must be independent of every other trial (fresh seed/nonce,
+  no shared state), so trials from separate invocations can be pooled.
+- Analysis and the report always aggregate over **all** rows in the CSV and
+  show the trial count (`n`) and how consistent the trials were next to every
+  number, so it is obvious where more runs are needed.
+- Pilot with `RUNS=1` on a subset (e.g. a `VARIANTS=` filter) before a full
+  run, and log the pilot's cost and surprises.
 - Put a header comment at the top of each script stating the question, the
   per-trial procedure, and what outcome would confirm or refute the hypothesis.
 - Make knobs env-overridable (`MODEL`, `RUNS`, etc.) with sensible defaults.
@@ -184,14 +226,34 @@ CSVs in place of (or alongside) the markdown tables.
 - Update `blog.md` as findings firm up. It draws from the log and the CSVs,
   cites the script and CSV behind each claim, and is written for someone who
   never saw the log.
+- **State every claim at the scope of the setup that produced it.** A
+  synthetic setup is usually a special case: a request whose history was
+  never sent turn by turn, one model, one size. Before a claim says what
+  happens "in a conversation" or "on this API", test the realistic case
+  (a real multi-turn thread, the way clients actually call the API). Lead
+  with the realistic result, and label the synthetic one as the edge case
+  it is. A strong negative ("invalidates everything", "never reused") needs
+  the realistic test most of all.
+- **Rule out the obvious alternative explanation before stating a
+  conclusion.** If a result could come from a threshold or a confound
+  (a minimum size, a rate limit, routing, a too-small prompt, one lucky
+  seed), run the decisive test that would make it go away: repeat at a much
+  larger size, a different seed, a different key. Put that test in a script
+  and the CSV like any other result, and say in the blog what it ruled out.
 - Rebuild `report.html` whenever results change.
 
 ## 7. Done means
 
 - [ ] `blog.md` answers the question, with Method, Findings and Takeaways, and
       cites `scripts/*` and `results/*` for every result.
+- [ ] Every claim in `blog.md` has a claim test in `src/claims/` that
+      reproduces it, cited next to the claim, with recordings committed.
+      `blog.md` has a "Verify it yourself" section with the two commands.
+- [ ] A clean replay (`pnpm test`, no network) passes, and the latest
+      `RECORD=true` run passed live.
 - [ ] `log.md` has dated entries covering every run, including failures.
-- [ ] Every `results/*.csv` is reproducible from its script.
+- [ ] Every `results/*.csv` is reproducible from its script, and re-running
+      it with `RUNS=N` adds N more trials per condition.
 - [ ] `report.html` rebuilt from current data.
 - [ ] `pnpm --filter @experiments/<name> test` and `typecheck` pass, and
       `pnpm lint` is clean.

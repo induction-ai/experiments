@@ -248,3 +248,51 @@ export async function recordHttp(
     await polly.stop();
   }
 }
+
+/**
+ * A value that must be fresh whenever a test records but identical on every
+ * replay, e.g. a nonce that keeps a live run from hitting a server-side cache
+ * left over from the last recording. When recording (RECORD=true, or
+ * RECORD=new and no value is stored yet) `make()` is called and the result is
+ * saved to `values.json` next to the test file's recordings; replay reads it
+ * back. Must be called inside a vitest test.
+ */
+export function recordedValue(key: string, make: () => string): string {
+  const state = expect.getState();
+  const testPath = state.testPath;
+  const testName = state.currentTestName;
+  if (!testPath || !testName) {
+    throw new Error("recordedValue must be called inside a vitest test.");
+  }
+  const dir = recordingsDirFor(testPath);
+  const file = path.join(dir, "values.json");
+  const values: Record<string, string> = fs.existsSync(file)
+    ? (JSON.parse(fs.readFileSync(file, "utf8")) as Record<string, string>)
+    : {};
+  const id = `${testName} :: ${key}`;
+  const stored = values[id];
+  // Under RECORD=new a test with no recording yet will run live, so it needs
+  // a fresh value even if an interrupted earlier run left one behind.
+  const recorded =
+    fs.existsSync(dir) &&
+    fs
+      .readdirSync(dir)
+      .some(
+        (d) =>
+          d.startsWith(sanitizeName(testName).slice(0, 60)) &&
+          fs.existsSync(path.join(dir, d, "recording.har"))
+      );
+  if (stored !== undefined && !RECORD && (recorded || !RECORD_NEW)) {
+    return stored;
+  }
+  if (!RECORD && !RECORD_NEW) {
+    throw new Error(
+      `No recorded value for "${id}". Record it with RECORD=new pnpm test.`
+    );
+  }
+  const value = make();
+  values[id] = value;
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(file, JSON.stringify(values, null, 2) + "\n");
+  return value;
+}
