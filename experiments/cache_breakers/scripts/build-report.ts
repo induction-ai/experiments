@@ -793,7 +793,8 @@ function keptText(frac: number, marks: Landmark[]): string {
 /** A cell's text: the outcome, and for a partial one, what was kept. */
 function cellText(
   sums: VariantSummary[],
-  marks: Landmark[]
+  marks: Landmark[],
+  blocks = false
 ): { tier: Tier | "mixed"; text: string; detail: string } {
   const detail = sums
     .map((s) =>
@@ -807,9 +808,11 @@ function cellText(
     return { tier: "rejected", text: "rejected by the API", detail };
   const tiers = [...new Set(ran.map(tier))];
   const partial = (xs: VariantSummary[]) =>
-    [...new Set(xs.map((s) => keptText(s.keptFraction ?? 0, marks)))].join(
-      "; or "
-    );
+    blocks
+      ? `caches up to a fixed block point (${tokenRange(xs.map((s) => s.medianCached!))} tokens)`
+      : [...new Set(xs.map((s) => keptText(s.keptFraction ?? 0, marks)))].join(
+          "; or "
+        );
   const one = (t: Tier, xs: VariantSummary[]) =>
     t === "zero"
       ? "nothing cached"
@@ -826,6 +829,19 @@ function cellText(
     detail,
   };
 }
+
+/**
+ * Adapters whose cache stops at fixed token positions, not message
+ * boundaries: where they stop depends on message sizes, so their cells
+ * report the block point in tokens instead of naming a message.
+ */
+const BLOCK_MATCHING = new Set(["openai_responses_gpt-5.5"]);
+
+const tokenRange = (xs: number[]) => {
+  const lo = Math.min(...xs);
+  const hi = Math.max(...xs);
+  return lo === hi ? `${lo}` : `${lo}–${hi}`;
+};
 
 const THREAD_COMPARE: Record<string, string> = {
   edit_u4: "Append a word to user message 4 of 6",
@@ -863,6 +879,29 @@ function threadCell(name: string, probe: string): string {
     (r) => r.provider === name && r.probe === probe && !r.error
   );
   if (rs.length === 0) return `<td class="cmp na">not tested</td>`;
+  if (BLOCK_MATCHING.has(name)) {
+    const k = probe === "truncate_after_a4" ? 4 : 3;
+    const hits = rs.filter((r) => Number(r.probe_cached) > 0);
+    const got = median(hits.map((r) => Number(r.probe_cached)))!;
+    const prev = median(hits.map((r) => Number(r.predict_request_end)))!;
+    const where =
+      Math.abs(got - prev) <= 8
+        ? "at the previous turn’s cached end"
+        : got < prev
+          ? "short of the previous turn"
+          : "past the previous turn";
+    // The appended-word probe leaves everything through user message 4
+    // unchanged, and request 4's size says exactly where that ends.
+    const unchanged =
+      probe === "edit_u4"
+        ? `, of ~${median(hits.map((r) => Number(r.request_tokens!.split(";")[3]) - 3))} unchanged`
+        : "";
+    const spread = rs
+      .map((r) => r.probe_cached)
+      .sort((a, b) => Number(a) - Number(b))
+      .join(", ");
+    return `<td class="cmp cmp-fallback" title="${esc(`cached per trial: ${spread}; request ${k}'s cached end: ${prev}`)}">${esc(`caches up to a fixed block point (${got} tokens${unchanged}), ${where}`)}</td>`;
+  }
   const labels = rs.map(threadStop);
   const counts = new Map<string, number>();
   for (const l of labels) counts.set(l, (counts.get(l) ?? 0) + 1);
@@ -895,7 +934,11 @@ function compareTable(names: string[]): string {
           )
         : all.filter((s) => variants.includes(s.variant));
     if (picked.length === 0) return `<td class="cmp na">not tested</td>`;
-    const { tier: t, text, detail } = cellText(picked, marks.get(c)!);
+    const {
+      tier: t,
+      text,
+      detail,
+    } = cellText(picked, marks.get(c)!, BLOCK_MATCHING.has(c));
     return `<td class="cmp cmp-${t}" title="${esc(detail)}">${esc(text)}</td>`;
   };
 
@@ -927,7 +970,7 @@ function compareTable(names: string[]): string {
   }
 
   return `<figure class="chart"><figcaption>The same change across APIs and models (each cell: median of 5 trials)</figcaption>
-<p class="chart-note" style="margin:-6px 0 10px">Where only part of the cache survives, the cell names what was still cached, from where reuse stopped in the prompt: tools, system prompt, a first exchange, a third message, a last reply, and a final message. Hover a cell for the exact share of the warm prompt. “n/a”: the API has no such setting. “not tested”: not run on that model or mode.</p>
+<p class="chart-note" style="margin:-6px 0 10px">Where only part of the cache survives, the cell names what was still cached, from where reuse stopped in the prompt: tools, system prompt, a first exchange, a third message, a last reply, and a final message. gpt-5.5 stops at fixed token positions rather than message boundaries, so its cells give the position in tokens. Hover a cell for the exact share of the warm prompt. “n/a”: the API has no such setting. “not tested”: not run on that model or mode.</p>
 <div class="table-scroll"><table class="compare"><thead>${head}</thead><tbody>
 ${rows.join("\n")}
 </tbody></table></div>

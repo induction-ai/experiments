@@ -2,6 +2,14 @@
 
 pnpm monorepo for TypeScript experiments. Each experiment is its own workspace under `experiments/`.
 
+## Experiments
+
+| Experiment       | Question                                                                                          | Read                                                                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cache_breakers` | What exactly breaks a prompt cache on OpenAI Responses and Anthropic Messages, and in what order? | [report](experiments/cache_breakers/report.html) · [write-up](experiments/cache_breakers/blog.md) · [log](experiments/cache_breakers/log.md) |
+
+Each report is generated from the experiment’s CSVs, and every claim in it has a recorded test that reproduces it (`pnpm --filter @experiments/<name> test`).
+
 ## This repo is public
 
 Everything committed here is published. No proprietary code, prompts, customer data, credentials or account identifiers. Use synthetic or public data, and check recordings and results before committing. See `.claude/skills/new-experiment/SKILL.md` for the full rules.
@@ -188,6 +196,10 @@ pnpm --filter @experiments/my-thing add -D vitest
 ```
 
 Dev tooling shared across all experiments (typescript, tsx, eslint, prettier, `@types/node`) lives at the root — don't reinstall it per workspace.
+
+## Publishing (GitHub Pages)
+
+The repo is published with GitHub Pages (Settings → Pages → Deploy from a branch → `main`, `/ (root)`). `_config.yml` keeps code and HTTP recordings out of the site; this README is the index. Markdown needs no front matter, since Pages derives each page title from its first heading and turns links to `.md` files into links to the rendered pages. Add each new experiment to the table above. Don’t put Liquid template syntax (two opening curly braces, or an opening curly brace followed by a percent sign) in Markdown: Jekyll would try to evaluate it and the build fails. Wrap such content in a Liquid `raw` block.
 
 ## Linting & formatting
 

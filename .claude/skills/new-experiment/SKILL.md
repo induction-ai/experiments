@@ -242,6 +242,17 @@ CSVs in place of (or alongside) the markdown tables.
   and the CSV like any other result, and say in the blog what it ruled out.
 - Rebuild `report.html` whenever results change.
 
+## 6b. Publishing
+
+The repo is published with GitHub Pages (see the README). Add the
+experiment to the README's "Experiments" table with links to its
+`report.html`, `blog.md` and `log.md`. Markdown needs no front matter (Pages
+takes the title from the first heading), and `build-report.ts` renders
+`blog.md` as-is, so front matter would show up in the report. Don't put
+Liquid template syntax (two opening curly braces, or a curly brace and a
+percent sign) in Markdown: Jekyll would try to evaluate it and the Pages
+build fails.
+
 ## 7. Done means
 
 - [ ] `blog.md` answers the question, with Method, Findings and Takeaways, and
@@ -254,7 +265,8 @@ CSVs in place of (or alongside) the markdown tables.
 - [ ] `log.md` has dated entries covering every run, including failures.
 - [ ] Every `results/*.csv` is reproducible from its script, and re-running
       it with `RUNS=N` adds N more trials per condition.
-- [ ] `report.html` rebuilt from current data.
+- [ ] `report.html` rebuilt from current data, and the experiment is listed
+      in the README's "Experiments" table.
 - [ ] `pnpm --filter @experiments/<name> test` and `typecheck` pass, and
       `pnpm lint` is clean.
 
