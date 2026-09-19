@@ -631,3 +631,56 @@ needed: Pages enables optional-front-matter, titles-from-headings and
 relative-links. Local `github-pages` build: 1.2 MB, index + report + blog/log
 pages + CSVs + data; in production mode links get the repo prefix. A
 Liquid-looking string in the README broke the first build and was reworded.
+
+### Blog figures (first four, for review)
+
+`scripts/export-blog-data.ts` writes the blog post's `data.ts` (in the site
+repo) from the results CSVs, so the figures can't drift from the data. Each
+figure draws request 1, request 2 with the changed part ringed, then one row
+per API showing what request 2 read from cache. All APIs share one layout
+measured on gpt-5.6-sol (header, previous-turn and prompt ends from the
+probes that stop there); two splits aren't measurable from cache reads and
+use the fixture's sizes: tools vs system prompt (equal) and, in the thread,
+user message vs reply (~160:500 words). Anthropic counts are mapped onto
+the layout at its own measured boundaries; gpt-5.5's are used as tokens
+(same prompt and tokenizer as sol). First four drawn: thread edit, resend,
+tool edit, system prompt edit.
+
+### Thread probe: a word appended to reply 4 (`edit_a4`)
+
+Asked in review: we had edited user message 4 but never a reply mid-thread.
+New probe `edit_a4` in `src/thread.ts`, n=5 on all four columns.
+
+- gpt-5.6-sol, Claude automatic, Claude breakpoints: 15/15 exactly on
+  request 4's end (through user message 4; reply 4 onward re-billed).
+- gpt-5.5: 0 (miss), 3584, 2560, 3584, 3584. 3584 is past user message 4
+  (~3445) and before the edit at the end of reply 4: reuse reached partway
+  into the changed message, as block matching predicts (and unlike the
+  edit_u4 result, which fell back to 1536).
+  Claim tests added (thread claims for the three request-end columns;
+  gpt-5.5: block point, never past the edit). Blog post figure added.
+
+### Blog post: every comparison row drawn, table at the top
+
+Refactor: the comparison (rows, cells, wording) moved out of
+`build-report.ts` into `src/comparison.ts`, used by both the experiment page
+and the blog export, so they can't disagree (the page's table was verified
+unchanged apart from the reply-4 row's new position). Concepts got anchor
+ids. `scripts/export-blog-data.ts` now writes TABLE (the comparison) and
+CASES (48 drawings: 5 thread rows and 43 concepts), each an explicit list of
+requests (edits ringed, appended parts ringed, parameter changes named in a
+tag), then the last request as each API billed it (cached tokens, or
+"rejected by the API" / "no such setting" / "not tested").
+
+Added the baseline the review asked for: a conversation that only grows.
+Each thread trial already sent request 6 (request 5 plus reply 5 and user
+message 6); its cache read is the baseline. gpt-5.6-sol and both Claude
+modes read all of request 5 in every trial; gpt-5.5 read 3584 of ~4124,
+leaving the tail after its last block point at full price even on a normal
+next turn. Asserted in the existing thread claim tests (no new recordings).
+
+Drawing fixes found by looking at renders: the final message rounded to
+−1 tokens and vanished once billed (floored at 8); the tool-description
+drawing's tag described a different variant from the one drawn; boundary
+counts a few tokens off the layout drew hairline slivers (snapped within
+40 tokens for message-boundary APIs; gpt-5.5 stays raw).

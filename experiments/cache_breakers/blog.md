@@ -292,7 +292,9 @@ reused is less clear:
   but it’s a token position, not a message boundary. The 2560 point, which lies before the
   edit and which turns 3 and 4 had both read, was reused only once. Dropping
   everything after reply 4 cached up to the 3584 point, the last one before
-  the cut, which is more than `gpt-5.6-sol` keeps.
+  the cut, which is more than `gpt-5.6-sol` keeps. Appending a word to reply 4
+  cached up to the same 3584 point in 3 of 4 trials that didn’t miss, partway
+  into the changed reply itself.
 
 So `gpt-5.5` isn’t a simple “longest shared prefix, rounded down to a
 block” either: an intact block that earlier turns had read was usually
@@ -322,7 +324,9 @@ editing user message 4, branching at turn 4 or cutting after reply 4 keeps
 exactly everything up to the previous turn’s end, and nothing of the reply
 after it. Explicit breakpoints behave the same in a thread, with markers on
 the tools, the system prompt and each request’s last message: 20 of 20
-trials landed exactly on the previous turn’s end. Verified by `src/claims/thread.test.ts`.
+trials landed exactly on the previous turn’s end. Appending a word to reply 4
+instead behaves the same way one turn later: all three cache exactly through
+user message 4 and re-bill from reply 4 on (15 of 15 trials). Verified by `src/claims/thread.test.ts`.
 
 <!-- report:thread:anthropic_auto -->
 

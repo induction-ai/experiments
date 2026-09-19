@@ -11,6 +11,7 @@
     "minimum": "tsx scripts/run-minimum.ts",
     "thread": "tsx scripts/run-thread.ts",
     "models": "tsx scripts/run-models.ts",
+    "export-blog": "tsx scripts/export-blog-data.ts",
     "report": "tsx scripts/build-report.ts"
   },
   "dependencies": {

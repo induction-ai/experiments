@@ -45,7 +45,17 @@ async function thread(probe: ThreadProbe): Promise<ThreadRow> {
       delayMs: LIVE ? 1500 : 0,
     });
     expect(row.error).toBe("");
-    if (row.probe_cached !== 0) return row;
+    if (row.probe_cached !== 0) {
+      // The baseline next turn (request 6) stops at a block point, short of
+      // request 5's end: the tail after it bills at full price.
+      const reads = row.request_cached.split(";").map(Number);
+      const sizes = row.request_tokens.split(";").map(Number);
+      if (reads[5]! > 0) {
+        expect((reads[5]! - 512) % 1024).toBe(0);
+        expect(reads[5]!).toBeLessThan(sizes[4]! - 3);
+      }
+      return row;
+    }
   }
   throw new Error(`${probe}: missed the cache twice`);
 }
@@ -62,6 +72,19 @@ describe("OpenAI Responses, gpt-5.5, 6-turn thread", () => {
       // the shared prefix happens to reach the next block point.
       expect(row.probe_cached!).toBeLessThanOrEqual(row.predict_request_end!);
       expect((row.probe_cached! - 512) % 1024).toBe(0);
+    },
+    TIMEOUT
+  );
+
+  it(
+    "edit_a4: appending a word to reply 4 lands on a block point, never past the edit",
+    async () => {
+      const row = await thread("edit_a4");
+      expect((row.probe_cached! - 512) % 1024).toBe(0);
+      // Request 5's size minus user message 5 bounds where reply 4 ends; the
+      // edit is at that end, so reuse must stop before request 5's end.
+      const sizes = row.request_tokens.split(";").map(Number);
+      expect(row.probe_cached!).toBeLessThan(sizes[4]! - 3);
     },
     TIMEOUT
   );

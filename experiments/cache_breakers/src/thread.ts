@@ -11,6 +11,7 @@ export const THREAD_PROBES = [
   "branch_at_u4",
   "truncate_after_a4",
   "edit_u4_after_60s",
+  "edit_a4",
 ] as const;
 export type ThreadProbe = (typeof THREAD_PROBES)[number];
 
@@ -154,6 +155,10 @@ export async function runThread(
         },
       ];
       break;
+    case "edit_a4":
+      probeInput = [...request(opts.turns)];
+      probeInput[7] = edited(probeInput[7]!);
+      break;
     case "truncate_after_a4":
       probeInput = [
         ...msgs.slice(0, 8),
@@ -169,7 +174,7 @@ export async function runThread(
   // Request-end rule: the probe reads exactly end(intact). A longest-prefix
   // or message-boundary rule would also read the following assistant reply,
   // i.e. land between end(intact) and end(intact + 1).
-  const intact = probe === "truncate_after_a4" ? 4 : 3;
+  const intact = probe === "truncate_after_a4" || probe === "edit_a4" ? 4 : 3;
   row.predict_request_end = end(intact);
   row.next_request_end = end(intact + 1);
 

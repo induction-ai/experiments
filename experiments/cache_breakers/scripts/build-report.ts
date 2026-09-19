@@ -1,6 +1,7 @@
 /**
- * Builds report.html from blog.md and results/*.csv. Never hand-edit the
- * output; re-run `pnpm report` after any change to the blog or the results.
+ * Builds index.html, the experiment's published page, from blog.md and
+ * results/*.csv. Never hand-edit the output; re-run `pnpm report` after any
+ * change to the blog or the results.
  *
  * The blog marks where generated content goes with HTML comments, which
  * render as nothing in blog.md itself:
@@ -34,7 +35,11 @@ import {
   type Tier,
   type VariantSummary,
 } from "../src/analyze.js";
-import { CONCEPTS, EFFORT_PAIRS } from "../src/concepts.js";
+import {
+  buildComparison,
+  COLUMNS,
+  COLUMN_TITLES as SHARED_COLUMN_TITLES,
+} from "../src/comparison.js";
 import { parseCsv } from "../src/csv.js";
 import { ANTHROPIC_EFFORTS } from "../src/providers/anthropic-messages.js";
 import { ADAPTERS } from "../src/providers/index.js";
@@ -721,258 +726,46 @@ const COMPARE_GROUP_TITLES: Record<string, string> = {
     "Edits in a single request whose history was never sent turn by turn (the worst case)",
 };
 
-const COLUMN_TITLES: Record<string, string> = {
-  openai_responses: "OpenAI gpt-5.6-sol",
-  "openai_responses_gpt-5.5": "OpenAI gpt-5.5",
-  anthropic_auto: "Anthropic, automatic",
-  anthropic_breakpoints: "Anthropic, breakpoints",
-};
+const COLUMN_TITLES: Record<string, string> = SHARED_COLUMN_TITLES;
 
-/**
- * Points in the prompt a cached count can be named by, as fractions of the
- * warm prompt. Measured per adapter from the probes that stop exactly there;
- * where a point wasn't measured, the sections' roughly equal sizes stand in
- * (tools, system, early exchange, late exchange: about a quarter each).
- */
-interface Landmark {
-  at: number;
-  kept: string;
-  /** What lies between this point and the next one. */
-  next: string;
-}
-
-function landmarks(name: string): Landmark[] {
-  // gpt-5.5 shares gpt-5.6-sol's prompt and tokenizer, but its blocks never
-  // stop on a section boundary, so it borrows sol's measured boundaries.
-  const source =
-    name === "openai_responses_gpt-5.5" ? "openai_responses" : name;
-  const sum = summarise(
-    allStatic.filter((o) => o.provider === source && main(o))
-  );
-  const at = (variant: string, fallback: number) => {
-    const s = sum.find((x) => x.variant === variant);
-    return s && s.usable && tier(s) === "fallback" ? s.keptFraction! : fallback;
-  };
-  const bp = name === "anthropic_breakpoints";
-  return [
-    { at: 0, kept: "nothing", next: "tools" },
-    {
-      at: bp ? at("system_edit_start", 0.25) : 0.25,
-      kept: "tools",
-      next: "system prompt",
-    },
-    {
-      at: at("early_edit_start", 0.5),
-      kept: "tools and system prompt",
-      next: "first exchange",
-    },
-    {
-      at: bp ? at("late_edit_start", 0.75) : 0.75,
-      kept: "tools, system prompt and first exchange",
-      next: "third message",
-    },
-    {
-      at: at("prev_turn_then_final_edit", 0.875),
-      kept: "all but the last reply and final message",
-      next: "last reply",
-    },
-    { at: 1, kept: "everything", next: "" },
-  ].sort((x, y) => x.at - y.at);
-}
-
-/** Name what a cached fraction kept, in terms of the prompt's sections. */
-function keptText(frac: number, marks: Landmark[]): string {
-  const hit = marks.find((m) => Math.abs(m.at - frac) <= 0.03);
-  if (hit) return `caches ${hit.kept}`;
-  const below = [...marks].reverse().find((m) => m.at < frac)!;
-  return below.at === 0
-    ? `caches part of the ${below.next}`
-    : `caches ${below.kept} and part of the ${below.next}`;
-}
-
-/** A cell's text: the outcome, and for a partial one, what was kept. */
-function cellText(
-  sums: VariantSummary[],
-  marks: Landmark[],
-  blocks = false
-): { tier: Tier | "mixed"; text: string; detail: string } {
-  const detail = sums
-    .map((s) =>
-      s.usable
-        ? `${s.variant}: ${Math.round((s.keptFraction ?? 0) * 100)}% of the warm prompt still cached`
-        : `${s.variant}: rejected (${s.firstError})`
-    )
-    .join("\n");
-  const ran = sums.filter((s) => tier(s) !== "rejected");
-  if (ran.length === 0)
-    return { tier: "rejected", text: "rejected by the API", detail };
-  const tiers = [...new Set(ran.map(tier))];
-  const partial = (xs: VariantSummary[]) =>
-    blocks
-      ? `caches up to a fixed block point (${tokenRange(xs.map((s) => s.medianCached!))} tokens)`
-      : [...new Set(xs.map((s) => keptText(s.keptFraction ?? 0, marks)))].join(
-          "; or "
-        );
-  const one = (t: Tier, xs: VariantSummary[]) =>
-    t === "zero"
-      ? "nothing cached"
-      : t === "none"
-        ? "fully cached"
-        : t === "tail"
-          ? "caches all but a small tail at the end"
-          : partial(xs);
-  if (tiers.length === 1)
-    return { tier: tiers[0]!, text: one(tiers[0]!, ran), detail };
-  return {
-    tier: "mixed",
-    text: ran.map((s) => `${s.variant}: ${one(tier(s), [s])}`).join("; "),
-    detail,
-  };
-}
-
-/**
- * Adapters whose cache stops at fixed token positions, not message
- * boundaries: where they stop depends on message sizes, so their cells
- * report the block point in tokens instead of naming a message.
- */
-const BLOCK_MATCHING = new Set(["openai_responses_gpt-5.5"]);
-
-const tokenRange = (xs: number[]) => {
-  const lo = Math.min(...xs);
-  const hi = Math.max(...xs);
-  return lo === hi ? `${lo}` : `${lo}–${hi}`;
-};
-
-const THREAD_COMPARE: Record<string, string> = {
-  edit_u4: "Append a word to user message 4 of 6",
-  branch_at_u4: "Replace user message 4 with a different one (branch)",
-  truncate_after_a4: "Drop everything after reply 4 and ask something new",
-};
-
-/**
- * Where one thread probe's reuse stopped, named by message. Request k is
- * u1, a1, …, uk, so its prompt size (minus the 3 tokens never cached) is
- * where user message k ends. Between the end of uk and the end of uk+1 lie
- * reply k (~500 words) then user message k+1 (~150 words).
- */
-function threadStop(r: Record<string, string>): string {
-  const c = Number(r.probe_cached);
-  if (c === 0) return "nothing cached";
-  const uEnd = r.request_tokens!.split(";").map((x) => Number(x) - 3);
-  let k = 0;
-  for (let i = 0; i < uEnd.length; i++) if (uEnd[i]! <= c + 8) k = i + 1;
-  if (k === 0) return "caches part of the tools and system prompt";
-  if (Math.abs(c - uEnd[k - 1]!) <= 8) {
-    return `caches through user message ${k}; reply ${k} onward re-billed`;
-  }
-  const next = uEnd[k];
-  const intoReply =
-    next === undefined || c - uEnd[k - 1]! < 0.7 * (next - uEnd[k - 1]!);
-  return intoReply
-    ? `caches through user message ${k} and part of reply ${k}`
-    : `caches through reply ${k} and part of user message ${k + 1}`;
-}
-
-/** Thread cell: the most common stopping point across trials. */
-function threadCell(name: string, probe: string): string {
-  const rs = threadRows.filter(
-    (r) => r.provider === name && r.probe === probe && !r.error
-  );
-  if (rs.length === 0) return `<td class="cmp na">not tested</td>`;
-  if (BLOCK_MATCHING.has(name)) {
-    const k = probe === "truncate_after_a4" ? 4 : 3;
-    const hits = rs.filter((r) => Number(r.probe_cached) > 0);
-    const got = median(hits.map((r) => Number(r.probe_cached)))!;
-    const prev = median(hits.map((r) => Number(r.predict_request_end)))!;
-    const where =
-      Math.abs(got - prev) <= 8
-        ? "at the previous turn’s cached end"
-        : got < prev
-          ? "short of the previous turn"
-          : "past the previous turn";
-    // The appended-word probe leaves everything through user message 4
-    // unchanged, and request 4's size says exactly where that ends.
-    const unchanged =
-      probe === "edit_u4"
-        ? `, of ~${median(hits.map((r) => Number(r.request_tokens!.split(";")[3]) - 3))} unchanged`
-        : "";
-    const spread = rs
-      .map((r) => r.probe_cached)
-      .sort((a, b) => Number(a) - Number(b))
-      .join(", ");
-    return `<td class="cmp cmp-fallback" title="${esc(`cached per trial: ${spread}; request ${k}'s cached end: ${prev}`)}">${esc(`caches up to a fixed block point (${got} tokens${unchanged}), ${where}`)}</td>`;
-  }
-  const labels = rs.map(threadStop);
-  const counts = new Map<string, number>();
-  for (const l of labels) counts.set(l, (counts.get(l) ?? 0) + 1);
-  const sorted = [...counts.entries()].sort((x, y) => y[1] - x[1]);
-  const top = sorted[0]![0];
-  const title = sorted.map(([l, n]) => `${n} of ${rs.length}: ${l}`).join("\n");
-  return `<td class="cmp cmp-fallback" title="${esc(title)}">${esc(top)}</td>`;
-}
-
-/** One row per concept, one column per adapter. */
-function compareTable(names: string[]): string {
-  const cols = names.filter((n) =>
-    allStatic.some((o) => o.provider === n && main(o))
+/** One row per change, one column per adapter (src/comparison.ts). */
+function compareTable(): string {
+  const rows = buildComparison(allStatic, threadRows);
+  const cols = COLUMNS.filter((c) =>
+    allStatic.some((o) => o.provider === c && main(o))
   );
   if (cols.length < 2) return "";
-  const sums = new Map(
-    cols.map((c) => [
-      c,
-      summarise(allStatic.filter((o) => o.provider === c && main(o))),
-    ])
-  );
-  const marks = new Map(cols.map((c) => [c, landmarks(c)]));
-  const cell = (c: string, variants: string[] | undefined): string => {
-    if (!variants) return `<td class="cmp na">n/a</td>`;
-    const all = sums.get(c)!;
-    const picked =
-      variants[0] === EFFORT_PAIRS
-        ? all.filter((s) =>
-            /^effort_[a-z]+_to_[a-z]+$/.test(aliasEffort(s.variant, c))
-          )
-        : all.filter((s) => variants.includes(s.variant));
-    if (picked.length === 0) return `<td class="cmp na">not tested</td>`;
-    const {
-      tier: t,
-      text,
-      detail,
-    } = cellText(picked, marks.get(c)!, BLOCK_MATCHING.has(c));
-    return `<td class="cmp cmp-${t}" title="${esc(detail)}">${esc(text)}</td>`;
-  };
-
   const head = `<tr><th>Change</th>${cols
     .map((c) => `<th>${esc(COLUMN_TITLES[c] ?? c)}</th>`)
     .join("")}</tr>`;
   const groupRow = (title: string) =>
     `<tr class="group-row"><td colspan="${cols.length + 1}">${esc(title)}</td></tr>`;
-
-  const rows: string[] = [
-    groupRow("In a real 6-turn thread (every turn was sent)"),
-  ];
-  for (const [probe, text] of Object.entries(THREAD_COMPARE)) {
-    rows.push(
-      `<tr><td>${esc(text)}</td>${cols.map((c) => threadCell(c, probe)).join("")}</tr>`
-    );
-  }
+  const out: string[] = [];
   let group = "";
-  for (const k of CONCEPTS) {
-    if (k.group !== group) {
-      group = k.group;
-      rows.push(
-        groupRow(COMPARE_GROUP_TITLES[group] ?? GROUP_TITLES[group] ?? group)
+  for (const row of rows) {
+    if (row.group !== group) {
+      group = row.group;
+      out.push(
+        groupRow(
+          group === "thread"
+            ? "In a real 6-turn thread (every turn was sent)"
+            : (COMPARE_GROUP_TITLES[group] ?? GROUP_TITLES[group] ?? group)
+        )
       );
     }
-    rows.push(
-      `<tr><td>${inline(k.text)}</td>${cols.map((c) => cell(c, k.variants[c])).join("")}</tr>`
-    );
+    const tds = cols
+      .map((c) => {
+        const cell = row.cells[c];
+        const cls = cell.status === "tested" ? `cmp cmp-${cell.tier}` : "cmp na";
+        return `<td class="${cls}" title="${esc(cell.detail)}">${esc(cell.text)}</td>`;
+      })
+      .join("");
+    out.push(`<tr><td>${inline(row.text)}</td>${tds}</tr>`);
   }
-
   return `<figure class="chart"><figcaption>The same change across APIs and models (each cell: median of 5 trials)</figcaption>
 <p class="chart-note" style="margin:-6px 0 10px">Where only part of the cache survives, the cell names what was still cached, from where reuse stopped in the prompt: tools, system prompt, a first exchange, a third message, a last reply, and a final message. gpt-5.5 stops at fixed token positions rather than message boundaries, so its cells give the position in tokens. Hover a cell for the exact share of the warm prompt. “n/a”: the API has no such setting. “not tested”: not run on that model or mode.</p>
 <div class="table-scroll"><table class="compare"><thead>${head}</thead><tbody>
-${rows.join("\n")}
+${out.join("\n")}
 </tbody></table></div>
 <p class="chart-note">With explicit breakpoints the final message sits after the last breakpoint, so edits to it can’t lose anything. Every finding also has a recorded claim test.</p>
 </figure>`;
@@ -1000,9 +793,7 @@ html = html
       }))
     );
   })
-  .replace(/<!-- report:compare -->/g, () =>
-    compareTable(Object.keys(ADAPTERS))
-  )
+  .replace(/<!-- report:compare -->/g, () => compareTable())
   .replace(
     /<!-- report:(tiers|static|tool_loop|layout|sizes|minimum|thread|sweep)(?::([\w.-]+))? -->/g,
     (_, kind: string, name?: string) => {
@@ -1169,7 +960,7 @@ for (const row of document.querySelectorAll(".bar-row, .min-dot")) {
 </html>
 `;
 
-fs.writeFileSync(path.join(root, "report.html"), page);
+fs.writeFileSync(path.join(root, "index.html"), page);
 console.log(
-  `wrote report.html (${allStatic.length + load("tool_loop").length} trials)`
+  `wrote index.html (${allStatic.length + load("tool_loop").length} trials)`
 );

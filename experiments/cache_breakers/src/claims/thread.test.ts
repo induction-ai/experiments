@@ -50,11 +50,16 @@ describe.each([
       "truncate_after_a4",
       "cutting the thread after reply 4 and asking something new",
     ],
+    ["edit_a4", "appending a word to reply 4"],
   ])(
     "%s: %s keeps exactly up to the end of the last intact earlier turn",
     async (probe) => {
       const row = await thread(adapter, probe as ThreadProbe);
       expectThreadGrew(row.request_cached);
+      // The baseline: the plain next turn (request 6) read all of request 5.
+      const reads = row.request_cached.split(";").map(Number);
+      const sizes = row.request_tokens.split(";").map(Number);
+      expect(Math.abs(reads[5]! - (sizes[4]! - 3))).toBeLessThanOrEqual(8);
       // Reuse reaches the previous turn's end exactly...
       expect(
         Math.abs(row.probe_cached! - row.predict_request_end!)

@@ -9,6 +9,7 @@
  *   branch_at_u4       u1..a3 then a different u4 (changing the thread)
  *   truncate_after_a4  u1..a4 then a new user message
  *   edit_u4_after_60s  as edit_u4, after a 60 s pause (asynchronous storage?)
+ *   edit_a4            append a word to assistant reply 4 in the full thread
  *
  * Reading: the thread measures each request's reusable end (request k+1
  * reads all of request k). If the probe's cached count equals the end of the
