@@ -1,13 +1,16 @@
 # GitHub Pages (Jekyll) settings. Markdown pages need no front matter: Pages
 # enables jekyll-optional-front-matter, jekyll-titles-from-headings (title =
 # first heading) and jekyll-relative-links (links to .md become .html) by
-# default. Each experiment's report.html is self-contained and served as-is.
+# default. Each experiment's index.html is self-contained and served as-is, so
+# the experiment's folder URL is its page.
 title: experiments
 description: Reproducible experiments on LLM API behaviour, with recorded tests.
 theme: jekyll-theme-primer
 
-# Keep the site to the readable outputs: README index, blog.md, log.md,
-# report.html, results/*.csv and data/. Code and the (large) HTTP recordings
+# Keep the site to the readable outputs: the generated home page (index.html,
+# written by `pnpm pages:index` in .github/workflows/pages.yml), each experiment's
+# index.html, log.md, results/*.csv and data/. blog.md is left out because
+# index.html already renders it in full. Code and the (large) HTTP recordings
 # stay in the repo but out of the site.
 exclude:
   - node_modules
@@ -25,3 +28,4 @@ exclude:
   - experiments/*/package.json
   - experiments/*/tsconfig.json
   - experiments/*/vitest.config.ts
+  - experiments/*/blog.md

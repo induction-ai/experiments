@@ -1,0 +1,17 @@
+{
+  "name": "@experiments/site",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "index": "tsx scripts/build-index.ts"
+  },
+  "dependencies": {
+    "marked": "^18.0.13"
+  },
+  "devDependencies": {
+    "@experiments/test": "workspace:*"
+  }
+}

@@ -157,6 +157,7 @@ described below). Every finding also has a recorded test that reproduces it.</p>
 <tr><td>Append a word to user message 4 of 6</td><td class="cmp cmp-fallback" title="5 of 5: caches through user message 3; reply 3 onward re-billed">caches through user message 3; reply 3 onward re-billed</td><td class="cmp cmp-fallback" title="cached per trial: 0, 1536, 1536, 1536, 2560; request 3's cached end: 2560">caches up to a fixed block point (1536 tokens, of ~3451 unchanged), short of the previous turn</td><td class="cmp cmp-fallback" title="5 of 5: caches through user message 3; reply 3 onward re-billed">caches through user message 3; reply 3 onward re-billed</td><td class="cmp cmp-fallback" title="5 of 5: caches through user message 3; reply 3 onward re-billed">caches through user message 3; reply 3 onward re-billed</td></tr>
 <tr><td>Replace user message 4 with a different one (branch)</td><td class="cmp cmp-fallback" title="5 of 5: caches through user message 3; reply 3 onward re-billed">caches through user message 3; reply 3 onward re-billed</td><td class="cmp cmp-fallback" title="cached per trial: 1536, 1536, 1536, 1536, 1536; request 3's cached end: 2560">caches up to a fixed block point (1536 tokens), short of the previous turn</td><td class="cmp cmp-fallback" title="5 of 5: caches through user message 3; reply 3 onward re-billed">caches through user message 3; reply 3 onward re-billed</td><td class="cmp cmp-fallback" title="5 of 5: caches through user message 3; reply 3 onward re-billed">caches through user message 3; reply 3 onward re-billed</td></tr>
 <tr><td>Drop everything after reply 4 and ask something new</td><td class="cmp cmp-fallback" title="5 of 5: caches through user message 4; reply 4 onward re-billed">caches through user message 4; reply 4 onward re-billed</td><td class="cmp cmp-fallback" title="cached per trial: 3584, 3584, 3584, 3584, 3584; request 4's cached end: 2560">caches up to a fixed block point (3584 tokens), past the previous turn</td><td class="cmp cmp-fallback" title="5 of 5: caches through user message 4; reply 4 onward re-billed">caches through user message 4; reply 4 onward re-billed</td><td class="cmp cmp-fallback" title="5 of 5: caches through user message 4; reply 4 onward re-billed">caches through user message 4; reply 4 onward re-billed</td></tr>
+<tr><td>Append a word to reply 4 of 5</td><td class="cmp cmp-fallback" title="5 of 5: caches through user message 4; reply 4 onward re-billed">caches through user message 4; reply 4 onward re-billed</td><td class="cmp cmp-fallback" title="cached per trial: 0, 2560, 3584, 3584, 3584; request 4's cached end: 2560">caches up to a fixed block point (3584 tokens), past the previous turn</td><td class="cmp cmp-fallback" title="5 of 5: caches through user message 4; reply 4 onward re-billed">caches through user message 4; reply 4 onward re-billed</td><td class="cmp cmp-fallback" title="5 of 5: caches through user message 4; reply 4 onward re-billed">caches through user message 4; reply 4 onward re-billed</td></tr>
 <tr class="group-row"><td colspan="5">Control</td></tr>
 <tr><td>Resend the request unchanged</td><td class="cmp cmp-none" title="control: 100% of the warm prompt still cached">fully cached</td><td class="cmp cmp-none" title="control: 100% of the warm prompt still cached">fully cached</td><td class="cmp cmp-none" title="control: 100% of the warm prompt still cached">fully cached</td><td class="cmp cmp-none" title="control: 100% of the warm prompt still cached">fully cached</td></tr>
 <tr class="group-row"><td colspan="5">Edits in a single request whose history was never sent turn by turn (the worst case)</td></tr>
@@ -507,6 +508,7 @@ replies, then changes it in the middle:</p>
 <tr><td>Cut after reply 4 and ask something new<span class="var-name">truncate_after_a4</span></td><td class="num">3442</td><td class="num">3442</td><td class="num">4122</td><td class="num">5 of 5</td></tr>
 <tr><td>Branch at turn 4 with a different message<span class="var-name">branch_at_u4</span></td><td class="num">2775</td><td class="num">2775</td><td class="num">3458</td><td class="num">5 of 5</td></tr>
 <tr><td>Edit user message 4, after a 60 s pause<span class="var-name">edit_u4_after_60s</span></td><td class="num">2767</td><td class="num">2767</td><td class="num">3454</td><td class="num">5 of 5</td></tr>
+<tr><td>edit_a4<span class="var-name">edit_a4</span></td><td class="num">3451</td><td class="num">3451</td><td class="num">4129</td><td class="num">5 of 5</td></tr>
 </tbody></table></div>
 <p class="chart-note">“End of previous turn” is what the next turn read when the thread grew normally. A longest-prefix rule would reach into the unchanged assistant reply, towards “end of the turn after”.</p>
 </figure><p>Editing user message 4, branching the thread at turn 4 with a different
@@ -1194,7 +1196,9 @@ lengths that point fell early in the conversation, inside the first reply,
 but it’s a token position, not a message boundary. The 2560 point, which lies before the
 edit and which turns 3 and 4 had both read, was reused only once. Dropping
 everything after reply 4 cached up to the 3584 point, the last one before
-the cut, which is more than <code>gpt-5.6-sol</code> keeps.</li>
+the cut, which is more than <code>gpt-5.6-sol</code> keeps. Appending a word to reply 4
+cached up to the same 3584 point in 3 of 4 trials that didn’t miss, partway
+into the changed reply itself.</li>
 </ul>
 <p>So <code>gpt-5.5</code> isn’t a simple “longest shared prefix, rounded down to a
 block” either: an intact block that earlier turns had read was usually
@@ -1300,13 +1304,16 @@ editing user message 4, branching at turn 4 or cutting after reply 4 keeps
 exactly everything up to the previous turn’s end, and nothing of the reply
 after it. Explicit breakpoints behave the same in a thread, with markers on
 the tools, the system prompt and each request’s last message: 20 of 20
-trials landed exactly on the previous turn’s end. Verified by <code>src/claims/thread.test.ts</code>.</p>
+trials landed exactly on the previous turn’s end. Appending a word to reply 4
+instead behaves the same way one turn later: all three cache exactly through
+user message 4 and re-bill from reply 4 on (15 of 15 trials). Verified by <code>src/claims/thread.test.ts</code>.</p>
 <figure class="chart"><figcaption>Real 6-turn thread: where reuse stops after a mid-thread change (median tokens)</figcaption>
 <div class="table-scroll"><table><thead><tr><th>Change</th><th class="num">cached</th><th class="num">end of previous turn</th><th class="num">end of the turn after</th><th class="num">exactly at previous turn</th></tr></thead><tbody>
 <tr><td>Cut after reply 4 and ask something new<span class="var-name">truncate_after_a4</span></td><td class="num">6879</td><td class="num">6879</td><td class="num">8081</td><td class="num">5 of 5</td></tr>
 <tr><td>Branch at turn 4 with a different message<span class="var-name">branch_at_u4</span></td><td class="num">5705</td><td class="num">5705</td><td class="num">6938</td><td class="num">5 of 5</td></tr>
 <tr><td>Edit user message 4 of 6<span class="var-name">edit_u4</span></td><td class="num">5687</td><td class="num">5687</td><td class="num">6899</td><td class="num">5 of 5</td></tr>
 <tr><td>Edit user message 4, after a 60 s pause<span class="var-name">edit_u4_after_60s</span></td><td class="num">5669</td><td class="num">5669</td><td class="num">6880</td><td class="num">5 of 5</td></tr>
+<tr><td>edit_a4<span class="var-name">edit_a4</span></td><td class="num">7013</td><td class="num">7013</td><td class="num">8205</td><td class="num">5 of 5</td></tr>
 </tbody></table></div>
 <p class="chart-note">“End of previous turn” is what the next turn read when the thread grew normally. A longest-prefix rule would reach into the unchanged assistant reply, towards “end of the turn after”.</p>
 </figure><p>Because those request ends are the only reusable points, the edge case is

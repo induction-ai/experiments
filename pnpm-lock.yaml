@@ -71,6 +71,16 @@ importers:
         specifier: workspace:*
         version: link:../test
 
+  packages/site:
+    dependencies:
+      marked:
+        specifier: ^18.0.13
+        version: 18.0.13
+    devDependencies:
+      '@experiments/test':
+        specifier: workspace:*
+        version: link:../test
+
   packages/test:
     dependencies:
       '@pollyjs/adapter-fetch':

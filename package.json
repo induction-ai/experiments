@@ -12,6 +12,7 @@
     "build": "pnpm --loglevel=info -r --stream build",
     "typecheck": "pnpm --loglevel=info -r --stream typecheck",
     "test": "pnpm --loglevel=info -r --stream test",
+    "pages:index": "pnpm --filter @experiments/site index",
     "format:prettier": "prettier --write .",
     "format:eslint": "eslint . --fix || true",
     "format": "pnpm run format:eslint && pnpm run format:prettier",

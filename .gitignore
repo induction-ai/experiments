@@ -177,3 +177,6 @@ AGENTS.md
 
 # Worktrees
 .worktrees/
+
+# Site home page, generated in the Pages workflow by packages/site
+/index.html
