@@ -684,3 +684,150 @@ Drawing fixes found by looking at renders: the final message rounded to
 drawing's tag described a different variant from the one drawn; boundary
 counts a few tokens off the layout drew hairline slivers (snapped within
 40 tokens for message-boundary APIs; gpt-5.5 stays raw).
+
+## 2026-09-28: gpt-6-luna as a fifth column
+
+Adapter `openai_responses_gpt-6-luna` (same API and variants as sol;
+model_switch goes to gpt-6-sol). Thread probes RUNS=5 (25 trials, no
+errors): every probe read exactly the last intact request's end, 25/25,
+like sol. Static: pilot RUNS=1, then RUNS=4 more, 99 variants × 5 = 495
+rows at 1500 words. Only errors: `temperature` and `top_p` rejected, as on
+sol.
+
+Every variant's median matches sol's within 3% of the prompt except two,
+both 5/5:
+
+- `effort_medium` (low → medium): fully cached on luna, nothing on sol.
+  Every other effort pair on luna reads nothing, including medium → low
+  and low → high, so it isn't "low and medium are the same effort".
+  Unexplained.
+- `reasoning_summary` (summary auto, effort unchanged): nothing cached on
+  luna, fully cached on sol.
+
+Luna added to COLUMNS (and the OpenAI concept list, the effort
+aliases/levels in the report). Luna's effort cell is the first "mixed"
+cell, and the old mixed text listed all 29 pairs, so mixed cells now name
+the exceptions and give the largest group's outcome for the rest ("fully
+cached for low → medium; nothing cached for every other pair"). The
+change-effort drawing's note now says the other pairs agree only on the
+other APIs. Blog data re-exported. No recorded claim tests for luna yet.
+
+## 2026-09-28: a thread builder for the blog post, and luna's "exceptions" were a bug
+
+The blog post replaces its 48 single-change figures with a tool: the reader
+starts three turns into a conversation, picks what to do next, and sees
+what each API reads from cache. Stacked changes were never measured, so
+the tool runs a cache model built from the single-change rules:
+
+- `src/engine.ts`: each request leaves cache points; a later request reads
+  the furthest point whose parts it repeats unchanged, written under
+  compatible settings. Points per API: sol and luna the system prompt's end
+  and every request's end; Anthropic the marked parts (automatic: the last
+  part only; breakpoints: tools, system and last message); gpt-5.5 fixed
+  token positions 1536 + 1024k, reusable up to the tokens shared.
+- `src/rules.ts`: each setting change as keep / drop / cut at a header part,
+  read from the static tiers. Anthropic breakpoints keeps the header across
+  tool_choice (cut at system) and JSON output (cut at tools).
+- `src/threads.ts`: the reader's actions (next turn, resend, edit a part,
+  branch, cut, settings).
+- `src/engine.test.ts`: every measured thread probe, static edit and setting
+  replays through the engine and lands on the measured read. gpt-5.5 misses
+  five cases by one block (edit_u4, edit_u4_after_60s, branch_at_u4,
+  early_edit_end, late_edit_start); the test pins that list. Its spacing
+  doesn't fit one rule: appending to message 1 and editing message 3's start
+  read a block less than the shared prefix allows, appending to message 3
+  doesn't.
+
+Found by the live check below: OpenAI tool_choice=required re-bills ~120
+tokens on every read, header included, while it is set (not only on the
+change, as the static data showed).
+
+### Live check: `scripts/run-sequences.ts` → `results/sequences/`
+
+Random threads of 10 requests; before each, the engine predicts the read
+with every part sized by the provider's token-count endpoint. Agreement
+within max(40, 1.5%):
+
+| API | threads | agree |
+| --- | --- | --- |
+| gpt-5.6-sol | 10 | 90/90 |
+| gpt-6-luna | 10 | 88/88 |
+| gpt-5.5 | 10 | 83/89 (5 are its random total misses) |
+| claude automatic | 10 | 82/82 (2 threads stopped on refusals) |
+| claude breakpoints | 10 | 90/90 |
+
+Two luna responses (gpt-6-sol at xhigh/max) reported 0 input tokens and
+are left out. Measurement calibration, not rules: Anthropic's count of
+tools (+system) plus a one-token message lands 71–75 tokens past where the
+cache reads the header (constant 74; ~8 on OpenAI), and counts must use the
+request's model (Sonnet and Opus tokenize differently). After a switch to
+the sibling model, the engine keeps the first model's rules.
+
+Two earlier runs were discarded: one sized parts with counts at default
+settings (Anthropic renders tool_choice before the messages), one after a
+change made the runner's size callback run twice per part.
+
+### Correction: gpt-6-luna has no effort or summary exception
+
+`renderResponses` set `reasoning: {effort: "low"}` only for model names
+matching `gpt-5`, so every gpt-6 base request went out with no effort, at
+the model's default (medium). luna's "low → medium keeps the cache" was
+medium → medium, and "summaries drop it" was the variant's own effort: low.
+Live threads (which always send effort) disagreed with both, which is how
+it surfaced. Fixed the regex (with a test) and reran luna's static set from
+scratch (99 × 5). luna's rules now equal sol's except the tool_choice tail
+(123 vs 119 tokens). The 2026-09-28 luna entry above, and the gpt-6-luna and
+gpt-6-astra rows in `results/models/`, ran at default effort; their cache
+reads don't involve effort, but their reasoning token counts do.
+
+## 2026-09-28: gpt-6 effort changes as `configuration_update` items
+
+OpenAI documents a `configuration_update` input item for GPT-6
+(`{type: "configuration_update", reasoning: {effort}}`, placed before the
+next user message, or after the last one): it changes reasoning effort
+from that point on while the request-level `reasoning.effort` stays put,
+so the prefix is unchanged. The luna adapter now makes every effort change
+this way (`gpt6EffortVariant` in `src/providers/openai-responses.ts`):
+warm at the request-level `from` effort, then send the same request with an
+update to `to` appended. "Omit effort" and summaries stay request-level.
+The earlier request-level luna effort rows (155, all read 0) were moved
+out of `results/static/` rather than mixed in under the same names.
+
+- Static, 31 variants × 5: 155/155 read the whole warm prompt.
+- Does the item apply? Request-level `none` reasoned 0 tokens on a counting
+  puzzle (2/2); `none` plus an update to xhigh hit the 8000-token output
+  cap (2/2, like request-level xhigh), placed after the question or before
+  it (5491, 8000). It adds no input tokens (2089 with and without).
+- Threads: `src/threads.ts` records an effort change as an `update` part
+  after the user message it applies from (a second change before the next
+  message replaces it; a branch or cut that drops it re-adds one). Only
+  APIs with `effortUpdates` (gpt-6) see it; the others change the setting.
+  Scripted live threads (2, three effort changes each) and 10 random ones:
+  89/89 predictions agree (one response reporting 0 input tokens left out).
+  Only 6 of the random steps changed effort, so the live evidence on
+  updates specifically is those 6 plus the 6 scripted.
+
+### Split: request-level effort and configuration_update are separate changes
+
+Replacing luna's effort variants hid that a request-level change still
+drops the cache on gpt-6. Both are now measured: luna keeps the shared
+request-level `effort_*` variants (the post-fix run, restored from the
+aside file: 155 rows, all 0) and adds `update_effort_{from}_to_{to}` (all
+30 pairs) and `update_effort_switch_back`. The 155 update rows run earlier
+under the old names were relabelled to these names (`effort_medium` →
+`update_effort_low_to_medium`, `effort_none` → `update_effort_low_to_none`,
+`effort_switch_back` → `update_effort_switch_back`, `effort_a_to_b` →
+`update_effort_a_to_b`); what was sent is unchanged. The comparison gets a
+row for the update item (n/a on the APIs OpenAI doesn't document it for).
+In `src/threads.ts` the update is its own action (`update`), apart from
+`set effort`; a branch that drops an update drops its effect, as the API
+would. The random runner draws both on gpt-6.
+
+### The post shows gpt-6 the `configuration_update` way only
+
+Per review: on gpt-6 an effort change *is* a configuration_update. The
+comparison's effort rows take luna's `update_effort_*` variants (the
+request-level `effort_*` rows stay in the data and on the experiment page,
+all 0), and the thread model is back to one `set effort` action that APIs
+with `effortUpdates` send as an update item. Luna's live threads rerun on
+that model.

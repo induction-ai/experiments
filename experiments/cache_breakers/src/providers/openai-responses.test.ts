@@ -7,6 +7,7 @@ import {
   parseResponsesUsage,
   renderResponses,
   responsesVariants,
+  openaiResponses6Luna,
 } from "./openai-responses.js";
 import type { Json } from "./types.js";
 
@@ -15,6 +16,13 @@ const base = renderResponses(fixture, "gpt-5.6-sol");
 const ctx = { fixture, altModel: "gpt-5.6-luna" };
 
 describe("renderResponses", () => {
+  it("sets low effort on every reasoning model, gpt-6 included", () => {
+    for (const model of ["gpt-5.5", "gpt-5.6-sol", "gpt-6-luna", "gpt-6-sol"]) {
+      expect(renderResponses(fixture, model).reasoning).toEqual({ effort: "low" });
+    }
+    expect(renderResponses(fixture, "gpt-4.1").reasoning).toBeUndefined();
+  });
+
   it("lays sections out as tools, instructions, then five input messages", () => {
     expect(base.instructions).toBe(fixture.system);
     expect((base.tools as Json[]).length).toBe(fixture.tools.length);
@@ -223,4 +231,31 @@ describe("tool loop (live, recorded)", () => {
     expect(row.warmed).toBe(true);
     expect(row.cached).toBe(row.base_cached);
   }, 120_000);
+});
+
+describe("gpt-6 configuration_update variants", () => {
+  const luna = (name: string) =>
+    openaiResponses6Luna.variants.find((v) => v.name === name)!;
+  const lunaBase = renderResponses(fixture, "gpt-6-luna");
+
+  it("keep the request-level effort and append a configuration_update", () => {
+    const v = luna("update_effort_low_to_high");
+    const warmed = v.rebase!(structuredClone(lunaBase));
+    const sent = v.apply(structuredClone(warmed), ctx);
+    expect(sent.reasoning).toEqual({ effort: "low" });
+    const input = sent.input as Json[];
+    expect(input.slice(0, -1)).toEqual(warmed.input);
+    expect(input.at(-1)).toEqual({
+      type: "configuration_update",
+      reasoning: { effort: "high" },
+    });
+  });
+
+  it("come alongside the request-level effort changes, not instead", () => {
+    const shared = (name: string) =>
+      responsesVariants.find((v) => v.name === name)!;
+    for (const name of ["effort_low_to_high", "effort_medium", "reasoning_summary"]) {
+      expect(luna(name)).toBe(shared(name));
+    }
+  });
 });

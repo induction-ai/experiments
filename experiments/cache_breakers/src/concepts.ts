@@ -12,7 +12,11 @@ export interface Concept {
   variants: Record<string, string[]>;
 }
 
-const OPENAI = ["openai_responses", "openai_responses_gpt-5.5"];
+const OPENAI = [
+  "openai_responses",
+  "openai_responses_gpt-6-luna",
+  "openai_responses_gpt-5.5",
+];
 const ANTHROPIC = ["anthropic_auto", "anthropic_breakpoints"];
 
 function both(openai: string[], anthropic: string[]): Record<string, string[]> {
@@ -21,6 +25,9 @@ function both(openai: string[], anthropic: string[]): Record<string, string[]> {
   if (anthropic.length) for (const a of ANTHROPIC) out[a] = anthropic;
   return out;
 }
+
+/** Levels a GPT-6 configuration_update was measured between. */
+const UPDATE_EFFORTS = ["none", "low", "medium", "high", "xhigh", "max"];
 
 /** The effort pairs are expanded per adapter from its variant list. */
 export const EFFORT_PAIRS = "__effort_pairs__";
@@ -191,8 +198,18 @@ export const CONCEPTS: Concept[] = [
   {
     group: "reasoning",
     id: "change-effort",
-    text: "Change reasoning effort, any level to any other",
-    variants: both([EFFORT_PAIRS], [EFFORT_PAIRS]),
+    text: "Change reasoning effort, any level to any other (on gpt-6, as a `configuration_update` item)",
+    // GPT-6 changes effort with a configuration_update item instead of a
+    // new request-level effort; its request-level changes are measured too
+    // (effort_*) but not how gpt-6 is meant to be driven.
+    variants: {
+      ...both([EFFORT_PAIRS], [EFFORT_PAIRS]),
+      "openai_responses_gpt-6-luna": UPDATE_EFFORTS.flatMap((from) =>
+        UPDATE_EFFORTS.filter((to) => to !== from).map(
+          (to) => `update_effort_${from}_to_${to}`
+        )
+      ),
+    },
   },
   {
     group: "reasoning",
@@ -200,6 +217,7 @@ export const CONCEPTS: Concept[] = [
     text: "Omit effort after warming at the default (medium on OpenAI, high on Anthropic)",
     variants: {
       openai_responses: ["effort_medium_omitted"],
+      "openai_responses_gpt-6-luna": ["effort_medium_omitted"],
       "openai_responses_gpt-5.5": ["effort_medium_omitted"],
       anthropic_auto: ["effort_high_omitted"],
       anthropic_breakpoints: ["effort_high_omitted"],
@@ -209,7 +227,10 @@ export const CONCEPTS: Concept[] = [
     group: "reasoning",
     id: "effort-switch-back",
     text: "Change effort, then change it back (low → medium → low)",
-    variants: both(["effort_switch_back"], ["effort_switch_back"]),
+    variants: {
+      ...both(["effort_switch_back"], ["effort_switch_back"]),
+      "openai_responses_gpt-6-luna": ["update_effort_switch_back"],
+    },
   },
   {
     group: "reasoning",

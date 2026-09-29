@@ -70,7 +70,11 @@ export function renderResponses(fixture: Fixture, model: string): Json {
       content: fixture.final,
     }),
     // Non-reasoning models (gpt-4o, gpt-4.1) reject the reasoning field.
-    ...(/^(gpt-5|o\d)/.test(model) ? { reasoning: { effort: "low" } } : {}),
+    // Every gpt-5 and later model takes it; before 2026-09-28 this matched
+    // gpt-5 only, so gpt-6 bases ran at the model's default effort.
+    ...(/^(gpt-([5-9]|\d\d)|o\d)/.test(model)
+      ? { reasoning: { effort: "low" } }
+      : {}),
     max_output_tokens: 256,
     store: false,
     // Pins routing to one cache shard per trial; see the prompt_cache_key variants.
@@ -842,6 +846,71 @@ export const openaiResponses55: Adapter = {
   send,
   variants: responsesVariants,
   toolLoop: openaiResponsesToolLoop,
+};
+
+/** A GPT-6 `configuration_update` input item setting reasoning effort. */
+export const configurationUpdate = (effort: string): Json => ({
+  type: "configuration_update",
+  reasoning: { effort },
+});
+
+/**
+ * Append a configuration_update after the last input item, leaving the
+ * request-level `reasoning.effort` as it was. OpenAI documents this as the
+ * way to change effort mid-conversation on GPT-6 without breaking the
+ * cached prefix; an update after the last user turn applies to this
+ * response.
+ */
+const withUpdate = (effort: string) => (b: Json) => ({
+  ...b,
+  input: [...(b.input as Json[]), configurationUpdate(effort)],
+});
+
+/**
+ * GPT-6's other way to change effort: every ordered pair, warmed at `from`
+ * (request-level), then the same request with a configuration_update to
+ * `to` appended. Plus a switch there and back.
+ */
+function updateEffortVariants(): Variant[] {
+  const out: Variant[] = [];
+  for (const from of EFFORTS) {
+    for (const to of EFFORTS) {
+      if (from === to) continue;
+      out.push({
+        name: `update_effort_${from}_to_${to}`,
+        group: "reasoning",
+        description: `Warm at \`reasoning.effort: ${from}\`, then append a \`configuration_update\` to ${to}.`,
+        rebase: withEffort(from),
+        apply: withUpdate(to),
+      });
+    }
+  }
+  out.push({
+    name: "update_effort_switch_back",
+    group: "reasoning",
+    description:
+      "Warm at low, send one request with a `configuration_update` to medium, then one back to low.",
+    prewarm: (b) => [withUpdate("medium")(b)],
+    apply: withUpdate("low"),
+  });
+  return out;
+}
+
+/**
+ * The same API on gpt-6-luna, which (like gpt-5.6-sol) reuses whole
+ * messages, and also takes configuration_update items to change effort.
+ * Its sibling for model_switch is gpt-6-sol.
+ */
+export const openaiResponses6Luna: Adapter = {
+  name: "openai_responses_gpt-6-luna",
+  provider: "openai_responses",
+  defaultModel: "gpt-6-luna",
+  altModel: "gpt-6-sol",
+  render: renderResponses,
+  send,
+  variants: [...responsesVariants, ...updateEffortVariants()],
+  toolLoop: openaiResponsesToolLoop,
+  effortUpdates: true,
 };
 
 export const openaiResponses: Adapter = {

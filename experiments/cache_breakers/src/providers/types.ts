@@ -89,4 +89,6 @@ export interface Adapter {
   send: (body: Json) => Promise<CallResult>;
   variants: Variant[];
   toolLoop?: ToolLoop;
+  /** Takes configuration_update input items to change effort (GPT-6). */
+  effortUpdates?: boolean;
 }

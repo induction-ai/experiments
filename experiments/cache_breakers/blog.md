@@ -12,7 +12,8 @@ It covers two APIs:
 
 - **OpenAI Responses with `gpt-5.6-sol`.** Caching is automatic. Because
   the matching rule turned out to change between OpenAI model generations,
-  **`gpt-5.5`** is included as a second OpenAI column.
+  **`gpt-5.5`** is included as a second OpenAI column, and
+  **`gpt-6-luna`** as a third.
 - **Anthropic Messages with `claude-opus-5`.** Caching needs a
   `cache_control` marker, so both ways of adding one are tested: **automatic**
   (one top-level `cache_control`, the closest thing to OpenAI’s implicit

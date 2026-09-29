@@ -12,7 +12,8 @@
     "thread": "tsx scripts/run-thread.ts",
     "models": "tsx scripts/run-models.ts",
     "export-blog": "tsx scripts/export-blog-data.ts",
-    "report": "tsx scripts/build-report.ts"
+    "report": "tsx scripts/build-report.ts",
+    "sequences": "tsx scripts/run-sequences.ts"
   },
   "dependencies": {
     "@experiments/shared": "workspace:*",

@@ -14,6 +14,7 @@ import { CONCEPTS, EFFORT_PAIRS } from "./concepts.js";
 
 export const COLUMNS = [
   "openai_responses",
+  "openai_responses_gpt-6-luna",
   "openai_responses_gpt-5.5",
   "anthropic_auto",
   "anthropic_breakpoints",
@@ -22,6 +23,7 @@ export type Column = (typeof COLUMNS)[number];
 
 export const COLUMN_TITLES: Record<Column, string> = {
   openai_responses: "OpenAI gpt-5.6-sol",
+  "openai_responses_gpt-6-luna": "OpenAI gpt-6-luna",
   "openai_responses_gpt-5.5": "OpenAI gpt-5.5",
   anthropic_auto: "Anthropic, automatic",
   anthropic_breakpoints: "Anthropic, breakpoints",
@@ -196,11 +198,33 @@ function staticCell(
   if (tiers.length === 1) {
     return { ...base, tier: tiers[0]!, text: one(tiers[0]!, ran) };
   }
-  return {
-    ...base,
-    tier: "mixed",
-    text: ran.map((s) => `${s.variant}: ${one(tier(s), [s])}`).join("; "),
+  // Group by outcome: name the variants outside the largest group, then
+  // give the largest group's outcome for the rest (29 effort pairs would
+  // otherwise each get a clause).
+  const groups = new Map<string, VariantSummary[]>();
+  for (const s of ran) {
+    const t = one(tier(s), [s]);
+    groups.set(t, [...(groups.get(t) ?? []), s]);
+  }
+  const [largest, ...others] = [...groups.entries()].sort(
+    (a, b) => b[1].length - a[1].length
+  );
+  const [restText, rest] = largest!;
+  const label = (v: string) => {
+    const m = /^effort_([a-z]+)_to_([a-z]+)$/.exec(OPENAI_ALIASES[v] ?? v);
+    return m ? `${m[1]} → ${m[2]}` : v;
   };
+  const pairs = ran.every((s) => label(s.variant) !== s.variant);
+  const text =
+    rest.length > 1
+      ? [
+          ...others.map(
+            ([t, xs]) => `${t} for ${xs.map((s) => label(s.variant)).join(", ")}`
+          ),
+          `${restText} for ${pairs ? "every other pair" : "the rest"}`,
+        ].join("; ")
+      : ran.map((s) => `${one(tier(s), [s])} for ${label(s.variant)}`).join("; ");
+  return { ...base, tier: "mixed", text };
 }
 
 // --- thread cells ----------------------------------------------------------

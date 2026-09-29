@@ -546,6 +546,7 @@ const OPENAI_ALIASES = {
 };
 const EFFORT_ALIASES: Record<string, Record<string, string>> = {
   openai_responses: OPENAI_ALIASES,
+  "openai_responses_gpt-6-luna": OPENAI_ALIASES,
   "openai_responses_gpt-5.5": OPENAI_ALIASES,
 };
 const aliasEffort = (variant: string, adapterName: string) =>
@@ -553,6 +554,7 @@ const aliasEffort = (variant: string, adapterName: string) =>
 
 const EFFORT_LEVELS: Record<string, string[]> = {
   openai_responses: EFFORTS,
+  "openai_responses_gpt-6-luna": EFFORTS,
   "openai_responses_gpt-5.5": EFFORTS,
   anthropic_auto: ANTHROPIC_EFFORTS,
   anthropic_breakpoints: ANTHROPIC_EFFORTS,
