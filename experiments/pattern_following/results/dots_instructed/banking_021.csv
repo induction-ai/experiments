@@ -1,0 +1,31 @@
+batch,run,added,dots_in_history,model,effort,history_items,tool_calls,searches,dots_queries,sent_message,tool_names,queries,input_tokens,cached_tokens,output_tokens,reasoning_tokens,error,timestamp,instruction
+2026-10-08T21:04:48.117Z,2,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,142327,0,19,0,,2026-10-08T21:04:48.129Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,0,32,39,gpt-6.1-sol,xhigh,98,1,1,0,false,KB_search,credit card rewards partial refunds credits merchant category third party payment processors EcoCard Business Bronze,142327,142324,248,212,,2026-10-08T21:04:48.118Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,3,32,39,gpt-6.1-sol,xhigh,98,1,1,0,false,KB_search,credit card rewards investigation transaction details partial refunds merchant category third party payment processor,142327,142324,329,295,,2026-10-08T21:04:48.131Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,5,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,142327,142324,19,0,,2026-10-08T21:04:58.523Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,4,32,39,gpt-6.1-sol,xhigh,98,1,1,0,false,KB_search,credit card rewards review partial refunds merchant category third party payment processors EcoCard Business Bronze,142327,142324,302,266,,2026-10-08T21:04:52.863Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,7,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,142327,142324,19,0,,2026-10-08T21:05:02.675Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,1,32,39,gpt-6.1-sol,xhigh,98,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,142327,142324,653,516,,2026-10-08T21:04:48.127Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,6,32,39,gpt-6.1-sol,xhigh,98,1,0,0,false,give_discoverable_user_tool,,142327,142324,304,243,,2026-10-08T21:05:00.913Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,0,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200663,142324,19,0,,2026-10-08T21:05:07.454Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,8,32,39,gpt-6.1-sol,xhigh,98,1,1,0,false,KB_search,credit card rewards investigation transaction details partial refunds credits merchant payment processors category mismatch,142327,142324,344,310,,2026-10-08T21:05:03.363Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,1,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200663,200660,19,0,,2026-10-08T21:05:09.865Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,2,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200663,200660,19,0,,2026-10-08T21:05:10.666Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,4,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200663,200660,19,0,,2026-10-08T21:05:12.303Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,3,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200663,200660,19,0,,2026-10-08T21:05:12.263Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,5,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200663,200660,19,0,,2026-10-08T21:05:13.760Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,9,32,39,gpt-6.1-sol,xhigh,98,1,0,0,false,give_discoverable_user_tool,,142327,142324,505,444,,2026-10-08T21:05:05.388Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,7,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200663,200660,19,0,,2026-10-08T21:05:15.564Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,6,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200663,200660,19,0,,2026-10-08T21:05:15.522Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,8,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200663,200660,19,0,,2026-10-08T21:05:17.624Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,9,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200663,200660,19,0,,2026-10-08T21:05:18.167Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,0,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255674,200660,19,0,,2026-10-08T21:05:18.977Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,1,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255674,255671,19,0,,2026-10-08T21:05:19.757Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,2,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255674,255671,19,0,,2026-10-08T21:05:20.927Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,3,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255674,255671,19,0,,2026-10-08T21:05:21.415Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,4,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255674,255671,19,0,,2026-10-08T21:05:23.025Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,5,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255674,255671,19,0,,2026-10-08T21:05:24.028Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,6,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255674,255671,19,0,,2026-10-08T21:05:25.853Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,7,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255674,255671,19,0,,2026-10-08T21:05:26.104Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,8,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255674,255671,19,0,,2026-10-08T21:05:26.843Z,Do NOT use ... as a KB_search query
+2026-10-08T21:04:48.117Z,9,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255674,255671,19,0,,2026-10-08T21:05:27.841Z,Do NOT use ... as a KB_search query

@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent see, agent do</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,0.10); --code-bg: #f0efea;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10); --code-bg: #242422;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10); --code-bg: #242422;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 32px 16px 80px; }
+h1 { font-size: 30px; line-height: 1.2; margin: 0 0 16px; }
+h2 { font-size: 22px; margin: 40px 0 12px; }
+h3 { font-size: 18px; margin: 28px 0 8px; }
+p, li { color: var(--ink); }
+a { color: var(--s1); }
+code { font: 0.88em ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--code-bg); padding: 1px 4px; border-radius: 4px; }
+pre { background: var(--code-bg); padding: 12px 14px; border-radius: 8px; overflow-x: auto; }
+pre code { background: none; padding: 0; font-size: 13px; line-height: 1.5; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 12px 0; display: block; overflow-x: auto; }
+th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+th { color: var(--ink-2); font-weight: 600; }
+blockquote { margin: 16px 0; padding: 4px 16px; border-left: 3px solid var(--axis); color: var(--ink-2); }
+.chart { background: var(--surface); border: 1px solid var(--ring); border-radius: 10px; padding: 16px; margin: 24px 0; position: relative; }
+.chart figcaption { display: flex; flex-direction: column; gap: 2px; margin-bottom: 8px; }
+.chart figcaption span { color: var(--ink-2); font-size: 14px; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--ink-2); margin-bottom: 4px; }
+.legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.legend .key { width: auto; display: inline; }
+.note { font-size: 13px; color: var(--ink-2); margin: 8px 0 0; }
+details summary { cursor: pointer; font-size: 14px; color: var(--ink-2); margin-top: 8px; }
+.grid { stroke: var(--grid); stroke-width: 1; }
+.axis { stroke: var(--axis); stroke-width: 1; }
+.tick { fill: var(--muted); font-size: 12px; }
+.axis-title { fill: var(--ink-2); font-size: 13px; }
+.value { fill: var(--ink-2); font-size: 12px; }
+.s1-line, .s2-line, .s3-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.s1-line { stroke: var(--s1); } .s2-line { stroke: var(--s2); } .s3-line { stroke: var(--s3); }
+.s1-whisker, .s2-whisker, .s3-whisker { stroke-width: 1; opacity: 0.45; }
+.s1-whisker { stroke: var(--s1); } .s2-whisker { stroke: var(--s2); } .s3-whisker { stroke: var(--s3); }
+.s1-mark, .s2-mark, .s3-mark { stroke: var(--surface); stroke-width: 2; }
+.s0-bar { fill: var(--muted); }
+.s1-mark, .s1-bar { fill: var(--s1); } .s2-mark, .s2-bar { fill: var(--s2); } .s3-mark { fill: var(--s3); }
+.hit { fill: transparent; cursor: default; }
+@media (max-width: 560px) { .tick, .value { font-size: 20px; } .axis-title { font-size: 21px; } }
+.tip { position: absolute; pointer-events: none; background: var(--surface); color: var(--ink); border: 1px solid var(--ring);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12); border-radius: 6px; padding: 6px 9px; font-size: 13px; line-height: 1.4; max-width: 280px; display: none; z-index: 2; }
+</style>
+</head>
+<body>
+<main>
+<h1>Agent see, agent do</h1>
+<p>When an AI agent sees a pattern in its messages and tool calls, it repeats the behavior, even if it is directly instructed not to. A few stubbed calls are enough to trigger the mimicking. We also noticed models reason much less often when entering this pattern-following loop, and observed reasoning doesn&#39;t mention the pattern at all.</p>
+<p>A potential context reduction strategy is to replace all old tool call parameters with some short placeholder like <code>...</code>. When we tried this, a long coding agent session errored on a tool call: <code>Agent({prompt: &quot;...&quot;})</code>. We looked at the trajectory and realized all previous <code>Agent()</code> tool call args were stubbed with <code>...</code>. Even though the tool description asks for a subagent prompt, the model followed its &quot;own&quot; previous behavior over prompting. We wanted to learn more about this behavior and are able to reproduce it, so we made an experiment.</p>
+<h2>Experiment 1: Stubbing real trajectories</h2>
+<p>We took 10 passing
+<code>gpt-6.1-sol</code> runs of <a href="https://github.com/sierra-research/tau2-bench">tau-banking</a>,
+a customer-support benchmark where an agent helps a bank customer with a
+knowledge base (<code>KB_search</code>) and account tools, at reasoning effort xhigh. Each
+run made between 37 and 56 tool calls. We picked 12 turns in each run where the agent
+was about to call a tool, took a snapshot there, and replayed it four ways:</p>
+<pre><code class="language-text">as recorded   get_credit_card_accounts_by_user({&quot;user_id&quot;:&quot;abc123&quot;})
+stub all      get_credit_card_accounts_by_user({&quot;user_id&quot;:&quot;...&quot;})      ← every past call
+keep last 3   every past call stubbed except the 3 most recent
+stub last 3   only the 3 most recent calls stubbed, older ones as recorded
+</code></pre>
+<p>Tool results are always kept. We say a response <strong>copies</strong> if any argument of its next
+call is <code>...</code>. Each request was sent twice.</p>
+<figure class="chart">
+  <figcaption><b>Replies that wrote a stubbed argument</b><span>10 real trajectories, up to 12 tool turns each, 2 replies per turn. Lines are 95% intervals.</span></figcaption>
+  <svg viewBox="0 0 720 228" role="img" aria-label="Share of replies that wrote a stub, by condition">
+  <line class="grid" x1="210" x2="210" y1="8" y2="192"/><text class="tick" x="210" y="210" text-anchor="middle">0%</text><line class="grid" x1="307.5" x2="307.5" y1="8" y2="192"/><text class="tick" x="307.5" y="210" text-anchor="middle">25%</text><line class="grid" x1="405" x2="405" y1="8" y2="192"/><text class="tick" x="405" y="210" text-anchor="middle">50%</text><line class="grid" x1="502.5" x2="502.5" y1="8" y2="192"/><text class="tick" x="502.5" y="210" text-anchor="middle">75%</text><line class="grid" x1="600" x2="600" y1="8" y2="192"/><text class="tick" x="600" y="210" text-anchor="middle">100%</text>
+  <line class="axis" x1="210" x2="210" y1="8" y2="192"/>
+  <text class="axis-title" x="200" y="35" text-anchor="end">history as recorded</text><line class="s1-whisker" x1="210" x2="216.094265575883" y1="31" y2="31"/><text class="value" x="224.094265575883" y="35">0/242 (0%)</text><rect class="hit" x="210" y="8" width="390" height="46" data-tip="<b>history as recorded</b>: 0 of 242 replies wrote a stub (0%)"/><text class="axis-title" x="200" y="81" text-anchor="end">stubbed, last 3 calls intact</text><line class="s1-whisker" x1="210" x2="216.9413125180688" y1="77" y2="77"/><text class="value" x="224.9413125180688" y="81">0/212 (0%)</text><rect class="hit" x="210" y="54" width="390" height="46" data-tip="<b>stubbed, last 3 calls intact</b>: 0 of 212 replies wrote a stub (0%)"/><text class="axis-title" x="200" y="127" text-anchor="end">only the last 3 calls stubbed</text><path class="s1-bar" d="M210 112 H248.93577981651376 Q252.93577981651376 112 252.93577981651376 116 V130 Q252.93577981651376 134 248.93577981651376 134 H210 Z"/><line class="s1-whisker" x1="239.29082191252445" x2="271.8472874411766" y1="123" y2="123"/><text class="value" x="279.8472874411766" y="127">24/218 (11%)</text><rect class="hit" x="210" y="100" width="390" height="46" data-tip="<b>only the last 3 calls stubbed</b>: 24 of 218 replies wrote a stub (11%)"/><text class="axis-title" x="200" y="173" text-anchor="end">every past call stubbed</text><path class="s1-bar" d="M210 158 H387.7647058823529 Q391.7647058823529 158 391.7647058823529 162 V176 Q391.7647058823529 180 387.7647058823529 180 H210 Z"/><line class="s1-whisker" x1="366.5596413166346" x2="417.42204178827126" y1="169" y2="169"/><text class="value" x="425.42204178827126" y="173">103/221 (47%)</text><rect class="hit" x="210" y="146" width="390" height="46" data-tip="<b>every past call stubbed</b>: 103 of 221 replies wrote a stub (47%)"/>
+</svg>
+</figure><ul>
+<li><strong>Stubbing all of the agent&#39;s own tool calls breaks half its next calls.</strong> 103
+of 221 replies wrote <code>...</code> into a call, and it happened in all 10
+trajectories. There were obviously no stubbed responses if we did not stub calls in the payload.</li>
+<li><strong>Recent calls matter most.</strong> Even with up to ~50 calls stubbed in the context, 0 of 212 payloads copied the behavior if the last 3 calls didn&#39;t stub. Stubbing only the 3 most recent calls, with everything older intact, broke 24 of 218 calls (11%), and 6% once the context held 10 or more normal calls.</li>
+<li><strong>It starts almost immediately.</strong> With just 1 to 5 stubbed calls in the history, 10
+of 24 replies already copied, and more stubs didn&#39;t make it more consistent.</li>
+<li><strong>Lookups break more than searches.</strong> For arguments like an ID or a tool name, the LLM
+usually writes the stub. For more prose-like search, it more often writes a real
+query:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Next call</th>
+<th>Copied</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>look up accounts by user ID</td>
+<td>14/17 (82%)</td>
+</tr>
+<tr>
+<td>call a hidden tool by name</td>
+<td>34/47 (72%)</td>
+</tr>
+<tr>
+<td>unlock a hidden tool by name</td>
+<td>21/34 (62%)</td>
+</tr>
+<tr>
+<td>knowledge-base search query</td>
+<td>32/101 (32%)</td>
+</tr>
+</tbody></table>
+<p><strong>Reasoning looks normal, then it writes the stub?!</strong> Inspecting reasoning that preceded a stubbed KB_search, we see:</p>
+<pre><code class="language-text">reasoning:  &quot;I need to focus on getting hits for &#39;&lt;account&gt; fees charges&#39;
+             to find detailed documents…&quot;
+call:       KB_search({&quot;query&quot;:&quot;...&quot;})
+</code></pre>
+<p>No mention of the stub in reasoning, but the agent still reproduces.</p>
+<p>We also see a drop in reasoning preceding a stubbed call: 62% of replies that wrote a stub used zero reasoning tokens, against 39% of normal responses.</p>
+<h2>Experiment 2: Controlled repeats</h2>
+<p>We took a trajectory snapshot from a passing run of <a href="https://github.com/sierra-research/tau2-bench">tau-banking</a>. This is a
+customer-support benchmark where an agent uses a knowledge base (via the <code>KB_search</code> tool) to help a bank customer. The run used <code>gpt-6.1-sol</code> at reasoning
+effort xhigh. We cut the history right before the agent&#39;s last search, stubbed
+its earlier <code>KB_search</code> queries, appended N more searches in the same style, and replayed
+the request 5 to 16 times per N.</p>
+<p>The original snapshot includes 7 KB_searches before the cut. In every experiment trial, all 7 tool calls get the stub, and the N
+added searches repeat them in order. We added variants for a &quot;failing&quot; version, in which every added KB_search call returns &quot;No results
+found.&quot; (the 7 real searches keep their real results). This was an attempt to discourage from stubbing. One more variant we tried was a snake_case stub, to see if a more subtle placeholder has any effect.</p>
+<p>Here is one of the agent&#39;s real searches, and how each version of the
+experiment rewrites it:</p>
+<pre><code class="language-text">original     KB_search({&quot;query&quot;:&quot;rewards points rounding whole number truncate fractional points&quot;})
+             → 1. Credit Card Rewards Points Rounding Policy …
+
+stubbed      KB_search({&quot;query&quot;:&quot;...&quot;})
+             → 1. Credit Card Rewards Points Rounding Policy …    (real result kept)
+
+stubbed,     KB_search({&quot;query&quot;:&quot;...&quot;})
+failing      → No results found.
+
+snake_case   KB_search({&quot;query&quot;:&quot;rewards_points_rounding_whole_number_truncate_fractional_points&quot;})
+             → 1. Credit Card Rewards Points Rounding Policy …
+</code></pre>
+<p>This time, a response <strong>copies</strong> if its next search is written with <code>...</code> or snake_case.</p>
+<figure class="chart">
+  <figcaption><b>Share of replies that copied the repeated search</b><span>Each point is 5 to 16 replies; bars are 95% intervals.</span></figcaption>
+  <div class="legend"><span class="legend-item"><svg class="key" width="26" height="12" aria-hidden="true"><line class="s1-line" x1="1" y1="6" x2="25" y2="6"/><circle class="s1-mark" cx="13" cy="6" r="4.5"/></svg><code>...</code> searches return real results</span><span class="legend-item"><svg class="key" width="26" height="12" aria-hidden="true"><line class="s2-line" x1="1" y1="6" x2="25" y2="6"/><rect class="s2-mark" x="9" y="2" width="8" height="8" rx="1"/></svg><code>...</code> searches return no results</span><span class="legend-item"><svg class="key" width="26" height="12" aria-hidden="true"><line class="s3-line" x1="1" y1="6" x2="25" y2="6"/><path class="s3-mark" d="M13 0.5 L18 9.5 L8 9.5 Z"/></svg>real searches in snake_case, repeated</span></div>
+  <svg viewBox="0 0 720 340" role="img" aria-label="Share of replies that copied, by number of examples in the history">
+  <line class="grid" x1="48" x2="700" y1="296" y2="296"/><text class="tick" x="40" y="300" text-anchor="end">0%</text><line class="grid" x1="48" x2="700" y1="226" y2="226"/><text class="tick" x="40" y="230" text-anchor="end">25%</text><line class="grid" x1="48" x2="700" y1="156" y2="156"/><text class="tick" x="40" y="160" text-anchor="end">50%</text><line class="grid" x1="48" x2="700" y1="86" y2="86"/><text class="tick" x="40" y="90" text-anchor="end">75%</text><line class="grid" x1="48" x2="700" y1="16" y2="16"/><text class="tick" x="40" y="20" text-anchor="end">100%</text>
+  <line class="axis" x1="48" x2="700" y1="296" y2="296"/>
+  <text class="tick" x="108.85333333333334" y="314" text-anchor="middle">7</text><text class="tick" x="143.62666666666667" y="314" text-anchor="middle">11</text><text class="tick" x="178.4" y="314" text-anchor="middle">15</text><text class="tick" x="247.94666666666666" y="314" text-anchor="middle">23</text><text class="tick" x="387.04" y="314" text-anchor="middle">39</text><text class="tick" x="456.5866666666667" y="314" text-anchor="middle">47</text><text class="tick" x="526.1333333333333" y="314" text-anchor="middle">55</text><text class="tick" x="595.68" y="314" text-anchor="middle">63</text><text class="tick" x="665.2266666666667" y="314" text-anchor="middle">71</text>
+  <text class="axis-title" x="374" y="334" text-anchor="middle">copies of the pattern already in the history</text>
+  <g><line class="s1-whisker" x1="105.85333333333334" x2="105.85333333333334" y1="287.5852759559155" y2="138.21735776217912"/><line class="s1-whisker" x1="140.62666666666667" x2="140.62666666666667" y1="296" y2="174.34238146941732"/><line class="s1-whisker" x1="175.4" x2="175.4" y1="296" y2="174.34238146941732"/><line class="s1-whisker" x1="244.94666666666666" x2="244.94666666666666" y1="285.8575149284595" y2="121.14791395319082"/><line class="s1-whisker" x1="384.04" x2="384.04" y1="253.5069180548645" y2="132.79675042339636"/><line class="s1-whisker" x1="453.5866666666667" x2="453.5866666666667" y1="122.07099777824547" y2="26.460931569580612"/><line class="s1-whisker" x1="523.1333333333333" x2="523.1333333333333" y1="73.0889945652174" y2="16"/><line class="s1-whisker" x1="592.68" x2="592.68" y1="292.6773551902655" y2="212.51218285321283"/><line class="s1-whisker" x1="662.2266666666667" x2="662.2266666666667" y1="116.86532802289517" y2="25.793489814376013"/><polyline class="s1-line" points="108.85333333333334,249.33333333333334 143.62666666666667,296 178.4,296 247.94666666666666,240 387.04,202.66666666666669 456.5866666666667,53.33333333333333 526.1333333333333,16 595.68,277.3333333333333 665.2266666666667,51"/><circle class="s1-mark" cx="108.85333333333334" cy="249.33333333333334" r="4.5"/><circle class="hit" cx="108.85333333333334" cy="249.33333333333334" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return real results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;7 examples&amp;lt;/b&amp;gt;: 1 of 6 replies copied (17%)"/><circle class="s1-mark" cx="143.62666666666667" cy="296" r="4.5"/><circle class="hit" cx="143.62666666666667" cy="296" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return real results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;11 examples&amp;lt;/b&amp;gt;: 0 of 5 replies copied (0%)"/><circle class="s1-mark" cx="178.4" cy="296" r="4.5"/><circle class="hit" cx="178.4" cy="296" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return real results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;15 examples&amp;lt;/b&amp;gt;: 0 of 5 replies copied (0%)"/><circle class="s1-mark" cx="247.94666666666666" cy="240" r="4.5"/><circle class="hit" cx="247.94666666666666" cy="240" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return real results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;23 examples&amp;lt;/b&amp;gt;: 1 of 5 replies copied (20%)"/><circle class="s1-mark" cx="387.04" cy="202.66666666666669" r="4.5"/><circle class="hit" cx="387.04" cy="202.66666666666669" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return real results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;39 examples&amp;lt;/b&amp;gt;: 5 of 15 replies copied (33%)"/><circle class="s1-mark" cx="456.5866666666667" cy="53.33333333333333" r="4.5"/><circle class="hit" cx="456.5866666666667" cy="53.33333333333333" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return real results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;47 examples&amp;lt;/b&amp;gt;: 13 of 15 replies copied (87%)"/><circle class="s1-mark" cx="526.1333333333333" cy="16" r="4.5"/><circle class="hit" cx="526.1333333333333" cy="16" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return real results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;55 examples&amp;lt;/b&amp;gt;: 15 of 15 replies copied (100%)"/><circle class="s1-mark" cx="595.68" cy="277.3333333333333" r="4.5"/><circle class="hit" cx="595.68" cy="277.3333333333333" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return real results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;63 examples&amp;lt;/b&amp;gt;: 1 of 15 replies copied (7%)"/><circle class="s1-mark" cx="665.2266666666667" cy="51" r="4.5"/><circle class="hit" cx="665.2266666666667" cy="51" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return real results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;71 examples&amp;lt;/b&amp;gt;: 14 of 16 replies copied (88%)"/></g><g><line class="s2-whisker" x1="108.85333333333334" x2="108.85333333333334" y1="285.8575149284595" y2="121.14791395319082"/><line class="s2-whisker" x1="143.62666666666667" x2="143.62666666666667" y1="296" y2="174.34238146941732"/><line class="s2-whisker" x1="178.4" x2="178.4" y1="296" y2="174.34238146941732"/><line class="s2-whisker" x1="247.94666666666666" x2="247.94666666666666" y1="296" y2="174.34238146941732"/><line class="s2-whisker" x1="387.04" x2="387.04" y1="179.2032495766037" y2="58.49308194513547"/><line class="s2-whisker" x1="456.5866666666667" x2="456.5866666666667" y1="253.5069180548645" y2="132.79675042339636"/><line class="s2-whisker" x1="526.1333333333333" x2="526.1333333333333" y1="226.53416927270996" y2="100.32656442294223"/><line class="s2-whisker" x1="665.2266666666667" x2="665.2266666666667" y1="99.48781714678717" y2="19.322644809734584"/><polyline class="s2-line" points="108.85333333333334,240 143.62666666666667,296 178.4,296 247.94666666666666,296 387.04,109.33333333333334 456.5866666666667,202.66666666666669 526.1333333333333,165.33333333333334 665.2266666666667,34.666666666666664"/><rect class="s2-mark" x="104.85333333333334" y="236" width="8" height="8" rx="1"/><circle class="hit" cx="108.85333333333334" cy="240" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return no results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;7 examples&amp;lt;/b&amp;gt;: 1 of 5 replies copied (20%)"/><rect class="s2-mark" x="139.62666666666667" y="292" width="8" height="8" rx="1"/><circle class="hit" cx="143.62666666666667" cy="296" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return no results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;11 examples&amp;lt;/b&amp;gt;: 0 of 5 replies copied (0%)"/><rect class="s2-mark" x="174.4" y="292" width="8" height="8" rx="1"/><circle class="hit" cx="178.4" cy="296" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return no results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;15 examples&amp;lt;/b&amp;gt;: 0 of 5 replies copied (0%)"/><rect class="s2-mark" x="243.94666666666666" y="292" width="8" height="8" rx="1"/><circle class="hit" cx="247.94666666666666" cy="296" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return no results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;23 examples&amp;lt;/b&amp;gt;: 0 of 5 replies copied (0%)"/><rect class="s2-mark" x="383.04" y="105.33333333333334" width="8" height="8" rx="1"/><circle class="hit" cx="387.04" cy="109.33333333333334" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return no results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;39 examples&amp;lt;/b&amp;gt;: 10 of 15 replies copied (67%)"/><rect class="s2-mark" x="452.5866666666667" y="198.66666666666669" width="8" height="8" rx="1"/><circle class="hit" cx="456.5866666666667" cy="202.66666666666669" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return no results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;47 examples&amp;lt;/b&amp;gt;: 5 of 15 replies copied (33%)"/><rect class="s2-mark" x="522.1333333333333" y="161.33333333333334" width="8" height="8" rx="1"/><circle class="hit" cx="526.1333333333333" cy="165.33333333333334" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return no results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;55 examples&amp;lt;/b&amp;gt;: 7 of 15 replies copied (47%)"/><rect class="s2-mark" x="661.2266666666667" y="30.666666666666664" width="8" height="8" rx="1"/><circle class="hit" cx="665.2266666666667" cy="34.666666666666664" r="12" data-tip="&lt;code&gt;...&lt;/code&gt; searches return no results&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;71 examples&amp;lt;/b&amp;gt;: 14 of 15 replies copied (93%)"/></g><g><line class="s3-whisker" x1="111.85333333333334" x2="111.85333333333334" y1="296" y2="174.34238146941732"/><line class="s3-whisker" x1="146.62666666666667" x2="146.62666666666667" y1="296" y2="174.34238146941732"/><line class="s3-whisker" x1="181.4" x2="181.4" y1="296" y2="174.34238146941732"/><line class="s3-whisker" x1="250.94666666666666" x2="250.94666666666666" y1="231.3984189815256" y2="48.93310472459092"/><line class="s3-whisker" x1="390.04" x2="390.04" y1="285.8575149284595" y2="121.14791395319082"/><line class="s3-whisker" x1="459.5866666666667" x2="459.5866666666667" y1="190.85208604680915" y2="26.142485071540502"/><line class="s3-whisker" x1="529.1333333333333" x2="529.1333333333333" y1="137.65761853058268" y2="16"/><line class="s3-whisker" x1="668.2266666666667" x2="668.2266666666667" y1="137.65761853058268" y2="16"/><polyline class="s3-line" points="108.85333333333334,296 143.62666666666667,296 178.4,296 247.94666666666666,128 387.04,240 456.5866666666667,71.99999999999999 526.1333333333333,16 665.2266666666667,16"/><path class="s3-mark" d="M108.85333333333334 290.5 L113.85333333333334 299.5 L103.85333333333334 299.5 Z"/><circle class="hit" cx="108.85333333333334" cy="296" r="12" data-tip="real searches in snake_case, repeated&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;7 examples&amp;lt;/b&amp;gt;: 0 of 5 replies copied (0%)"/><path class="s3-mark" d="M143.62666666666667 290.5 L148.62666666666667 299.5 L138.62666666666667 299.5 Z"/><circle class="hit" cx="143.62666666666667" cy="296" r="12" data-tip="real searches in snake_case, repeated&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;11 examples&amp;lt;/b&amp;gt;: 0 of 5 replies copied (0%)"/><path class="s3-mark" d="M178.4 290.5 L183.4 299.5 L173.4 299.5 Z"/><circle class="hit" cx="178.4" cy="296" r="12" data-tip="real searches in snake_case, repeated&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;15 examples&amp;lt;/b&amp;gt;: 0 of 5 replies copied (0%)"/><path class="s3-mark" d="M247.94666666666666 122.5 L252.94666666666666 131.5 L242.94666666666666 131.5 Z"/><circle class="hit" cx="247.94666666666666" cy="128" r="12" data-tip="real searches in snake_case, repeated&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;23 examples&amp;lt;/b&amp;gt;: 3 of 5 replies copied (60%)"/><path class="s3-mark" d="M387.04 234.5 L392.04 243.5 L382.04 243.5 Z"/><circle class="hit" cx="387.04" cy="240" r="12" data-tip="real searches in snake_case, repeated&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;39 examples&amp;lt;/b&amp;gt;: 1 of 5 replies copied (20%)"/><path class="s3-mark" d="M456.5866666666667 66.49999999999999 L461.5866666666667 75.49999999999999 L451.5866666666667 75.49999999999999 Z"/><circle class="hit" cx="456.5866666666667" cy="71.99999999999999" r="12" data-tip="real searches in snake_case, repeated&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;47 examples&amp;lt;/b&amp;gt;: 4 of 5 replies copied (80%)"/><path class="s3-mark" d="M526.1333333333333 10.5 L531.1333333333333 19.5 L521.1333333333333 19.5 Z"/><circle class="hit" cx="526.1333333333333" cy="16" r="12" data-tip="real searches in snake_case, repeated&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;55 examples&amp;lt;/b&amp;gt;: 5 of 5 replies copied (100%)"/><path class="s3-mark" d="M665.2266666666667 10.5 L670.2266666666667 19.5 L660.2266666666667 19.5 Z"/><circle class="hit" cx="665.2266666666667" cy="16" r="12" data-tip="real searches in snake_case, repeated&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;71 examples&amp;lt;/b&amp;gt;: 5 of 5 replies copied (100%)"/></g>
+</svg>
+  <details><summary>Show the numbers</summary>
+    <table><thead><tr><th>Examples in history</th><th><code>...</code> searches return real results</th><th><code>...</code> searches return no results</th><th>real searches in snake_case, repeated</th></tr></thead><tbody><tr><td>7</td><td>1/6 (17%)</td><td>1/5 (20%)</td><td>0/5 (0%)</td></tr><tr><td>11</td><td>0/5 (0%)</td><td>0/5 (0%)</td><td>0/5 (0%)</td></tr><tr><td>15</td><td>0/5 (0%)</td><td>0/5 (0%)</td><td>0/5 (0%)</td></tr><tr><td>23</td><td>1/5 (20%)</td><td>0/5 (0%)</td><td>3/5 (60%)</td></tr><tr><td>39</td><td>5/15 (33%)</td><td>10/15 (67%)</td><td>1/5 (20%)</td></tr><tr><td>47</td><td>13/15 (87%)</td><td>5/15 (33%)</td><td>4/5 (80%)</td></tr><tr><td>55</td><td>15/15 (100%)</td><td>7/15 (47%)</td><td>5/5 (100%)</td></tr><tr><td>63</td><td>1/15 (7%)</td><td>–</td><td>–</td></tr><tr><td>71</td><td>14/16 (88%)</td><td>14/15 (93%)</td><td>5/5 (100%)</td></tr></tbody></table>
+  </details>
+</figure><ul>
+<li><p><strong>Repeats begin early, then become consistent.</strong> In just a handful of gpt-6.1-sol runs, we see the <code>...</code> mimicking begins sparsely at only 7 previous stubs. Then depending on the variant, it becomes more and more consistent until it&#39;s near-certain to mimic the stub.</p>
+</li>
+<li><p><strong>Once they mimic, models stop reasoning.</strong> Even though the model reasoning effort was set to xhigh, 133 of the 135 replies that
+copied stubs used zero reasoning tokens. Usage from this example shows 19 output tokens, none from reasoning.</p>
+</li>
+</ul>
+<pre><code class="language-text">… 55 searches, each answered by a real policy result …
+KB_search({&quot;query&quot;:&quot;...&quot;})  →  1. Credit Card Rewards Points Rounding Policy …
+
+reply:  KB_search({&quot;query&quot;:&quot;...&quot;})       reasoning tokens: 0   output tokens: 19
+</code></pre>
+<ul>
+<li><strong>Failure doesn&#39;t stop it.</strong> We tried changing results to stubbed searches with &quot;No results found&quot;, to nudge the model that a stubbed query will not give good results. Despite this, at 71 examples 14 of 15 replies sent <code>...</code>
+again. This also favors pattern repetitions over context length as the main cause. Real KB_search tool results produce a ~3.5k-token policy document, so going from 7 to 71 examples balloons the request 31k -&gt; 256k tokens. In this variant, each result is just 3 words, so the same 71 examples come to 33k tokens instead of 256k. The agent still copies reliably:</li>
+</ul>
+<pre><code class="language-text">… 62 more searches like these …
+KB_search({&quot;query&quot;:&quot;...&quot;})  →  No results found.
+KB_search({&quot;query&quot;:&quot;...&quot;})  →  No results found.
+
+reply:  KB_search({&quot;query&quot;:&quot;...&quot;})       reasoning tokens: 0   output tokens: 19
+</code></pre>
+<ul>
+<li><strong>An explicit rule doesn&#39;t stop it.</strong> More interestingly, explicitly adding &quot;Do NOT use ... as a KB_search query&quot; to the end of the system prompt had seemingly no effect on mimicking rate.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><code>...</code> searches in history</th>
+<th>Without &quot;Do NOT...&quot;</th>
+<th>With &quot;Do NOT...&quot;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>39</td>
+<td>5/15 copied</td>
+<td>3/10</td>
+</tr>
+<tr>
+<td>55</td>
+<td>15/15</td>
+<td><strong>10/10</strong></td>
+</tr>
+<tr>
+<td>71</td>
+<td>14/16</td>
+<td><strong>10/10</strong></td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>It continues the sequence, not a style.</strong> Is the agent picking up a habit, like &quot;write queries in snake_case&quot;, or
+continuing the exact sequence of calls in front of it? We tested both with
+snake_case queries.</li>
+</ul>
+<p><strong>With a loop.</strong> The history holds the agent&#39;s own 7 searches, repeated in
+the same order over and over. Later copies sent the next search query verbatim in a loop:</p>
+<pre><code class="language-text">history: the agent&#39;s 7 searches, over and over (55 in all)
+  1  cash_back_rewards_calculation_errors_business_bronze_…
+  2  business_bronze_rewards_card_cash_back_earn_rate_…
+  …
+  7  business_bronze_rewards_card_promotion_double_cash_back_new_customer
+  1  cash_back_rewards_calculation_errors_business_bronze_…
+  …
+  5  internal_filing_cash_back_dispute_cash_back_disputes_rewards_tools
+  6  rewards_points_rounding_whole_number_truncate_fractional_points
+
+reply:
+  7  business_bronze_rewards_card_promotion_double_cash_back_new_customer   ← next in the loop
+</code></pre>
+<p><strong>Without a loop.</strong> We tried adding KB_searches from other trajectories to add variance. Here, the pattern is only snake_case, not the full query. In these cases, we saw a lower rate of copying snake_case:</p>
+<pre><code class="language-text">history: 55 different searches from other conversations
+  …
+  bronze_rewards_card_earn_1_0_purchases
+  close_credit_card_account_closure_request_green_rewards_card_multiple_cards
+  credit_card_consultant_travel_software_subscriptions_adobe_project_management_…
+
+most replies: a normal query
+  Submitting a Cash Back Dispute submit_cash_back_dispute_0589
+a few replies: snake_case
+  cash_back_dispute_submit_rewards_review_partial_refunds_…    ← this customer&#39;s problem
+  pending_credit_card_replacement_cancel_order_user_action     ← another customer&#39;s
+</code></pre>
+<p>Across the same history lengths (7 to 71 searches), only 7 of 40 replies
+(18%) wrote a snake_case query, against 18 of 40 (45%) that continued the
+loop. At 47+ searches in the context, it&#39;s 33% vs 93%. This still matters, but is much less consistent than a verbatim repeated pattern.</p>
+<h2>Copies come with less reasoning</h2>
+<figure class="chart">
+  <figcaption><b>Reasoning tokens before copying a stub vs. not</b><span>Every reply from every run, all at reasoning effort xhigh. Bars are each group's share of its replies.</span></figcaption>
+  <div class="legend"><span class="legend-item"><svg class="key" width="12" height="12" aria-hidden="true"><rect class="s1-bar" width="12" height="12" rx="2"/></svg>copied (262 replies)</span><span class="legend-item"><svg class="key" width="12" height="12" aria-hidden="true"><rect class="s0-bar" width="12" height="12" rx="2"/></svg>didn't copy (988 replies)</span></div>
+  <svg viewBox="0 0 720 300" role="img" aria-label="Reasoning tokens used by replies that copied and replies that didn't">
+  <line class="grid" x1="48" x2="704" y1="256" y2="256"/><text class="tick" x="40" y="260" text-anchor="end">0%</text><line class="grid" x1="48" x2="704" y1="198" y2="198"/><text class="tick" x="40" y="202" text-anchor="end">25%</text><line class="grid" x1="48" x2="704" y1="140" y2="140"/><text class="tick" x="40" y="144" text-anchor="end">50%</text><line class="grid" x1="48" x2="704" y1="82" y2="82"/><text class="tick" x="40" y="86" text-anchor="end">75%</text><line class="grid" x1="48" x2="704" y1="24" y2="24"/><text class="tick" x="40" y="28" text-anchor="end">100%</text>
+  <line class="axis" x1="48" x2="704" y1="256" y2="256"/>
+  <text class="tick" x="102.66666666666666" y="274" text-anchor="middle">0</text><path class="s1-bar" d="M79.66666666666666 256 V72.27480916030534 Q79.66666666666666 68.27480916030534 83.66666666666666 68.27480916030534 H97.66666666666666 Q101.66666666666666 68.27480916030534 101.66666666666666 72.27480916030534 V256 Z"/><text class="value" x="90.66666666666666" y="63.27480916030534" text-anchor="middle">81%</text><rect class="hit" x="77.66666666666666" y="24" width="26" height="232" data-tip="&lt;b&gt;copied&lt;/b&gt;: 212 of 262 replies (81%) used 0 reasoning tokens"/><path class="s0-bar" d="M103.66666666666666 256 V181.80566801619432 Q103.66666666666666 177.80566801619432 107.66666666666666 177.80566801619432 H121.66666666666666 Q125.66666666666666 177.80566801619432 125.66666666666666 181.80566801619432 V256 Z"/><text class="value" x="114.66666666666666" y="172.80566801619432" text-anchor="middle">34%</text><rect class="hit" x="101.66666666666666" y="24" width="26" height="232" data-tip="&lt;b&gt;didn't copy&lt;/b&gt;: 333 of 988 replies (34%) used 0 reasoning tokens"/><text class="tick" x="212" y="274" text-anchor="middle">1–100</text><path class="s1-bar" d="M189 256 V230.77862595419847 Q189 226.77862595419847 193 226.77862595419847 H207 Q211 226.77862595419847 211 230.77862595419847 V256 Z"/><text class="value" x="200" y="221.77862595419847" text-anchor="middle">13%</text><rect class="hit" x="187" y="24" width="26" height="232" data-tip="&lt;b&gt;copied&lt;/b&gt;: 33 of 262 replies (13%) used 1–100 reasoning tokens"/><path class="s0-bar" d="M213 256 V190.25910931174087 Q213 186.25910931174087 217 186.25910931174087 H231 Q235 186.25910931174087 235 190.25910931174087 V256 Z"/><text class="value" x="224" y="181.25910931174087" text-anchor="middle">30%</text><rect class="hit" x="211" y="24" width="26" height="232" data-tip="&lt;b&gt;didn't copy&lt;/b&gt;: 297 of 988 replies (30%) used 1–100 reasoning tokens"/><text class="tick" x="321.3333333333333" y="274" text-anchor="middle">101–200</text><path class="s1-bar" d="M298.3333333333333 256 V249.37404580152673 Q298.3333333333333 245.37404580152673 302.3333333333333 245.37404580152673 H316.3333333333333 Q320.3333333333333 245.37404580152673 320.3333333333333 249.37404580152673 V256 Z"/><text class="value" x="309.3333333333333" y="240.37404580152673" text-anchor="middle">5%</text><rect class="hit" x="296.3333333333333" y="24" width="26" height="232" data-tip="&lt;b&gt;copied&lt;/b&gt;: 12 of 262 replies (5%) used 101–200 reasoning tokens"/><path class="s0-bar" d="M322.3333333333333 256 V230.64777327935224 Q322.3333333333333 226.64777327935224 326.3333333333333 226.64777327935224 H340.3333333333333 Q344.3333333333333 226.64777327935224 344.3333333333333 230.64777327935224 V256 Z"/><text class="value" x="333.3333333333333" y="221.64777327935224" text-anchor="middle">13%</text><rect class="hit" x="320.3333333333333" y="24" width="26" height="232" data-tip="&lt;b&gt;didn't copy&lt;/b&gt;: 125 of 988 replies (13%) used 101–200 reasoning tokens"/><text class="tick" x="430.66666666666663" y="274" text-anchor="middle">201–300</text><path class="s1-bar" d="M407.66666666666663 256 V259.1145038167939 Q407.66666666666663 255.1145038167939 411.66666666666663 255.1145038167939 H425.66666666666663 Q429.66666666666663 255.1145038167939 429.66666666666663 259.1145038167939 V256 Z"/><text class="value" x="418.66666666666663" y="250.1145038167939" text-anchor="middle">0%</text><rect class="hit" x="405.66666666666663" y="24" width="26" height="232" data-tip="&lt;b&gt;copied&lt;/b&gt;: 1 of 262 replies (0%) used 201–300 reasoning tokens"/><path class="s0-bar" d="M431.66666666666663 256 V238.63157894736844 Q431.66666666666663 234.63157894736844 435.66666666666663 234.63157894736844 H449.66666666666663 Q453.66666666666663 234.63157894736844 453.66666666666663 238.63157894736844 V256 Z"/><text class="value" x="442.66666666666663" y="229.63157894736844" text-anchor="middle">9%</text><rect class="hit" x="429.66666666666663" y="24" width="26" height="232" data-tip="&lt;b&gt;didn't copy&lt;/b&gt;: 91 of 988 replies (9%) used 201–300 reasoning tokens"/><text class="tick" x="540" y="274" text-anchor="middle">301–400</text><rect class="hit" x="515" y="24" width="26" height="232" data-tip="&lt;b&gt;copied&lt;/b&gt;: 0 of 262 replies (0%) used 301–400 reasoning tokens"/><path class="s0-bar" d="M541 256 V245.4412955465587 Q541 241.4412955465587 545 241.4412955465587 H559 Q563 241.4412955465587 563 245.4412955465587 V256 Z"/><text class="value" x="552" y="236.4412955465587" text-anchor="middle">6%</text><rect class="hit" x="539" y="24" width="26" height="232" data-tip="&lt;b&gt;didn't copy&lt;/b&gt;: 62 of 988 replies (6%) used 301–400 reasoning tokens"/><text class="tick" x="649.3333333333333" y="274" text-anchor="middle">401+</text><path class="s1-bar" d="M626.3333333333333 256 V256.4580152671756 Q626.3333333333333 252.45801526717557 630.3333333333333 252.45801526717557 H644.3333333333333 Q648.3333333333333 252.45801526717557 648.3333333333333 256.4580152671756 V256 Z"/><text class="value" x="637.3333333333333" y="247.45801526717557" text-anchor="middle">2%</text><rect class="hit" x="624.3333333333333" y="24" width="26" height="232" data-tip="&lt;b&gt;copied&lt;/b&gt;: 4 of 262 replies (2%) used 401+ reasoning tokens"/><path class="s0-bar" d="M650.3333333333333 256 V241.21457489878543 Q650.3333333333333 237.21457489878543 654.3333333333333 237.21457489878543 H668.3333333333333 Q672.3333333333333 237.21457489878543 672.3333333333333 241.21457489878543 V256 Z"/><text class="value" x="661.3333333333333" y="232.21457489878543" text-anchor="middle">8%</text><rect class="hit" x="648.3333333333333" y="24" width="26" height="232" data-tip="&lt;b&gt;didn't copy&lt;/b&gt;: 80 of 988 replies (8%) used 401+ reasoning tokens"/>
+  <text class="axis-title" x="376" y="294" text-anchor="middle">reasoning tokens in the reply</text>
+</svg>
+  <p class="note">Sweeps included: real trajectories, all conditions; <code>...</code>, real results; <code>...</code>, no results; <code>...</code>, told not to use <code>...</code>; snake_case, repeated; snake_case, never repeated.</p>
+  <details><summary>Show the numbers</summary>
+    <table><thead><tr><th>Reply</th><th>0</th><th>1–100</th><th>101–200</th><th>201–300</th><th>301–400</th><th>401+</th><th>Total</th></tr></thead><tbody><tr><td>copied</td><td>212 (81%)</td><td>33 (13%)</td><td>12 (5%)</td><td>1 (0%)</td><td>0 (0%)</td><td>4 (2%)</td><td>262</td></tr><tr><td>didn't copy</td><td>333 (34%)</td><td>297 (30%)</td><td>125 (13%)</td><td>91 (9%)</td><td>62 (6%)</td><td>80 (8%)</td><td>988</td></tr></tbody></table>
+  </details>
+</figure><p>Across every run in both experiments (1,250 replies), 81% of the replies that
+copied a stub used no reasoning tokens, against 34% of the replies that
+didn&#39;t. On average, copies reasoned for 25 tokens and non-copies for 123.
+These numbers leave out the two runs we picked to capture reasoning
+summaries, since those were chosen for replies that reasoned.
+Copying tends to skip reasoning, but not always: as the summaries above show,
+the agent can reason about the right call and still write the stub.</p>
+<h2>Takeaways</h2>
+<ul>
+<li><strong>Repeated tool calls can be hazardous.</strong> Imagine a failed tool call, like a rate limited web search. If the model naturally retries a few times, the agent is at risk of entering a long doom loop. To guard against this, make sure to check for repeated calls in your agent.</li>
+<li><strong>Reasoning effort and prompted rules are overpowered by patterns.</strong> Models are more influenced by their own previous behavior than system prompts.</li>
+</ul>
+<h2>Limits</h2>
+<p>One model (<code>gpt-6.1-sol</code>) and one benchmark. Experiment 1 covers 10 real
+trajectories, 2 replies per point; experiment 2 uses one conversation with
+inserted repeats, 5 to 16 replies per count. In experiment 2, the ends of each
+curve are clear but the middle isn&#39;t pinned down, and one count stands out
+unexplained: with real results, copying dropped to 1 of 15 replies at 63
+searches, between near-total copying at 55 and 71. The reasoning example comes
+from one point, sampled 10 times.</p>
+<h2>Verify it yourself</h2>
+<p>The key claims have tests in <code>src/claims/</code>, with recorded API traffic in
+<code>test/__recordings__/</code>; the other numbers come from the CSVs in <code>results/</code>. The runs behind the numbers are <code>scripts/run-replay.ts</code>
+(experiment 1) and <code>scripts/run-repeats.ts</code> (experiment 2).</p>
+<pre><code class="language-sh">pnpm --filter @experiments/pattern_following test              # replay, no keys needed
+RECORD=true pnpm --filter @experiments/pattern_following test  # re-run live
+</code></pre>
+
+</main>
+<script>
+document.querySelectorAll(".chart").forEach((chart) => {
+  const tip = document.createElement("div");
+  tip.className = "tip";
+  chart.appendChild(tip);
+  chart.querySelectorAll("[data-tip]").forEach((el) => {
+    el.addEventListener("pointerenter", () => { tip.innerHTML = el.getAttribute("data-tip"); tip.style.display = "block"; });
+    el.addEventListener("pointermove", (e) => {
+      const box = chart.getBoundingClientRect();
+      const left = Math.min(e.clientX - box.left + 12, box.width - tip.offsetWidth - 8);
+      tip.style.left = left + "px";
+      tip.style.top = (e.clientY - box.top - tip.offsetHeight - 10) + "px";
+    });
+    el.addEventListener("pointerleave", () => { tip.style.display = "none"; });
+  });
+});
+</script>
+</body>
+</html>

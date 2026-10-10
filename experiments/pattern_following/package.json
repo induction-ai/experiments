@@ -1,0 +1,19 @@
+{
+  "name": "@experiments/pattern_following",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "repeats": "tsx scripts/run-repeats.ts",
+    "report": "tsx scripts/build-report.ts"
+  },
+  "dependencies": {
+    "@experiments/shared": "workspace:*",
+    "marked": "^18.0.13"
+  },
+  "devDependencies": {
+    "@experiments/test": "workspace:*"
+  }
+}
