@@ -1,0 +1,98 @@
+batch,run,added,dots_in_history,model,effort,history_items,tool_calls,searches,dots_queries,sent_message,tool_names,queries,input_tokens,cached_tokens,output_tokens,reasoning_tokens,error,timestamp
+2026-10-07T20:23:24.367Z,0,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,2604,19,0,,2026-10-07T20:23:24.380Z
+2026-10-07T20:23:24.367Z,0,0,7,gpt-6.1-sol,xhigh,34,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,30733,0,590,453,,2026-10-07T20:23:24.370Z
+2026-10-07T20:24:50.532Z,0,0,7,gpt-6.1-sol,xhigh,34,3,3,3,false,KB_search | KB_search | KB_search,... | ... | ...,30733,30730,184,117,,2026-10-07T20:24:50.533Z
+2026-10-07T20:24:50.532Z,3,0,7,gpt-6.1-sol,xhigh,34,3,3,0,false,KB_search | KB_search | KB_search,Business Bronze Rewards Card cash back exclusions refunds third party payment processors Chipotle | EcoCard green eligibility Everlane refunds marketplace third party payment processors | Submitting a Cash Back Dispute submit_cash_back_dispute_0589 customer initiate,30733,30730,245,139,,2026-10-07T20:24:50.544Z
+2026-10-07T20:24:50.532Z,1,0,7,gpt-6.1-sol,xhigh,34,2,2,0,false,KB_search | KB_search,Submitting a Cash Back Dispute submit_cash_back_dispute_0589 user_id transaction_id | Business Bronze Rewards Card EcoCard rewards partial refunds merchant category third party payment processors exclusions,30733,30730,287,203,,2026-10-07T20:24:50.542Z
+2026-10-07T20:24:50.532Z,2,0,7,gpt-6.1-sol,xhigh,34,3,3,0,false,KB_search | KB_search | KB_search,Business Bronze Rewards Card exceptions exclusions net purchases refunds third-party payment processors Chipotle | EcoCard Everlane green merchant exclusions refunds third-party payment processors | Submitting a Cash Back Dispute submit_cash_back_dispute_0589 user_id transaction_id,30733,30730,381,272,,2026-10-07T20:24:50.543Z
+2026-10-07T20:24:50.532Z,0,4,11,gpt-6.1-sol,xhigh,42,2,2,0,false,KB_search | KB_search,Submitting a Cash Back Dispute submit_cash_back_dispute_0589 | credit card rewards investigate transaction refunds credits payment processor merchant category detail tool,43602,30730,158,81,,2026-10-07T20:24:57.589Z
+2026-10-07T20:24:50.532Z,1,4,11,gpt-6.1-sol,xhigh,42,2,2,0,false,KB_search | KB_search,credit card transaction details linked refunds credits third party payment processor rewards investigation | Submitting a Cash Back Dispute submit_cash_back_dispute_0589,43602,43599,249,172,,2026-10-07T20:24:59.643Z
+2026-10-07T20:24:50.532Z,4,0,7,gpt-6.1-sol,xhigh,34,3,3,0,false,KB_search | KB_search | KB_search,Business Bronze Rewards Card cash back exclusions third-party payment processors refunds merchant category | EcoCard green points third-party payment processors refunds Everlane merchant category exclusions | Submitting a Cash Back Dispute submit_cash_back_dispute_0589,30733,30730,362,256,,2026-10-07T20:24:56.342Z
+2026-10-07T20:24:50.532Z,3,4,11,gpt-6.1-sol,xhigh,42,1,1,0,false,KB_search,cash back rewards partial refund credits third-party payment processor merchant category transaction details submit_cash_back_dispute_0589,43602,43599,183,141,,2026-10-07T20:25:03.779Z
+2026-10-07T20:24:50.532Z,4,4,11,gpt-6.1-sol,xhigh,42,2,2,0,false,KB_search | KB_search,Submitting a Cash Back Dispute submit_cash_back_dispute_0589 | credit card rewards discrepancy investigate transaction details refunds third-party payment processors,43602,43599,223,147,,2026-10-07T20:25:06.615Z
+2026-10-07T20:24:50.532Z,2,4,11,gpt-6.1-sol,xhigh,42,1,1,0,false,KB_search,Submitting a Cash Back Dispute submit_cash_back_dispute_0589,43602,43599,537,503,,2026-10-07T20:25:01.422Z
+2026-10-07T20:24:50.532Z,0,8,15,gpt-6.1-sol,xhigh,50,1,0,0,false,give_discoverable_user_tool,,58233,43599,336,275,,2026-10-07T20:25:07.021Z
+2026-10-07T20:24:50.532Z,1,8,15,gpt-6.1-sol,xhigh,50,1,0,0,false,give_discoverable_user_tool,,58233,58230,356,295,,2026-10-07T20:25:09.421Z
+2026-10-07T20:24:50.532Z,2,8,15,gpt-6.1-sol,xhigh,50,1,0,0,false,give_discoverable_user_tool,,58233,58230,325,264,,2026-10-07T20:25:12.924Z
+2026-10-07T20:24:50.532Z,3,8,15,gpt-6.1-sol,xhigh,50,1,0,0,false,give_discoverable_user_tool,,58233,58230,506,445,,2026-10-07T20:25:14.957Z
+2026-10-07T20:24:50.532Z,0,16,23,gpt-6.1-sol,xhigh,66,1,0,0,false,give_discoverable_user_tool,,85680,58230,378,317,,2026-10-07T20:25:18.845Z
+2026-10-07T20:24:50.532Z,4,8,15,gpt-6.1-sol,xhigh,50,1,0,0,false,give_discoverable_user_tool,,58233,58230,486,425,,2026-10-07T20:25:16.606Z
+2026-10-07T20:24:50.532Z,4,16,23,gpt-6.1-sol,xhigh,66,1,1,1,false,KB_search,...,85680,85677,19,0,,2026-10-07T20:25:29.405Z
+2026-10-07T20:24:50.532Z,1,16,23,gpt-6.1-sol,xhigh,66,1,0,0,false,give_discoverable_user_tool,,85680,85677,424,363,,2026-10-07T20:25:23.432Z
+2026-10-07T20:24:50.532Z,3,16,23,gpt-6.1-sol,xhigh,66,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,85680,85677,325,188,,2026-10-07T20:25:28.781Z
+2026-10-07T20:24:50.532Z,2,16,23,gpt-6.1-sol,xhigh,66,1,0,0,false,give_discoverable_user_tool,,85680,85677,329,268,,2026-10-07T20:25:27.220Z
+2026-10-07T20:24:50.532Z,3,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,142318,142315,19,0,,2026-10-07T20:25:39.951Z
+2026-10-07T20:24:50.532Z,1,32,39,gpt-6.1-sol,xhigh,98,1,0,0,false,give_discoverable_user_tool,,142318,142315,370,309,,2026-10-07T20:25:34.292Z
+2026-10-07T20:24:50.532Z,0,32,39,gpt-6.1-sol,xhigh,98,1,0,0,false,give_discoverable_user_tool,,142318,85677,416,355,,2026-10-07T20:25:33.591Z
+2026-10-07T20:24:50.532Z,2,32,39,gpt-6.1-sol,xhigh,98,1,0,0,false,give_discoverable_user_tool,,142318,142315,215,154,,2026-10-07T20:25:39.662Z
+2026-10-07T20:24:50.532Z,1,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,255662,19,0,,2026-10-07T20:25:46.216Z
+2026-10-07T20:24:50.532Z,2,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,255662,19,0,,2026-10-07T20:25:46.976Z
+2026-10-07T20:24:50.532Z,3,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,255662,19,0,,2026-10-07T20:25:50.000Z
+2026-10-07T20:24:50.532Z,4,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,255662,19,0,,2026-10-07T20:25:50.275Z
+2026-10-07T20:24:50.532Z,4,32,39,gpt-6.1-sol,xhigh,98,1,0,0,false,give_discoverable_user_tool,,142318,142315,451,390,,2026-10-07T20:25:42.597Z
+2026-10-07T20:24:50.532Z,0,64,71,gpt-6.1-sol,xhigh,162,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,255665,255662,432,295,,2026-10-07T20:25:45.671Z
+2026-10-07T20:32:19.460Z,3,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,142315,19,0,,2026-10-07T20:32:19.480Z
+2026-10-07T20:32:19.460Z,1,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,171203,19,0,,2026-10-07T20:32:19.474Z
+2026-10-07T20:32:19.460Z,2,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,171203,19,0,,2026-10-07T20:32:19.477Z
+2026-10-07T20:32:19.460Z,0,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,171203,19,0,,2026-10-07T20:32:19.461Z
+2026-10-07T20:32:19.460Z,2,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T20:32:24.021Z
+2026-10-07T20:32:19.460Z,0,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,171203,19,0,,2026-10-07T20:32:23.526Z
+2026-10-07T20:32:19.460Z,1,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T20:32:23.670Z
+2026-10-07T20:32:19.460Z,3,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T20:32:29.408Z
+2026-10-07T20:32:19.460Z,4,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T20:32:29.671Z
+2026-10-07T20:32:19.460Z,4,40,47,gpt-6.1-sol,xhigh,114,1,0,0,false,give_discoverable_user_tool,,171206,171203,577,516,,2026-10-07T20:32:23.100Z
+2026-10-07T20:32:19.460Z,3,56,63,gpt-6.1-sol,xhigh,146,1,1,1,false,KB_search,...,228165,228162,19,0,,2026-10-07T20:32:38.349Z
+2026-10-07T20:32:19.460Z,0,56,63,gpt-6.1-sol,xhigh,146,1,0,0,false,give_discoverable_user_tool,,228165,200651,445,384,,2026-10-07T20:32:30.070Z
+2026-10-07T20:32:19.460Z,1,56,63,gpt-6.1-sol,xhigh,146,1,0,0,false,give_discoverable_user_tool,,228165,228162,299,238,,2026-10-07T20:32:34.022Z
+2026-10-07T20:32:19.460Z,2,56,63,gpt-6.1-sol,xhigh,146,1,0,0,false,give_discoverable_user_tool,,228165,228162,468,407,,2026-10-07T20:32:34.498Z
+2026-10-07T20:32:19.460Z,4,56,63,gpt-6.1-sol,xhigh,146,1,0,0,false,give_discoverable_user_tool,,228165,228162,394,333,,2026-10-07T20:32:43.314Z
+2026-10-07T23:34:23.168Z,2,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T23:34:23.189Z
+2026-10-07T23:34:23.168Z,0,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T23:34:23.171Z
+2026-10-07T23:34:23.168Z,3,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,0,19,0,,2026-10-07T23:34:23.192Z
+2026-10-07T23:34:23.168Z,1,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T23:34:23.186Z
+2026-10-07T23:34:23.168Z,4,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T23:34:28.492Z
+2026-10-07T23:34:23.168Z,5,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T23:34:29.266Z
+2026-10-07T23:34:23.168Z,7,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T23:34:29.382Z
+2026-10-07T23:34:23.168Z,6,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T23:34:29.281Z
+2026-10-07T23:34:23.168Z,8,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T23:34:31.967Z
+2026-10-07T23:34:23.168Z,9,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,200654,200651,19,0,,2026-10-07T23:34:32.702Z
+2026-10-07T23:34:23.168Z,1,56,63,gpt-6.1-sol,xhigh,146,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,228165,228162,405,268,,2026-10-07T23:34:33.457Z
+2026-10-07T23:34:23.168Z,0,56,63,gpt-6.1-sol,xhigh,146,1,0,0,false,give_discoverable_user_tool,,228165,200651,566,505,,2026-10-07T23:34:32.719Z
+2026-10-07T23:34:23.168Z,3,56,63,gpt-6.1-sol,xhigh,146,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,228165,228162,503,366,,2026-10-07T23:34:36.499Z
+2026-10-07T23:34:23.168Z,2,56,63,gpt-6.1-sol,xhigh,146,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,228165,228162,569,432,,2026-10-07T23:34:35.138Z
+2026-10-07T23:34:23.168Z,4,56,63,gpt-6.1-sol,xhigh,146,1,0,0,false,give_discoverable_user_tool,,228165,228162,307,246,,2026-10-07T23:34:44.560Z
+2026-10-07T23:34:23.168Z,7,56,63,gpt-6.1-sol,xhigh,146,1,0,0,false,give_discoverable_user_tool,,228165,228162,243,182,,2026-10-07T23:34:49.278Z
+2026-10-07T23:34:23.168Z,5,56,63,gpt-6.1-sol,xhigh,146,1,0,0,false,give_discoverable_user_tool,,228165,228162,315,254,,2026-10-07T23:34:48.404Z
+2026-10-07T23:34:23.168Z,0,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,228162,19,0,,2026-10-07T23:34:58.183Z
+2026-10-07T23:34:23.168Z,6,56,63,gpt-6.1-sol,xhigh,146,1,0,0,false,give_discoverable_user_tool,,228165,228162,577,516,,2026-10-07T23:34:48.473Z
+2026-10-07T23:34:23.168Z,8,56,63,gpt-6.1-sol,xhigh,146,1,0,0,false,give_discoverable_user_tool,,228165,228162,416,355,,2026-10-07T23:34:53.835Z
+2026-10-07T23:34:23.168Z,1,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,255662,19,0,,2026-10-07T23:35:02.566Z
+2026-10-07T23:34:23.168Z,2,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,255662,19,0,,2026-10-07T23:35:04.277Z
+2026-10-07T23:34:23.168Z,9,56,63,gpt-6.1-sol,xhigh,146,1,0,0,false,give_discoverable_user_tool,,228165,228162,463,402,,2026-10-07T23:34:57.108Z
+2026-10-07T23:34:23.168Z,3,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,255662,19,0,,2026-10-07T23:35:05.975Z
+2026-10-07T23:34:23.168Z,4,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,255662,19,0,,2026-10-07T23:35:08.158Z
+2026-10-07T23:34:23.168Z,5,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,255662,19,0,,2026-10-07T23:35:08.279Z
+2026-10-07T23:34:23.168Z,7,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,255662,19,0,,2026-10-07T23:35:09.443Z
+2026-10-07T23:34:23.168Z,6,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,255662,19,0,,2026-10-07T23:35:08.773Z
+2026-10-07T23:34:23.168Z,8,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,255665,255662,19,0,,2026-10-07T23:35:11.440Z
+2026-10-07T23:34:23.168Z,9,64,71,gpt-6.1-sol,xhigh,162,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,255665,255662,454,317,,2026-10-07T23:35:12.039Z
+2026-10-08T20:28:08.225Z,1,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,142318,2604,19,0,,2026-10-08T20:28:08.239Z
+2026-10-08T20:28:08.225Z,2,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,142318,142315,19,0,,2026-10-08T20:28:08.241Z
+2026-10-08T20:28:08.225Z,0,32,39,gpt-6.1-sol,xhigh,98,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,142318,142315,653,516,,2026-10-08T20:28:08.226Z
+2026-10-08T20:28:08.225Z,3,32,39,gpt-6.1-sol,xhigh,98,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,142318,142315,575,438,,2026-10-08T20:28:08.243Z
+2026-10-08T20:28:08.225Z,5,32,39,gpt-6.1-sol,xhigh,98,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,142318,142315,497,360,,2026-10-08T20:28:13.048Z
+2026-10-08T20:28:08.225Z,4,32,39,gpt-6.1-sol,xhigh,98,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,142318,142315,633,496,,2026-10-08T20:28:13.001Z
+2026-10-08T20:28:08.225Z,7,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,142318,142315,19,0,,2026-10-08T20:28:27.655Z
+2026-10-08T20:28:08.225Z,9,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,142318,142315,19,0,,2026-10-08T20:28:29.505Z
+2026-10-08T20:28:08.225Z,6,32,39,gpt-6.1-sol,xhigh,98,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,142318,142315,284,147,,2026-10-08T20:28:26.438Z
+2026-10-08T20:28:08.225Z,0,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,142315,19,0,,2026-10-08T20:28:31.547Z
+2026-10-08T20:28:08.225Z,1,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,171203,19,0,,2026-10-08T20:28:32.830Z
+2026-10-08T20:28:08.225Z,2,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,171203,19,0,,2026-10-08T20:28:33.663Z
+2026-10-08T20:28:08.225Z,3,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,171203,19,0,,2026-10-08T20:28:34.800Z
+2026-10-08T20:28:08.225Z,5,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,171203,19,0,,2026-10-08T20:28:36.711Z
+2026-10-08T20:28:08.225Z,6,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,171203,19,0,,2026-10-08T20:28:37.257Z
+2026-10-08T20:28:08.225Z,8,32,39,gpt-6.1-sol,xhigh,98,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,142318,142315,421,284,,2026-10-08T20:28:28.370Z
+2026-10-08T20:28:08.225Z,7,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,171203,19,0,,2026-10-08T20:28:39.588Z
+2026-10-08T20:28:08.225Z,8,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,171203,19,0,,2026-10-08T20:28:40.087Z
+2026-10-08T20:28:08.225Z,9,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,171206,171203,19,0,,2026-10-08T20:28:41.259Z
+2026-10-08T20:28:08.225Z,4,40,47,gpt-6.1-sol,xhigh,114,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,171206,171203,505,368,,2026-10-08T20:28:35.437Z

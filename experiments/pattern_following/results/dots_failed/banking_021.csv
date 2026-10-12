@@ -1,0 +1,81 @@
+batch,run,added,dots_in_history,model,effort,history_items,tool_calls,searches,dots_queries,sent_message,tool_names,queries,input_tokens,cached_tokens,output_tokens,reasoning_tokens,error,timestamp
+2026-10-08T18:42:05.241Z,1,0,7,gpt-6.1-sol,xhigh,34,1,1,1,false,KB_search,...,30733,30730,116,95,,2026-10-08T18:42:05.249Z
+2026-10-08T18:42:05.241Z,0,0,7,gpt-6.1-sol,xhigh,34,2,2,0,false,KB_search | KB_search,Business Bronze Rewards Card cash back exclusions dining Chipotle third-party payment processors refunds net purchases | EcoCard Everlane green points third-party payment processors refunds merchant category exclusions,30733,2604,195,114,,2026-10-08T18:42:05.241Z
+2026-10-08T18:42:05.241Z,2,0,7,gpt-6.1-sol,xhigh,34,2,2,0,false,KB_search | KB_search,credit card rewards discrepancies partial refunds third-party payment processors merchant category cash back | Submitting a Cash Back Dispute submit_cash_back_dispute_0589,30733,30730,185,107,,2026-10-08T18:42:05.250Z
+2026-10-08T18:42:05.241Z,3,0,7,gpt-6.1-sol,xhigh,34,3,3,0,false,KB_search | KB_search | KB_search,Business Bronze Rewards Card rewards exclusions third party payment processors partial refunds merchant category | EcoCard green rewards third party processors marketplace partial refund Everlane | Submitting a Cash Back Dispute submit_cash_back_dispute_0589,30733,30730,218,114,,2026-10-08T18:42:05.250Z
+2026-10-08T18:42:05.241Z,0,4,11,gpt-6.1-sol,xhigh,42,1,1,0,false,KB_search,Submitting a Cash Back Dispute,30873,30730,96,70,,2026-10-08T18:42:11.546Z
+2026-10-08T18:42:05.241Z,4,0,7,gpt-6.1-sol,xhigh,34,1,1,0,false,KB_search,EcoCard Business Bronze Rewards Card rewards discrepancy partial refunds third-party payment processors merchant category Everlane Chipotle,30733,30730,132,92,,2026-10-08T18:42:10.119Z
+2026-10-08T18:42:05.241Z,1,4,11,gpt-6.1-sol,xhigh,42,3,3,0,false,KB_search | KB_search | KB_search,Business Bronze Rewards Card cash back exclusions net purchases refunds payment processors | EcoCard green purchases merchant category third party marketplace returns refunds exclusions | Submitting a Cash Back Dispute submit_cash_back_dispute_0589,30873,30870,169,67,,2026-10-08T18:42:11.591Z
+2026-10-08T18:42:05.241Z,2,4,11,gpt-6.1-sol,xhigh,42,3,3,0,false,KB_search | KB_search | KB_search,Submitting a Cash Back Dispute submit_cash_back_dispute_0589 | Business Bronze Rewards Card exceptions exclusions refunds third-party payment processor | EcoCard green merchant category refunds marketplaces payment processor Everlane,30873,30870,188,88,,2026-10-08T18:42:12.101Z
+2026-10-08T18:42:05.241Z,4,4,11,gpt-6.1-sol,xhigh,42,3,3,0,false,KB_search | KB_search | KB_search,Submitting a Cash Back Dispute submit_cash_back_dispute_0589 | Business Bronze Rewards Card net transaction credits returns merchant exclusions | EcoCard green purchases refunds third party marketplace payment category eligibility,30873,30870,169,70,,2026-10-08T18:42:16.380Z
+2026-10-08T18:42:05.241Z,0,8,15,gpt-6.1-sol,xhigh,50,1,1,0,false,KB_search,Submitting a Cash Back Dispute,31013,30870,180,154,,2026-10-08T18:42:18.066Z
+2026-10-08T18:42:05.241Z,2,8,15,gpt-6.1-sol,xhigh,50,1,1,0,false,KB_search,Submitting a Cash Back Dispute rewards net purchases returns refunds merchant category exclusions,31013,31010,155,121,,2026-10-08T18:42:21.651Z
+2026-10-08T18:42:05.241Z,3,4,11,gpt-6.1-sol,xhigh,42,3,3,0,false,KB_search | KB_search | KB_search,Submitting a Cash Back Dispute | EcoCard green eligibility marketplaces payment parent refunds | Business Bronze Rewards Card cash back exclusions net returns credits,30873,30870,545,457,,2026-10-08T18:42:15.918Z
+2026-10-08T18:42:05.241Z,1,8,15,gpt-6.1-sol,xhigh,50,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,31013,31010,478,341,,2026-10-08T18:42:18.090Z
+2026-10-08T18:42:05.241Z,3,8,15,gpt-6.1-sol,xhigh,50,3,3,0,false,KB_search | KB_search | KB_search,Submitting a Cash Back Dispute submit_cash_back_dispute_0589 | Business Bronze Rewards Card rewards exclusions refunds payment processors Chipotle | EcoCard green purchases Everlane refunds merchant category third party payment processors,31013,31010,271,169,,2026-10-08T18:42:22.887Z
+2026-10-08T18:42:05.241Z,4,8,15,gpt-6.1-sol,xhigh,50,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,31013,31010,495,358,,2026-10-08T18:42:26.771Z
+2026-10-08T18:42:05.241Z,0,16,23,gpt-6.1-sol,xhigh,66,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,31293,31010,607,470,,2026-10-08T18:42:28.892Z
+2026-10-08T18:42:05.241Z,2,16,23,gpt-6.1-sol,xhigh,66,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,31293,31290,587,450,,2026-10-08T18:42:30.135Z
+2026-10-08T18:42:05.241Z,1,16,23,gpt-6.1-sol,xhigh,66,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,31293,31290,653,516,,2026-10-08T18:42:29.759Z
+2026-10-08T18:42:05.241Z,1,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,31853,31850,19,0,,2026-10-08T18:42:45.719Z
+2026-10-08T18:42:05.241Z,3,16,23,gpt-6.1-sol,xhigh,66,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,31293,31290,421,284,,2026-10-08T18:42:38.853Z
+2026-10-08T18:42:05.241Z,2,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,31853,31850,19,0,,2026-10-08T18:42:48.659Z
+2026-10-08T18:42:05.241Z,3,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,31853,31850,19,0,,2026-10-08T18:42:49.031Z
+2026-10-08T18:42:05.241Z,4,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,31853,31850,19,0,,2026-10-08T18:42:50.741Z
+2026-10-08T18:42:05.241Z,0,32,39,gpt-6.1-sol,xhigh,98,3,3,0,false,KB_search | KB_search | KB_search,Submitting a Cash Back Dispute | Business Bronze Rewards Card net transaction credits returns Exceptions Exclusions | EcoCard green purchases marketplaces delivery platforms parent entities refunds,31853,31290,367,276,,2026-10-08T18:42:44.312Z
+2026-10-08T18:42:05.241Z,4,16,23,gpt-6.1-sol,xhigh,66,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,31293,31290,536,399,,2026-10-08T18:42:41.042Z
+2026-10-08T18:42:05.241Z,1,40,47,gpt-6.1-sol,xhigh,114,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32133,32130,518,381,,2026-10-08T18:42:52.766Z
+2026-10-08T18:42:05.241Z,4,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,32133,32130,19,0,,2026-10-08T18:43:05.681Z
+2026-10-08T18:42:05.241Z,0,40,47,gpt-6.1-sol,xhigh,114,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32133,31850,653,516,,2026-10-08T18:42:51.159Z
+2026-10-08T18:42:05.241Z,2,40,47,gpt-6.1-sol,xhigh,114,1,1,0,false,KB_search,Business Bronze Rewards Card net transaction refunds exclusions EcoCard green marketplace parent entities cash back dispute submit,32133,32130,533,495,,2026-10-08T18:42:53.544Z
+2026-10-08T18:42:05.241Z,3,40,47,gpt-6.1-sol,xhigh,114,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32133,32130,653,516,,2026-10-08T18:42:53.715Z
+2026-10-08T18:42:05.241Z,1,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,32413,32410,19,0,,2026-10-08T18:43:07.769Z
+2026-10-08T18:42:05.241Z,3,48,55,gpt-6.1-sol,xhigh,130,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32413,32410,346,209,,2026-10-08T18:43:08.620Z
+2026-10-08T18:42:05.241Z,2,48,55,gpt-6.1-sol,xhigh,130,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32413,32410,418,281,,2026-10-08T18:43:08.344Z
+2026-10-08T18:42:05.241Z,0,48,55,gpt-6.1-sol,xhigh,130,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32413,32130,473,336,,2026-10-08T18:43:07.620Z
+2026-10-08T18:42:05.241Z,0,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32410,19,0,,2026-10-08T18:43:17.361Z
+2026-10-08T18:42:05.241Z,1,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32970,19,0,,2026-10-08T18:43:18.163Z
+2026-10-08T18:42:05.241Z,2,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32970,19,0,,2026-10-08T18:43:19.065Z
+2026-10-08T18:42:05.241Z,3,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32970,19,0,,2026-10-08T18:43:19.922Z
+2026-10-08T18:42:05.241Z,4,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32970,19,0,,2026-10-08T18:43:20.701Z
+2026-10-08T18:42:05.241Z,4,48,55,gpt-6.1-sol,xhigh,130,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32413,32410,653,516,,2026-10-08T18:43:10.104Z
+2026-10-08T19:59:17.092Z,3,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,31853,0,19,0,,2026-10-08T19:59:17.109Z
+2026-10-08T19:59:17.092Z,1,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,31853,31850,19,0,,2026-10-08T19:59:17.107Z
+2026-10-08T19:59:17.092Z,4,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,31853,31850,19,0,,2026-10-08T19:59:20.084Z
+2026-10-08T19:59:17.092Z,0,32,39,gpt-6.1-sol,xhigh,98,3,3,0,false,KB_search | KB_search | KB_search,Business Bronze Rewards Card cash back exclusions net purchases refunds payment processors Chipotle | EcoCard green Everlane marketplace payment processor refunds exclusions | Submitting a Cash Back Dispute submit_cash_back_dispute_0589,31853,31850,242,140,,2026-10-08T19:59:17.093Z
+2026-10-08T19:59:17.092Z,6,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,31853,31850,19,0,,2026-10-08T19:59:22.587Z
+2026-10-08T19:59:17.092Z,8,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,31853,31850,19,0,,2026-10-08T19:59:25.783Z
+2026-10-08T19:59:17.092Z,9,32,39,gpt-6.1-sol,xhigh,98,1,1,1,false,KB_search,...,31853,31850,19,0,,2026-10-08T19:59:27.709Z
+2026-10-08T19:59:17.092Z,2,32,39,gpt-6.1-sol,xhigh,98,1,1,0,false,KB_search,Submitting a Cash Back Dispute submit_cash_back_dispute_0589,31853,31850,550,516,,2026-10-08T19:59:17.108Z
+2026-10-08T19:59:17.092Z,5,32,39,gpt-6.1-sol,xhigh,98,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,31853,31850,634,497,,2026-10-08T19:59:20.589Z
+2026-10-08T19:59:17.092Z,7,32,39,gpt-6.1-sol,xhigh,98,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,31853,31850,591,454,,2026-10-08T19:59:24.530Z
+2026-10-08T19:59:17.092Z,2,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,32133,32130,19,0,,2026-10-08T19:59:35.639Z
+2026-10-08T19:59:17.092Z,0,40,47,gpt-6.1-sol,xhigh,114,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32133,31850,427,290,,2026-10-08T19:59:29.897Z
+2026-10-08T19:59:17.092Z,1,40,47,gpt-6.1-sol,xhigh,114,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32133,32130,456,319,,2026-10-08T19:59:32.689Z
+2026-10-08T19:59:17.092Z,4,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,32133,32130,19,0,,2026-10-08T19:59:37.836Z
+2026-10-08T19:59:17.092Z,6,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,32133,32130,19,0,,2026-10-08T19:59:42.742Z
+2026-10-08T19:59:17.092Z,7,40,47,gpt-6.1-sol,xhigh,114,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32133,32130,301,164,,2026-10-08T19:59:42.804Z
+2026-10-08T19:59:17.092Z,9,40,47,gpt-6.1-sol,xhigh,114,1,1,1,false,KB_search,...,32133,32130,19,0,,2026-10-08T19:59:49.326Z
+2026-10-08T19:59:17.092Z,3,40,47,gpt-6.1-sol,xhigh,114,1,0,0,false,give_discoverable_user_tool,,32133,32130,577,516,,2026-10-08T19:59:37.758Z
+2026-10-08T19:59:17.092Z,5,40,47,gpt-6.1-sol,xhigh,114,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32133,32130,545,408,,2026-10-08T19:59:40.213Z
+2026-10-08T19:59:17.092Z,1,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,32413,32410,19,0,,2026-10-08T19:59:51.917Z
+2026-10-08T19:59:17.092Z,3,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,32413,32410,19,0,,2026-10-08T19:59:54.595Z
+2026-10-08T19:59:17.092Z,8,40,47,gpt-6.1-sol,xhigh,114,1,0,0,false,give_discoverable_user_tool,,32133,32130,577,516,,2026-10-08T19:59:45.280Z
+2026-10-08T19:59:17.092Z,2,48,55,gpt-6.1-sol,xhigh,130,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32413,32410,444,307,,2026-10-08T19:59:52.046Z
+2026-10-08T19:59:17.092Z,5,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,32413,32410,19,0,,2026-10-08T19:59:59.591Z
+2026-10-08T19:59:17.092Z,4,48,55,gpt-6.1-sol,xhigh,130,3,3,0,false,KB_search | KB_search | KB_search,Submitting a Cash Back Dispute submit_cash_back_dispute_0589 | Business Bronze Rewards Card earning net transaction returns credits exceptions exclusions | EcoCard green purchase marketplaces delivery platforms non-green parent entities returns refunds exclusions,32413,32410,303,200,,2026-10-08T19:59:56.455Z
+2026-10-08T19:59:17.092Z,6,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,32413,32410,19,0,,2026-10-08T20:00:02.319Z
+2026-10-08T19:59:17.092Z,7,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,32413,32410,19,0,,2026-10-08T20:00:03.674Z
+2026-10-08T19:59:17.092Z,8,48,55,gpt-6.1-sol,xhigh,130,1,1,1,false,KB_search,...,32413,32410,19,0,,2026-10-08T20:00:04.245Z
+2026-10-08T19:59:17.092Z,0,48,55,gpt-6.1-sol,xhigh,130,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32413,32130,653,516,,2026-10-08T19:59:51.495Z
+2026-10-08T19:59:17.092Z,9,48,55,gpt-6.1-sol,xhigh,130,1,1,0,false,KB_search,Submitting a Cash Back Dispute EcoCard partial refunds marketplace payment processor exclusions,32413,32410,337,303,,2026-10-08T20:00:05.621Z
+2026-10-09T23:18:28.400Z,3,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,0,19,0,,2026-10-09T23:18:28.417Z
+2026-10-09T23:18:28.400Z,0,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32970,19,0,,2026-10-09T23:18:28.403Z
+2026-10-09T23:18:28.400Z,2,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32970,19,0,,2026-10-09T23:18:28.416Z
+2026-10-09T23:18:28.400Z,1,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32970,19,0,,2026-10-09T23:18:28.415Z
+2026-10-09T23:18:28.400Z,4,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32970,19,0,,2026-10-09T23:18:31.175Z
+2026-10-09T23:18:28.400Z,7,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32970,19,0,,2026-10-09T23:18:31.886Z
+2026-10-09T23:18:28.400Z,5,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32970,19,0,,2026-10-09T23:18:31.311Z
+2026-10-09T23:18:28.400Z,6,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32970,19,0,,2026-10-09T23:18:31.623Z
+2026-10-09T23:18:28.400Z,9,64,71,gpt-6.1-sol,xhigh,162,1,1,1,false,KB_search,...,32973,32970,19,0,,2026-10-09T23:18:34.172Z
+2026-10-09T23:18:28.400Z,8,64,71,gpt-6.1-sol,xhigh,162,2,0,0,false,give_discoverable_user_tool | give_discoverable_user_tool,,32973,32970,387,250,,2026-10-09T23:18:33.669Z
