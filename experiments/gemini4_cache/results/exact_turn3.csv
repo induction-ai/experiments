@@ -1,0 +1,81 @@
+timestamp,batch,run,provider,model,turn1,append,append3,seed,nonce,prompt_1,cached_1,prompt_2,cached_2,prompt_3,cached_3,error
+2026-10-16T23:04:48.997Z,2026-10-16T23:04:48.996Z,0,openai,gpt-5.6-sol,4100,1000,1500,1967648207,df13e1d17af1,4100,0,5100,4097,6600,5097,
+2026-10-16T23:04:49.007Z,2026-10-16T23:04:48.996Z,0,openai,gpt-5.6-sol,4100,2100,1500,1907466761,26d7a02c9df0,4100,0,6200,4097,7700,6197,
+2026-10-16T23:05:00.855Z,2026-10-16T23:04:48.996Z,1,openai,gpt-5.6-sol,4100,1000,1500,18154523,4d4382936b61,,,,,,,Error: could not size the request to exactly 5100 tokens
+2026-10-16T23:04:49.007Z,2026-10-16T23:04:48.996Z,0,gemini,gemini-4-argon,4100,1000,1500,38542621,1fce0c2afbfb,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:04:49.007Z,2026-10-16T23:04:48.996Z,0,gemini,gemini-4-argon,4100,2100,1500,503446628,e02a23ab74d2,4100,0,6200,4101,7700,4151,
+2026-10-16T23:05:01.289Z,2026-10-16T23:04:48.996Z,1,openai,gpt-5.6-sol,4100,2100,1500,1614673999,03a009416111,4100,0,6200,4097,7700,6197,
+2026-10-16T23:05:09.652Z,2026-10-16T23:04:48.996Z,2,openai,gpt-5.6-sol,4100,1000,1500,1402484678,ac410afba34b,4100,0,5100,4097,6600,5097,
+2026-10-16T23:05:12.721Z,2026-10-16T23:04:48.996Z,2,openai,gpt-5.6-sol,4100,2100,1500,455105957,8913f992c364,4100,0,6200,4097,7700,6197,
+2026-10-16T23:05:07.534Z,2026-10-16T23:04:48.996Z,1,gemini,gemini-4-argon,4100,2100,1500,467993370,39146a14f03d,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:05:23.627Z,2026-10-16T23:04:48.996Z,2,gemini,gemini-4-argon,4100,2100,1500,2056691614,30d785463452,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:05:05.654Z,2026-10-16T23:04:48.996Z,1,gemini,gemini-4-argon,4100,1000,1500,1256048492,f1b06d0fba6e,4100,0,5797,0,6600,3051,
+2026-10-16T23:05:39.907Z,2026-10-16T23:04:48.996Z,3,openai,gpt-5.6-sol,4100,1000,1500,1924834011,c60898065e12,4100,0,5100,4097,6600,5097,
+2026-10-16T23:05:41.193Z,2026-10-16T23:04:48.996Z,3,openai,gpt-5.6-sol,4100,2100,1500,1080295635,397444ce09a1,4100,0,6200,4097,7700,6197,
+2026-10-16T23:05:45.892Z,2026-10-16T23:04:48.996Z,3,gemini,gemini-4-argon,4100,1000,1500,311199710,a753d3e8cbb8,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:05:22.068Z,2026-10-16T23:04:48.996Z,2,gemini,gemini-4-argon,4100,1000,1500,1814086314,4d5013820930,4100,0,5100,2051,6600,3051,
+2026-10-16T23:05:51.490Z,2026-10-16T23:04:48.996Z,3,gemini,gemini-4-argon,4100,2100,1500,1915610153,2e13680c1474,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:07:11.968Z,2026-10-16T23:07:11.956Z,0,gemini,gemini-4-argon,4100,1000,1500,627629647,0c046561b1d7,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:07:11.968Z,2026-10-16T23:07:11.956Z,0,openai,gpt-5.6-sol,4100,2100,1500,614643559,80d49f034038,4100,0,6200,4097,7700,6197,
+2026-10-16T23:07:11.969Z,2026-10-16T23:07:11.956Z,0,gemini,gemini-4-argon,4100,2100,1500,627669850,5050718c1ac8,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:07:11.958Z,2026-10-16T23:07:11.956Z,0,openai,gpt-5.6-sol,4100,1000,1500,88024487,a7fb51176cd0,4100,0,5100,4097,6600,5097,
+2026-10-16T23:07:22.354Z,2026-10-16T23:07:11.956Z,1,openai,gpt-5.6-sol,4100,1000,1500,1620022246,7377d4746b58,4100,0,5100,4097,6600,5097,
+2026-10-16T23:07:23.247Z,2026-10-16T23:07:11.956Z,1,openai,gpt-5.6-sol,4100,2100,1500,2123581724,a2b6aa5dac11,4100,0,6200,4097,7700,6197,
+2026-10-16T23:07:27.193Z,2026-10-16T23:07:11.956Z,1,gemini,gemini-4-argon,4100,2100,1500,1102336069,8faa20d8a2c2,4100,0,6200,4101,7700,4151,
+2026-10-16T23:07:34.084Z,2026-10-16T23:07:11.956Z,2,openai,gpt-5.6-sol,4100,1000,1500,543307112,cb018a140607,4100,0,5100,4097,6600,5097,
+2026-10-16T23:07:34.567Z,2026-10-16T23:07:11.956Z,2,openai,gpt-5.6-sol,4100,2100,1500,1000472571,e2226db5e494,4100,0,6200,4097,7700,6197,
+2026-10-16T23:07:23.515Z,2026-10-16T23:07:11.956Z,1,gemini,gemini-4-argon,4100,1000,1500,425406701,4c93cd56d306,4100,0,5100,2051,6600,3051,
+2026-10-16T23:07:46.311Z,2026-10-16T23:07:11.956Z,3,openai,gpt-5.6-sol,4100,1000,1500,1273464458,1d5ce095feba,4100,0,5100,4097,6600,5097,
+2026-10-16T23:07:44.231Z,2026-10-16T23:07:11.956Z,2,gemini,gemini-4-argon,4100,1000,1500,1321039795,0fdd60db60da,4100,0,5100,2051,6600,3051,
+2026-10-16T23:07:56.387Z,2026-10-16T23:07:11.956Z,3,openai,gpt-5.6-sol,4100,2100,1500,526322256,6a4b2d240522,4100,0,6200,4097,7700,6197,
+2026-10-16T23:08:01.027Z,2026-10-16T23:07:11.956Z,3,gemini,gemini-4-argon,4100,2100,1500,1136706307,b6d5a31ded72,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:07:57.598Z,2026-10-16T23:07:11.956Z,3,gemini,gemini-4-argon,4100,1000,1500,623641670,0baf48daa524,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:07:45.028Z,2026-10-16T23:07:11.956Z,2,gemini,gemini-4-argon,4100,2100,1500,784948436,b3189a24699d,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:08:09.026Z,2026-10-16T23:07:11.956Z,4,openai,gpt-5.6-sol,4100,1000,1500,1627727979,a1857030eadf,4100,0,5100,4097,6600,5097,
+2026-10-16T23:08:21.037Z,2026-10-16T23:07:11.956Z,5,openai,gpt-5.6-sol,4100,1000,1500,1436201914,1204d328248d,,,,,,,Error: could not size the request to exactly 5100 tokens
+2026-10-16T23:08:15.339Z,2026-10-16T23:07:11.956Z,4,openai,gpt-5.6-sol,4100,2100,1500,1916729949,046af544a6a6,4100,0,6200,4097,7700,6197,
+2026-10-16T23:08:16.247Z,2026-10-16T23:07:11.956Z,4,gemini,gemini-4-argon,4100,1000,1500,187383355,2c25fb8fda3d,4100,0,5797,0,6600,3051,
+2026-10-16T23:08:17.762Z,2026-10-16T23:07:11.956Z,4,gemini,gemini-4-argon,4100,2100,1500,1084855798,4b1a5b320a85,4100,0,6897,0,7700,4151,
+2026-10-16T23:08:26.518Z,2026-10-16T23:07:11.956Z,5,openai,gpt-5.6-sol,4100,2100,1500,25505760,c5f2a6fe79e7,4100,0,6200,4097,7700,6197,
+2026-10-16T23:08:26.656Z,2026-10-16T23:07:11.956Z,5,gemini,gemini-4-argon,4100,1000,1500,451301806,bb28d06f836c,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:08:34.849Z,2026-10-16T23:07:11.956Z,5,gemini,gemini-4-argon,4100,2100,1500,899238337,722f6eddc546,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:11:32.742Z,2026-10-16T23:11:32.741Z,0,gemini,gemini-4-argon,4000,2100,1500,1183513669,67acd7d1b61d,4000,0,6100,0,7600,4051,
+2026-10-16T23:11:32.753Z,2026-10-16T23:11:32.741Z,3,gemini,gemini-4-argon,4000,2100,1500,706073201,416cecb0ca58,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:11:32.753Z,2026-10-16T23:11:32.741Z,2,gemini,gemini-4-argon,4000,2100,1500,1804940586,5560daf5cec9,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:11:32.753Z,2026-10-16T23:11:32.741Z,1,gemini,gemini-4-argon,4000,2100,1500,703158513,c973722c16c6,4000,0,6100,0,7600,4051,
+2026-10-16T23:11:54.060Z,2026-10-16T23:11:32.741Z,5,gemini,gemini-4-argon,4000,2100,1500,1967286971,c0f85090d96c,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:11:51.307Z,2026-10-16T23:11:32.741Z,4,gemini,gemini-4-argon,4000,2100,1500,1804070784,7a94a96cd449,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:29:50.395Z,2026-10-16T23:29:50.384Z,2,gemini,gemini-4-argon,4000,2500,1500,1660980659,8b490be879b6,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:29:50.395Z,2026-10-16T23:29:50.384Z,1,openai,gpt-5.6-sol,4100,2500,1500,1604837133,a14d5214cb1a,4100,0,6600,4097,8100,6597,
+2026-10-16T23:29:50.385Z,2026-10-16T23:29:50.384Z,0,openai,gpt-5.6-sol,4100,2500,1500,534748907,a4e0016e85bf,4100,0,6600,4097,8100,6597,
+2026-10-16T23:29:50.385Z,2026-10-16T23:29:50.384Z,0,gemini,gemini-4-argon,4000,2500,1500,595777513,5910a5242333,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:29:50.395Z,2026-10-16T23:29:50.384Z,3,gemini,gemini-4-argon,4000,2500,1500,2032588146,f40d191640ea,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:29:50.395Z,2026-10-16T23:29:50.384Z,0,gemini,gemini-4-argon,4100,2500,1500,1330038637,0be4beb29849,4100,0,6600,4101,8797,0,
+2026-10-16T23:30:04.703Z,2026-10-16T23:29:50.384Z,5,gemini,gemini-4-argon,4000,2500,1500,1884059962,64ade89ffc51,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:30:02.838Z,2026-10-16T23:29:50.384Z,2,openai,gpt-5.6-sol,4100,2500,1500,1107057963,1d6b1c178098,4100,0,6600,4097,8100,6597,
+2026-10-16T23:29:50.395Z,2026-10-16T23:29:50.384Z,1,gemini,gemini-4-argon,4000,2500,1500,715001288,77dc8fa73e19,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:30:10.257Z,2026-10-16T23:29:50.384Z,3,openai,gpt-5.6-sol,4100,2500,1500,1730009601,4f13424dacb0,4100,0,6600,4097,8100,6597,
+2026-10-16T23:29:50.395Z,2026-10-16T23:29:50.384Z,1,gemini,gemini-4-argon,4100,2500,1500,1350282497,75333a716631,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:30:02.535Z,2026-10-16T23:29:50.384Z,4,gemini,gemini-4-argon,4000,2500,1500,212421129,4d59ab76b51f,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:30:14.449Z,2026-10-16T23:29:50.384Z,3,gemini,gemini-4-argon,4100,2500,1500,2030901317,70878370b32a,4100,0,6600,4101,8100,4551,
+2026-10-16T23:30:20.848Z,2026-10-16T23:29:50.384Z,4,openai,gpt-5.6-sol,4100,2500,1500,1276866142,46d21114ab95,4100,0,6600,4097,8100,6597,
+2026-10-16T23:30:04.427Z,2026-10-16T23:29:50.384Z,2,gemini,gemini-4-argon,4100,2500,1500,1418273475,76ac6cc80eb5,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:30:30.005Z,2026-10-16T23:29:50.384Z,5,openai,gpt-5.6-sol,4100,2500,1500,1213676023,3eb104c0b23d,4100,0,6600,4097,8100,6597,
+2026-10-16T23:30:21.817Z,2026-10-16T23:29:50.384Z,4,gemini,gemini-4-argon,4100,2500,1500,1909796935,36f854460e34,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:30:32.311Z,2026-10-16T23:29:50.384Z,5,gemini,gemini-4-argon,4100,2500,1500,1418437004,b77475b623ba,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:31:52.442Z,2026-10-16T23:31:52.441Z,0,gemini,gemini-4-argon,4000,2500,1500,960972974,cf51ea660b54,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:31:52.454Z,2026-10-16T23:31:52.441Z,1,gemini,gemini-4-argon,4100,2500,1500,490430752,2b02e0617372,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:31:52.442Z,2026-10-16T23:31:52.441Z,0,gemini,gemini-4-argon,4100,2500,1500,616932858,54828cfc7a42,4100,0,6600,4101,8797,0,
+2026-10-16T23:31:52.454Z,2026-10-16T23:31:52.441Z,3,gemini,gemini-4-argon,4100,2500,1500,477390328,1afbc7715865,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:31:52.454Z,2026-10-16T23:31:52.441Z,2,gemini,gemini-4-argon,4100,2500,1500,911693372,ec1f0e51b679,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:32:03.492Z,2026-10-16T23:31:52.441Z,4,gemini,gemini-4-argon,4000,2500,1500,1111984583,e86bd4ae5068,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:31:52.455Z,2026-10-16T23:31:52.441Z,2,gemini,gemini-4-argon,4000,2500,1500,2072286063,de5d43e46a7b,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:32:09.947Z,2026-10-16T23:31:52.441Z,5,gemini,gemini-4-argon,4100,2500,1500,60284823,5d99a782fced,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:32:15.810Z,2026-10-16T23:31:52.441Z,5,gemini,gemini-4-argon,4000,2500,1500,1723035751,5fe1ee944e01,,,,,,,"Error: turn 2: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:32:08.890Z,2026-10-16T23:31:52.441Z,4,gemini,gemini-4-argon,4100,2500,1500,1012420018,69587ecd8e61,4100,0,6600,4101,8100,4551,
+2026-10-16T23:32:18.554Z,2026-10-16T23:31:52.441Z,6,gemini,gemini-4-argon,4000,2500,1500,1905657582,cdc3a3adfc3e,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:31:52.455Z,2026-10-16T23:31:52.441Z,3,gemini,gemini-4-argon,4000,2500,1500,2117626943,bff73c6a589e,4000,0,6500,0,8000,4451,
+2026-10-16T23:32:23.834Z,2026-10-16T23:31:52.441Z,7,gemini,gemini-4-argon,4000,2500,1500,970847908,4da15524579b,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:32:11.118Z,2026-10-16T23:31:52.441Z,6,gemini,gemini-4-argon,4100,2500,1500,415362642,bcc457ee0a38,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"
+2026-10-16T23:32:11.345Z,2026-10-16T23:31:52.441Z,7,gemini,gemini-4-argon,4100,2500,1500,1176358357,768cd0b74c60,4100,0,6600,4101,8100,4551,
+2026-10-16T23:31:52.454Z,2026-10-16T23:31:52.441Z,1,gemini,gemini-4-argon,4000,2500,1500,864265821,5d3df14ec13e,,,,,,,"Error: turn 3: Error: Gemini: no content: {""promptFeedback"":{""blockReason"":""OTHER""}}"

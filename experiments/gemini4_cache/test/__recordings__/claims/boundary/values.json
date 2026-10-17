@@ -1,0 +1,14 @@
+{
+  "reusing earlier requests > gemini-4-argon: with no shorter request sent before, editing the last message reuses nothing :: nonce:boundary:gemini-4-argon:cold:0": "d3b0f676ea81",
+  "reusing earlier requests > gemini-4-argon: with no shorter request sent before, editing the last message reuses nothing :: seed:boundary:gemini-4-argon:cold:0": "257604361",
+  "reusing earlier requests > gemini-3.1-pro-preview: with no shorter request sent before, editing the last message reuses nothing :: nonce:boundary:gemini-3.1-pro-preview:cold:0": "7adab9ffa7ff",
+  "reusing earlier requests > gemini-3.1-pro-preview: with no shorter request sent before, editing the last message reuses nothing :: seed:boundary:gemini-3.1-pro-preview:cold:0": "174889078",
+  "reusing earlier requests > argon: editing the last message still reuses the whole earlier request that ended before it :: nonce:boundary:gemini-4-argon:after_u1:0": "92937a1cc572",
+  "reusing earlier requests > argon: editing the last message still reuses the whole earlier request that ended before it :: seed:boundary:gemini-4-argon:after_u1:0": "870511173",
+  "reusing earlier requests > 3.1: once a longer request has reused an entry, the shorter entry is gone :: nonce:boundary:gemini-3.1-pro-preview:after_u1:0": "c2bec354c482",
+  "reusing earlier requests > 3.1: once a longer request has reused an entry, the shorter entry is gone :: seed:boundary:gemini-3.1-pro-preview:after_u1:0": "1161172521",
+  "reusing earlier requests > gemini-4-argon: an edit inside the first message reuses nothing :: nonce:boundary:gemini-4-argon:edit_u1:0": "9c0cd70da5f2",
+  "reusing earlier requests > gemini-4-argon: an edit inside the first message reuses nothing :: seed:boundary:gemini-4-argon:edit_u1:0": "843187014",
+  "reusing earlier requests > gemini-3.1-pro-preview: an edit inside the first message reuses nothing :: nonce:boundary:gemini-3.1-pro-preview:edit_u1:0": "87260e6cb1b6",
+  "reusing earlier requests > gemini-3.1-pro-preview: an edit inside the first message reuses nothing :: seed:boundary:gemini-3.1-pro-preview:edit_u1:0": "557015330"
+}

@@ -1,0 +1,22 @@
+{
+  "3.1 signatures > 3.1: extending past a function call whose signature sits inside the stored span usually reuses nothing :: nonce:sig:pro:usually:0:0": "3cb6d1d0fd6e",
+  "3.1 signatures > 3.1: extending past a function call whose signature sits inside the stored span usually reuses nothing :: seed:sig:pro:usually:0:0": "1395108611",
+  "3.1 signatures > 3.1: extending past a function call whose signature sits inside the stored span usually reuses nothing :: nonce:sig:pro:usually:1:0": "12de3967abdc",
+  "3.1 signatures > 3.1: extending past a function call whose signature sits inside the stored span usually reuses nothing :: seed:sig:pro:usually:1:0": "1033904367",
+  "3.1 signatures > 3.1: extending past a function call whose signature sits inside the stored span usually reuses nothing :: nonce:sig:pro:usually:1:1": "f6174e5214ef",
+  "3.1 signatures > 3.1: extending past a function call whose signature sits inside the stored span usually reuses nothing :: seed:sig:pro:usually:1:1": "1247968546",
+  "3.1 signatures > 3.1: extending past a function call whose signature sits inside the stored span usually reuses nothing :: nonce:sig:pro:usually:2:0": "7bbe7941428d",
+  "3.1 signatures > 3.1: extending past a function call whose signature sits inside the stored span usually reuses nothing :: seed:sig:pro:usually:2:0": "225705341",
+  "3.1 signatures > 3.1: without the signature, the same extension can keep the whole cache :: nonce:sig:gemini-3.1-pro-preview:text:0": "cd4a365bf8a7",
+  "3.1 signatures > 3.1: without the signature, the same extension can keep the whole cache :: seed:sig:gemini-3.1-pro-preview:text:0": "1695416804",
+  "3.1 signatures > 3.1: generateContent bills the signature only while it is the latest model turn; countTokens never does :: nonce:sig:gemini-3.1-pro-preview:sig:0": "42db5ae46801",
+  "3.1 signatures > 3.1: generateContent bills the signature only while it is the latest model turn; countTokens never does :: seed:sig:gemini-3.1-pro-preview:sig:0": "310894521",
+  "argon signatures > argon: extending past a function call reuses the whole earlier request :: nonce:sig:gemini-4-argon:sig:0": "52ead0ea4482",
+  "argon signatures > argon: extending past a function call reuses the whole earlier request :: seed:sig:gemini-4-argon:sig:0": "1754874496",
+  "argon signatures > argon: extending past a function call reuses the whole earlier request :: nonce:sig:gemini-4-argon:sig:1": "52e36a236f10",
+  "argon signatures > argon: extending past a function call reuses the whole earlier request :: seed:sig:gemini-4-argon:sig:1": "379439793",
+  "argon signatures > argon: extending past a function call reuses the whole earlier request :: nonce:sig:gemini-4-argon:sig:2": "0417c345635a",
+  "argon signatures > argon: extending past a function call reuses the whole earlier request :: seed:sig:gemini-4-argon:sig:2": "1934052638",
+  "argon signatures > argon: countTokens rejects a function call whose signature was removed :: nonce:sig:gemini-4-argon:sig:0": "43f3d49b7233",
+  "argon signatures > argon: countTokens rejects a function call whose signature was removed :: seed:sig:gemini-4-argon:sig:0": "1379886010"
+}

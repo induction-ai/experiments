@@ -1,0 +1,31 @@
+{
+  "name": "@experiments/gemini4_cache",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "minimum": "tsx scripts/run-minimum.ts",
+    "repeats": "tsx scripts/run-repeats.ts",
+    "sig": "tsx scripts/run-sig.ts",
+    "extend": "tsx scripts/run-extend.ts",
+    "edit": "tsx scripts/run-edit.ts",
+    "boundary": "tsx scripts/run-boundary.ts",
+    "inflation": "tsx scripts/run-inflation.ts",
+    "tail": "tsx scripts/run-tail.ts",
+    "breakers": "tsx scripts/run-breakers.ts",
+    "two-turns": "tsx scripts/run-two-turns.ts",
+    "exact-4100": "tsx scripts/run-exact-4100.ts",
+    "exact-turn3": "tsx scripts/run-exact-turn3.ts",
+    "exact-branch": "tsx scripts/run-exact-branch.ts",
+    "report": "tsx scripts/build-report.ts"
+  },
+  "dependencies": {
+    "@experiments/shared": "workspace:*",
+    "marked": "^18.0.13"
+  },
+  "devDependencies": {
+    "@experiments/test": "workspace:*"
+  }
+}

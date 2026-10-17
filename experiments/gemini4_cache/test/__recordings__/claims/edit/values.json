@@ -1,0 +1,10 @@
+{
+  "edits > 3.1: an edit inside the stored span reuses nothing, an edit past it reuses the whole entry :: nonce:edit:pro:0": "06b6ced5e9a3",
+  "edits > 3.1: an edit inside the stored span reuses nothing, an edit past it reuses the whole entry :: seed:edit:pro:0": "1915169124",
+  "edits > argon, single message: an edit even 98% of the way in reuses nothing :: nonce:edit:argon:0": "d44eec7fd6de",
+  "edits > argon, single message: an edit even 98% of the way in reuses nothing :: seed:edit:argon:0": "1194341938",
+  "edits > gemini-4-argon, split into two messages: an edit past the stored span keeps the whole entry :: nonce:edit:split:gemini-4-argon:0": "5fe844ba50ff",
+  "edits > gemini-4-argon, split into two messages: an edit past the stored span keeps the whole entry :: seed:edit:split:gemini-4-argon:0": "1922581605",
+  "edits > gemini-3.1-pro-preview, split into two messages: an edit past the stored span keeps the whole entry :: nonce:edit:split:gemini-3.1-pro-preview:0": "ed341a1f9615",
+  "edits > gemini-3.1-pro-preview, split into two messages: an edit past the stored span keeps the whole entry :: seed:edit:split:gemini-3.1-pro-preview:0": "962432171"
+}

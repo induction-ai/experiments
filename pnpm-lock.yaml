@@ -49,6 +49,19 @@ importers:
         specifier: workspace:*
         version: link:../../packages/test
 
+  experiments/gemini4_cache:
+    dependencies:
+      '@experiments/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
+      marked:
+        specifier: ^18.0.13
+        version: 18.0.13
+    devDependencies:
+      '@experiments/test':
+        specifier: workspace:*
+        version: link:../../packages/test
+
   experiments/pattern_following:
     dependencies:
       '@experiments/shared':

@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gemini 4 cache</title>
+<meta name="description" content="Does Gemini 4’s implicit cache behave like Gemini 3.1’s?">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --series-1: #2a78d6;
+  --full: #898781;
+  --code-bg: #f0efec;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --series-1: #3987e5;
+    --full: #6b6a65;
+    --code-bg: #262624;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --ink: #ffffff;
+  --ink-2: #c3c2b7;
+  --muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --series-1: #3987e5;
+  --full: #6b6a65;
+  --code-bg: #262624;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--page); color: var(--ink);
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+main { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; overflow-wrap: break-word; }
+p code, li code { overflow-wrap: anywhere; }
+td code { white-space: nowrap; }
+h1 { font-size: 1.9rem; line-height: 1.25; margin: 0 0 1rem; }
+h2 { margin-top: 2.5rem; border-bottom: 1px solid var(--grid); padding-bottom: .3rem; }
+h3 { margin-top: 1.8rem; }
+h4 { margin: 1.2rem 0 .4rem; color: var(--ink-2); }
+a { color: var(--series-1); }
+code { font: .88em ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--code-bg); padding: .1em .3em; border-radius: 4px; }
+pre { background: var(--code-bg); padding: 12px; border-radius: 8px; overflow-x: auto; }
+pre code { padding: 0; background: none; }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+th { color: var(--ink-2); font-weight: 600; }
+.table-scroll, main > table { display: block; overflow-x: auto; }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.chart { background: var(--surface); border: 1px solid var(--grid); border-radius: 10px; padding: 16px; margin: 1.5rem 0 .5rem; position: relative; }
+.chart figcaption { font-weight: 600; margin-bottom: 12px; }
+.chart-note { color: var(--ink-2); font-size: .85rem; margin: 8px 0 0; }
+.bar-label { font-size: .82rem; overflow-wrap: anywhere; }
+.bar-label code { background: none; padding: 0; }
+.min-row { display: grid; grid-template-columns: minmax(96px, 22%) 1fr; gap: 10px; align-items: center; padding: 6px 0; }
+.min-track { position: relative; height: 22px; border-bottom: 1px solid var(--axis); }
+.min-dot { position: absolute; top: 5px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; outline: none; }
+.min-dot::after { content: ""; position: absolute; inset: -6px; }
+.min-dot.hit { background: var(--series-1); box-shadow: 0 0 0 2px var(--surface); }
+.min-dot.miss { border: 2px solid var(--ink-2); background: var(--surface); }
+.min-dot:focus-visible { box-shadow: 0 0 0 3px var(--ink-2); }
+.min-rule { position: absolute; top: -4px; bottom: -4px; border-left: 2px dashed var(--ink-2); }
+.min-ticks { position: relative; height: 16px; color: var(--muted); font-size: .72rem; }
+.min-ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.min-ticks span:first-child { transform: none; }
+.min-ticks span:last-child { transform: translateX(-100%); }
+.group-row td { color: var(--ink-2); font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; padding-top: 14px; }
+.var-name { display: block; color: var(--muted); font-size: .78rem; white-space: normal; }
+.cmp-zero { font-weight: 600; }
+.examples h4 { margin: 1.4rem 0 .6rem; color: var(--ink); font-size: .95rem; }
+.examples .ex:first-of-type h4 { margin-top: .4rem; }
+.ex-row { margin: 0 0 12px; }
+.ex-title { font-size: .82rem; color: var(--ink-2); margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+.ex-bar { display: flex; gap: 2px; height: 22px; }
+.seg { min-width: 3px; border-radius: 0; outline: none; }
+.seg:first-child { border-radius: 4px 0 0 4px; }
+.seg:last-of-type { border-radius: 0 4px 4px 0; }
+.seg:only-of-type { border-radius: 4px; }
+.seg:focus-visible { box-shadow: 0 0 0 2px var(--ink-2); }
+.seg-pad { min-width: 0; }
+.cached { background: var(--series-1); }
+.full { background: var(--full); }
+.new { background: repeating-linear-gradient(135deg, var(--full) 0 4px, var(--surface) 4px 6px); }
+.ex-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 5px; font-size: .78rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.seg-key { display: inline-flex; align-items: center; gap: 6px; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; margin: -4px 0 6px; font-size: .82rem; color: var(--ink-2); }
+.legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.swatch { display: inline-block; width: 12px; height: 10px; border-radius: 2px; flex: none; }
+.table-view { margin: .5rem 0 1.5rem; }
+.table-view summary { cursor: pointer; color: var(--ink-2); font-size: .9rem; }
+.tip { position: fixed; z-index: 10; pointer-events: none; background: var(--surface); color: var(--ink); border: 1px solid var(--axis); border-radius: 8px; padding: 8px 10px; font-size: .8rem; line-height: 1.45; max-width: 320px; box-shadow: 0 4px 16px rgb(0 0 0 / .15); display: none; }
+</style>
+</head>
+<body>
+<main>
+<h1>Does Gemini 4’s implicit cache behave like Gemini 3.1’s?</h1>
+<p>Gemini caches repeated prompt prefixes automatically and bills the reused tokens at a discount. This experiment measures <code>gemini-4-argon</code> side by side with <code>gemini-3.1-pro-preview</code>: where caching starts, how much of a request it covers, which earlier requests it can reuse, and whether the 3.x quirks around thought signatures and token counting still hold. For argon it also runs a cache-breaker matrix: one change at a time to a warm request. In a normal, append-only conversation both models reuse nearly every request. Off that path they differ, and Gemini 4 adds a quirk of its own: a hidden 697-token block on some requests that <code>countTokens</code> doesn’t see and that costs the whole cache when it appears.</p>
+<h2 id="at-a-glance">At a glance</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>gemini-4-argon</code></th>
+<th><code>gemini-3.1-pro-preview</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Real thread, every request sent once</td>
+<td>reuses the previous request every time</td>
+<td>reuses the previous request (29 of 30 steps)</td>
+</tr>
+<tr>
+<td>Smallest request that caches</td>
+<td>sharp, about 4,096 prompt tokens, any shape</td>
+<td>sporadic from about 6,000, reliable from about 9,000</td>
+</tr>
+<tr>
+<td>Never cached</td>
+<td>the last 2,049 tokens of each request</td>
+<td>the last ~2,043–2,050 tokens of each request</td>
+</tr>
+<tr>
+<td>After appending more than ~2,049 tokens</td>
+<td>the whole previous prompt</td>
+<td>the whole previous prompt</td>
+</tr>
+<tr>
+<td>Edit inside the cached part</td>
+<td>reuses nothing</td>
+<td>reuses nothing</td>
+</tr>
+<tr>
+<td>Edit after the cached part</td>
+<td>keeps it, if a message boundary comes before the edit; in one long message, loses it</td>
+<td>keeps it</td>
+</tr>
+<tr>
+<td>Which earlier requests can be reused</td>
+<td>any of them</td>
+<td>the latest only: a longer request replaces the shorter</td>
+</tr>
+<tr>
+<td>Extending past a function call’s signature</td>
+<td>no effect (124-byte signatures, never dropped)</td>
+<td>usually loses everything when the signature is far from the end</td>
+</tr>
+<tr>
+<td><code>countTokens</code></td>
+<td>rejects a function call with its signature removed</td>
+<td>never counts the signature</td>
+</tr>
+<tr>
+<td>Hidden prompt tokens</td>
+<td>a 697-token block on some multi-message requests</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Settings that are part of the cache key</td>
+<td>tools, <code>thinkingLevel</code>, JSON mode, toolConfig <code>NONE</code></td>
+<td>not tested</td>
+</tr>
+<tr>
+<td>Settings that aren’t</td>
+<td>temperature, topP, maxOutputTokens, stop sequences, seed, safety settings, toolConfig <code>ANY</code> or omitted</td>
+<td>not tested</td>
+</tr>
+</tbody></table>
+<h2 id="method">Method</h2>
+<p>All prompts are seeded filler drawn from a fixed vocabulary of common English words (about one token per word), each led by a fresh nonce, so no real data is sent and no trial can hit a cache left by another. Both models run with <code>thinkingConfig.thinkingLevel: &quot;low&quot;</code> through the plain <code>generateContent</code> REST endpoint, so the request bytes, including every <code>thoughtSignature</code>, are exactly what the scripts build. “Cached” is <code>usageMetadata.cachedContentTokenCount</code>.</p>
+<p>There are eleven probes. Each has one script that appends one row per trial (or per send) to one CSV, and each can be re-run with <code>RUNS=N</code> to add trials:</p>
+<table>
+<thead>
+<tr>
+<th>Probe</th>
+<th>Script</th>
+<th>CSV</th>
+<th>What a trial does</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Real threads</td>
+<td><code>scripts/run-extend.ts</code></td>
+<td><code>results/extend.csv</code></td>
+<td>a 20,000-word opening message, then up to 5 more turns, each request sent once: text replies, a tool loop of signed function calls, or a first reply of chosen length</td>
+</tr>
+<tr>
+<td>Threshold</td>
+<td><code>scripts/run-minimum.ts</code></td>
+<td><code>results/minimum.csv</code></td>
+<td>one total size in five history shapes (below), the final request sent 3–4 times</td>
+</tr>
+<tr>
+<td>Repeats</td>
+<td><code>scripts/run-repeats.ts</code></td>
+<td><code>results/repeats.csv</code></td>
+<td>one message sent 3–6 times, with a one-word or a ~3,000-word reply</td>
+</tr>
+<tr>
+<td>Edits</td>
+<td><code>scripts/run-edit.ts</code></td>
+<td><code>results/edit.csv</code></td>
+<td>a warm 20,000-word text, as one message or split in two, then one word replaced at 10%, 50%, 90% and 98%</td>
+</tr>
+<tr>
+<td>Tail</td>
+<td><code>scripts/run-tail.ts</code></td>
+<td><code>results/tail.csv</code></td>
+<td>one request sent twice, with one factor changed from a baseline: content type, thinking level, placement, size</td>
+</tr>
+<tr>
+<td>Breakers (argon)</td>
+<td><code>scripts/run-breakers.ts</code></td>
+<td><code>results/breakers.csv</code></td>
+<td>a warm request with a system instruction, two tools and a four-message history, then one change, sent once</td>
+</tr>
+<tr>
+<td>Two turns</td>
+<td><code>scripts/run-two-turns.ts</code></td>
+<td><code>results/two_turns.csv</code></td>
+<td>a 10,000-token message, then either your own text (1,700–3,000 words) or a long model reply appended, sent once each</td>
+</tr>
+<tr>
+<td>Exact case</td>
+<td><code>scripts/run-exact-4100.ts</code></td>
+<td><code>results/exact_4100.csv</code></td>
+<td>exactly 4,100 (or 4,000) tokens, then exactly 1,000 or 2,100 more, on OpenAI and Gemini</td>
+</tr>
+<tr>
+<td>Earlier requests</td>
+<td><code>scripts/run-boundary.ts</code></td>
+<td><code>results/boundary.csv</code></td>
+<td><code>[u1]</code>, then <code>[u1, m1, u2]</code>, then an edit in <code>u2</code> or in <code>u1</code></td>
+</tr>
+<tr>
+<td>Signatures</td>
+<td><code>scripts/run-sig.ts</code></td>
+<td><code>results/sig.csv</code></td>
+<td>a forced function call after 18,000 words, its response plus 5,000 words, then the thread extended past it</td>
+</tr>
+<tr>
+<td>Hidden tokens</td>
+<td><code>scripts/run-inflation.ts</code></td>
+<td><code>results/inflation.csv</code></td>
+<td>one request, and a copy whose last word differs, each sent once and counted with <code>countTokens</code></td>
+</tr>
+</tbody></table>
+<p>The threshold probe’s five shapes all end in the same final request. <code>one</code> puts the filler in a single message. <code>two_*</code> split it across a user and a model message, and <code>many_*</code> across eight alternating messages. The <code>*_cold</code> shapes send only the final request. The <code>*_grown</code> shapes first send each earlier turn of the thread, the way a client would as the conversation grew.</p>
+<h2 id="findings">Findings</h2>
+<h3 id="in-a-real-conversation-both-models-reuse-nearly-every-request">In a real conversation, both models reuse nearly every request</h3>
+<p>When a thread only grows (each request is the previous one plus the model’s real reply and a new user message, sent once), both models reuse the previous request’s cache at every step. A tool loop where every turn is a forced function call with a <code>thoughtSignature</code> behaves the same. Each step caches the previous request’s prompt minus a tail of about 2,048 tokens (next section).</p>
+<div class="table-scroll"><table><thead><tr><th>Model</th><th>Chain</th><th class="num">Step 1 reused step 0</th><th class="num">Held back</th><th class="num">Steps 2+ reused the previous step</th><th class="num">Held back</th><th>Misses</th><th class="num">n</th></tr></thead><tbody><tr><td>argon</td><td><code>text_chain</code></td><td class="num">3 / 3</td><td class="num">2,049</td><td class="num">12 / 12</td><td class="num">2,049</td><td>none</td><td class="num">3</td></tr>
+<tr><td>argon</td><td><code>tool_chain</code></td><td class="num">3 / 3</td><td class="num">2,049</td><td class="num">12 / 12</td><td class="num">2,049</td><td>none</td><td class="num">3</td></tr>
+<tr><td>argon</td><td><code>long_chain</code></td><td class="num">3 / 3</td><td class="num">−1</td><td class="num">9 / 12</td><td class="num">2,049</td><td>step 2 (3×)</td><td class="num">3</td></tr>
+<tr><td>argon</td><td><code>mid_chain</code></td><td class="num">3 / 3</td><td class="num">2,049</td><td class="num">–</td><td class="num"></td><td>none</td><td class="num">3</td></tr>
+<tr><td>argon</td><td><code>para_chain</code></td><td class="num">2 / 3</td><td class="num">−1</td><td class="num">–</td><td class="num"></td><td>step 1 (1×)</td><td class="num">3</td></tr>
+<tr><td>3.1</td><td><code>text_chain</code></td><td class="num">3 / 3</td><td class="num">2,054</td><td class="num">11 / 12</td><td class="num">2,051–2,077</td><td>step 2 (1×)</td><td class="num">3</td></tr>
+<tr><td>3.1</td><td><code>tool_chain</code></td><td class="num">3 / 3</td><td class="num">2,045 (1×), 2,047 (2×)</td><td class="num">12 / 12</td><td class="num">2,043–2,046</td><td>none</td><td class="num">3</td></tr>
+<tr><td>3.1</td><td><code>long_chain</code></td><td class="num">3 / 3</td><td class="num">2,051 (1×), 2,052 (1×), 2,053 (1×)</td><td class="num">12 / 12</td><td class="num">2,051–2,054</td><td>none</td><td class="num">3</td></tr>
+<tr><td>3.1</td><td><code>mid_chain</code></td><td class="num">3 / 3</td><td class="num">2,053 (2×), 2,054 (1×)</td><td class="num">–</td><td class="num"></td><td>none</td><td class="num">3</td></tr>
+<tr><td>3.1</td><td><code>para_chain</code></td><td class="num">3 / 3</td><td class="num">2 (2×), 3 (1×)</td><td class="num">–</td><td class="num"></td><td>none</td><td class="num">3</td></tr></tbody></table></div><p class="chart-note">“Held back” is the previous request’s prompt minus what this request cached; −1 means the whole previous prompt plus one token.</p><p class="chart-note">From <code>scripts/run-extend.ts</code> → <code>results/extend.csv</code>, 30 trials.</p><p>The misses are all in the table. 3.1 missed one step in 30 of its text and tool threads. In every argon <code>long_chain</code> trial, step 2 gained a hidden 697-token block and missed completely (see <a href="#gemini-4-sometimes-bills-697-hidden-tokens">the hidden tokens</a> below). And one argon <code>para_chain</code> trial missed after a 7,507-token reply that grew the next prompt by only 4,649 tokens, as if argon had billed output it didn’t return. We don’t know why. Claim tests: <code>src/claims/chain.test.ts</code>.</p>
+<h3 id="where-caching-starts">Where caching starts</h3>
+<p><strong>Gemini 4 has a sharp threshold at about 4,096 prompt tokens, whatever the shape of the history.</strong> Across 90 trials, no request of 4,071 tokens or fewer was ever cached, and every request of 4,135 or more was. Measured in tokens, the edge is the same for one message, two, eight, cold or grown. The few dots that hit at low word counts are requests that argon inflated past 4,096 with its hidden block. The minimum itself probably comes from <a href="#the-last-2049-tokens-are-never-cached">the 2,049-token tail</a>: 4,096 is about 2,049 held back plus 2,048 cached.</p>
+<p><strong>Gemini 3.1’s threshold is fuzzy.</strong> From about 9,000 tokens it cached every trial, in every shape, from the second send. Between 6,000 and 8,000 it sometimes cached, often on only one of four sends (for example 0, 4,248, 0, 0). At about 7,000 it never did.</p>
+<figure class="chart"><figcaption>argon: cached or not, by prompt tokens of the final request (90 trials)</figcaption>
+<div class="min-row"><div class="bar-label"><code>one</code></div><div class="min-track"><span class="min-dot miss" style="left:7.14%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;3,950 prompt tokens (3,900 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:2.57%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;3,854 prompt tokens (3,800 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:12.05%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;4,053 prompt tokens (4,000 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:16.67%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;4,150 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2101, 2101"></span><span class="min-dot hit" style="left:21.48%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;4,251 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2202, 2202"></span><span class="min-dot hit" style="left:59.62%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;5,052 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3003, 3003"></span><span class="min-dot miss" style="left:2.48%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;3,852 prompt tokens (3,800 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:7.14%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;3,950 prompt tokens (3,900 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:11.95%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;4,051 prompt tokens (4,000 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:16.71%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;4,151 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 0, 2102"></span><span class="min-dot hit" style="left:21.48%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;4,251 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2202, 2202"></span><span class="min-dot hit" style="left:59.71%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;5,054 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3005, 3005"></span><span class="min-dot miss" style="left:2.48%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;3,852 prompt tokens (3,800 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:7.29%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;3,953 prompt tokens (3,900 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:12.00%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;4,052 prompt tokens (4,000 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:16.76%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;4,152 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2103, 2103"></span><span class="min-dot hit" style="left:21.62%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;4,254 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2205, 2205"></span><span class="min-dot hit" style="left:59.62%" tabindex="0" data-tip="&lt;strong&gt;argon one&lt;/strong&gt;&lt;br&gt;5,052 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3003, 3003"></span><span class="min-rule" style="left:14.10%"></span></div></div>
+<div class="min-row"><div class="bar-label"><code>two_cold</code></div><div class="min-track"><span class="min-dot miss" style="left:3.33%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;3,870 prompt tokens (3,800 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:7.81%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;3,964 prompt tokens (3,900 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:12.81%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;4,069 prompt tokens (4,000 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:17.62%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;4,170 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2121, 2121"></span><span class="min-dot hit" style="left:22.24%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;4,267 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 0, 2218"></span><span class="min-dot hit" style="left:60.33%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;5,067 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3018, 3018"></span><span class="min-dot miss" style="left:3.24%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;3,868 prompt tokens (3,800 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:7.95%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;3,967 prompt tokens (3,900 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:12.86%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;4,070 prompt tokens (4,000 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:17.57%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;4,169 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2120, 2120"></span><span class="min-dot hit" style="left:22.29%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;4,268 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2219, 2219"></span><span class="min-dot hit" style="left:60.48%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;5,070 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3021, 3021"></span><span class="min-dot miss" style="left:3.33%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;3,870 prompt tokens (3,800 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:8.10%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;3,970 prompt tokens (3,900 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:12.81%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;4,069 prompt tokens (4,000 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:17.48%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;4,167 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2118, 2118"></span><span class="min-dot hit" style="left:22.19%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;4,266 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2217, 2217"></span><span class="min-dot hit" style="left:93.43%" tabindex="0" data-tip="&lt;strong&gt;argon two_cold&lt;/strong&gt;&lt;br&gt;5,762 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3713, 3713"></span><span class="min-rule" style="left:14.10%"></span></div></div>
+<div class="min-row"><div class="bar-label"><code>two_grown</code></div><div class="min-track"><span class="min-dot miss" style="left:3.10%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;3,865 prompt tokens (3,800 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:7.90%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;3,966 prompt tokens (3,900 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:12.86%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;4,070 prompt tokens (4,000 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:17.52%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;4,168 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2119, 2119"></span><span class="min-dot hit" style="left:22.29%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;4,268 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2219, 2219"></span><span class="min-dot hit" style="left:93.62%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;5,766 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3717, 3717"></span><span class="min-dot miss" style="left:3.24%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;3,868 prompt tokens (3,800 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:8.10%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;3,970 prompt tokens (3,900 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:12.90%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;4,071 prompt tokens (4,000 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:17.57%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;4,169 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2120, 2120"></span><span class="min-dot hit" style="left:22.24%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;4,267 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2218, 2218"></span><span class="min-dot hit" style="left:60.43%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;5,069 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3020, 3020"></span><span class="min-dot hit" style="left:36.38%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;4,564 prompt tokens (3,800 words)&lt;br&gt;cached: 0, 2515, 2515"></span><span class="min-dot miss" style="left:7.95%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;3,967 prompt tokens (3,900 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot miss" style="left:12.81%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;4,069 prompt tokens (4,000 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:17.43%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;4,166 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2117, 2117"></span><span class="min-dot hit" style="left:55.48%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;4,965 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2916, 2916"></span><span class="min-dot hit" style="left:60.38%" tabindex="0" data-tip="&lt;strong&gt;argon two_grown&lt;/strong&gt;&lt;br&gt;5,068 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3019, 3019"></span><span class="min-rule" style="left:14.10%"></span></div></div>
+<div class="min-row"><div class="bar-label"><code>many_cold</code></div><div class="min-track"><span class="min-dot hit" style="left:39.52%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,630 prompt tokens (3,800 words)&lt;br&gt;cached: 0, 2581, 2581"></span><span class="min-dot hit" style="left:44.57%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,736 prompt tokens (3,900 words)&lt;br&gt;cached: 0, 2687, 2687"></span><span class="min-dot hit" style="left:15.95%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,135 prompt tokens (4,000 words)&lt;br&gt;cached: 0, 2086, 2086"></span><span class="min-dot hit" style="left:54.05%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,935 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2886, 2886"></span><span class="min-dot hit" style="left:25.38%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,333 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2284, 2284"></span><span class="min-dot hit" style="left:96.76%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;5,832 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3783, 3783"></span><span class="min-dot hit" style="left:39.57%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,631 prompt tokens (3,800 words)&lt;br&gt;cached: 0, 2582, 2582"></span><span class="min-dot miss" style="left:11.33%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,038 prompt tokens (3,900 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:15.95%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,135 prompt tokens (4,000 words)&lt;br&gt;cached: 0, 2086, 2086"></span><span class="min-dot hit" style="left:54.05%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,935 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2886, 2886"></span><span class="min-dot hit" style="left:25.43%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,334 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2285, 2285"></span><span class="min-dot hit" style="left:96.76%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;5,832 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3783, 3783"></span><span class="min-dot miss" style="left:6.43%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;3,935 prompt tokens (3,800 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:44.38%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,732 prompt tokens (3,900 words)&lt;br&gt;cached: 0, 2683, 2683"></span><span class="min-dot hit" style="left:49.19%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,833 prompt tokens (4,000 words)&lt;br&gt;cached: 0, 2784, 2784"></span><span class="min-dot hit" style="left:20.86%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,238 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2189, 2189"></span><span class="min-dot hit" style="left:25.52%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;4,336 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2287, 2287"></span><span class="min-dot hit" style="left:63.57%" tabindex="0" data-tip="&lt;strong&gt;argon many_cold&lt;/strong&gt;&lt;br&gt;5,135 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3086, 3086"></span><span class="min-rule" style="left:14.10%"></span></div></div>
+<div class="min-row"><div class="bar-label"><code>many_grown</code></div><div class="min-track"><span class="min-dot hit" style="left:39.67%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,633 prompt tokens (3,800 words)&lt;br&gt;cached: 2086, 2584, 2584"></span><span class="min-dot miss" style="left:11.29%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,037 prompt tokens (3,900 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:49.10%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,831 prompt tokens (4,000 words)&lt;br&gt;cached: 0, 2782, 2782"></span><span class="min-dot hit" style="left:58.48%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;5,028 prompt tokens (4,200 words)&lt;br&gt;cached: 2431, 2979, 2979"></span><span class="min-dot hit" style="left:20.95%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,240 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2191, 2191"></span><span class="min-dot hit" style="left:63.57%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;5,135 prompt tokens (5,000 words)&lt;br&gt;cached: 0, 3086, 3086"></span><span class="min-dot hit" style="left:39.62%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,632 prompt tokens (3,800 words)&lt;br&gt;cached: 2085, 2583, 2583"></span><span class="min-dot hit" style="left:49.19%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,833 prompt tokens (4,000 words)&lt;br&gt;cached: 2261, 2784, 2784"></span><span class="min-dot hit" style="left:20.90%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,239 prompt tokens (4,100 words)&lt;br&gt;cached: 0, 2190, 2190"></span><span class="min-dot hit" style="left:44.62%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,737 prompt tokens (3,900 words)&lt;br&gt;cached: 2177, 2688, 2688"></span><span class="min-dot hit" style="left:25.33%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,332 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2283, 2283"></span><span class="min-dot hit" style="left:96.71%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;5,831 prompt tokens (5,000 words)&lt;br&gt;cached: 3134, 3782, 3782"></span><span class="min-dot hit" style="left:39.57%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,631 prompt tokens (3,800 words)&lt;br&gt;cached: 0, 2582, 2582"></span><span class="min-dot miss" style="left:11.29%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,037 prompt tokens (3,900 words)&lt;br&gt;never cached: 0, 0, 0"></span><span class="min-dot hit" style="left:15.95%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,135 prompt tokens (4,000 words)&lt;br&gt;cached: 0, 2086, 2086"></span><span class="min-dot hit" style="left:54.14%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,937 prompt tokens (4,100 words)&lt;br&gt;cached: 2352, 2888, 2888"></span><span class="min-dot hit" style="left:25.43%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;4,334 prompt tokens (4,200 words)&lt;br&gt;cached: 0, 2285, 2285"></span><span class="min-dot hit" style="left:96.90%" tabindex="0" data-tip="&lt;strong&gt;argon many_grown&lt;/strong&gt;&lt;br&gt;5,835 prompt tokens (5,000 words)&lt;br&gt;cached: 3138, 3786, 3786"></span><span class="min-rule" style="left:14.10%"></span></div></div>
+<div class="min-row"><span></span><div class="min-ticks"><span style="left:0.00%">3,800</span><span style="left:25.00%">4,325</span><span style="left:50.00%">4,850</span><span style="left:75.00%">5,375</span><span style="left:100.00%">5,900</span></div></div>
+<p class="chart-note">Filled dot: cached on some send of the final request. Hollow ring: never cached. Dashed line: 4,096 tokens. Hover a dot for its sends.</p>
+</figure><details class="table-view"><summary>argon: largest miss and smallest hit per shape</summary><div class="table-scroll"><table><thead><tr><th>Shape</th><th class="num">Largest prompt never cached</th><th class="num">Smallest prompt cached</th><th class="num">n</th></tr></thead><tbody><tr><td><code>one</code></td><td class="num">4,053</td><td class="num">4,150</td><td class="num">18</td></tr>
+<tr><td><code>two_cold</code></td><td class="num">4,070</td><td class="num">4,167</td><td class="num">18</td></tr>
+<tr><td><code>two_grown</code></td><td class="num">4,071</td><td class="num">4,166</td><td class="num">18</td></tr>
+<tr><td><code>many_cold</code></td><td class="num">4,038</td><td class="num">4,135</td><td class="num">18</td></tr>
+<tr><td><code>many_grown</code></td><td class="num">4,037</td><td class="num">4,135</td><td class="num">18</td></tr></tbody></table></div></details><figure class="chart"><figcaption>3.1: cached or not, by prompt tokens of the final request (90 trials)</figcaption>
+<div class="min-row"><div class="bar-label"><code>one</code></div><div class="min-track"><span class="min-dot miss" style="left:0.39%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;6,024 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:16.50%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;7,023 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:32.58%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;8,020 prompt tokens (8,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:48.79%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;9,025 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 6982, 6982, 6982"></span><span class="min-dot hit" style="left:64.90%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;10,024 prompt tokens (10,000 words)&lt;br&gt;cached: 0, 7980, 7980, 7980"></span><span class="min-dot hit" style="left:97.13%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;12,022 prompt tokens (12,000 words)&lt;br&gt;cached: 0, 9977, 9977, 9977"></span><span class="min-dot miss" style="left:0.35%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;6,022 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:16.52%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;7,024 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:32.65%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;8,024 prompt tokens (8,000 words)&lt;br&gt;cached: 0, 0, 5982, 0"></span><span class="min-dot hit" style="left:48.76%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;9,023 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 6980, 6980, 6980"></span><span class="min-dot hit" style="left:64.85%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;10,021 prompt tokens (10,000 words)&lt;br&gt;cached: 0, 7977, 7977, 7977"></span><span class="min-dot hit" style="left:97.16%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;12,024 prompt tokens (12,000 words)&lt;br&gt;cached: 0, 9979, 9979, 9979"></span><span class="min-dot miss" style="left:0.32%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;6,020 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:16.47%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;7,021 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:32.56%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;8,019 prompt tokens (8,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:48.79%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;9,025 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 6982, 6982, 6982"></span><span class="min-dot hit" style="left:64.85%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;10,021 prompt tokens (10,000 words)&lt;br&gt;cached: 0, 7977, 7977, 7977"></span><span class="min-dot hit" style="left:97.11%" tabindex="0" data-tip="&lt;strong&gt;3.1 one&lt;/strong&gt;&lt;br&gt;12,021 prompt tokens (12,000 words)&lt;br&gt;cached: 0, 9976, 9976, 9976"></span></div></div>
+<div class="min-row"><div class="bar-label"><code>two_cold</code></div><div class="min-track"><span class="min-dot miss" style="left:0.47%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;6,029 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:16.61%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;7,030 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:32.74%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;8,030 prompt tokens (8,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:48.89%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;9,031 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 6990, 6990, 6990"></span><span class="min-dot hit" style="left:65.05%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;10,033 prompt tokens (10,000 words)&lt;br&gt;cached: 0, 7991, 7991, 7991"></span><span class="min-dot hit" style="left:97.26%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;12,030 prompt tokens (12,000 words)&lt;br&gt;cached: 0, 10099, 10099, 10099"></span><span class="min-dot miss" style="left:0.52%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;6,032 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:16.63%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;7,031 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:32.74%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;8,030 prompt tokens (8,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:48.89%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;9,031 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 6990, 6990, 6990"></span><span class="min-dot hit" style="left:65.02%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;10,031 prompt tokens (10,000 words)&lt;br&gt;cached: 0, 7989, 7989, 7989"></span><span class="min-dot hit" style="left:97.27%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;12,031 prompt tokens (12,000 words)&lt;br&gt;cached: 0, 9987, 9987, 9987"></span><span class="min-dot miss" style="left:0.50%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;6,031 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:16.65%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;7,032 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:32.76%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;8,031 prompt tokens (8,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:48.89%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;9,031 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 6990, 6990, 6990"></span><span class="min-dot hit" style="left:64.98%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;10,029 prompt tokens (10,000 words)&lt;br&gt;cached: 0, 7987, 7987, 7987"></span><span class="min-dot hit" style="left:97.29%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_cold&lt;/strong&gt;&lt;br&gt;12,032 prompt tokens (12,000 words)&lt;br&gt;cached: 0, 9988, 9988, 9988"></span></div></div>
+<div class="min-row"><div class="bar-label"><code>two_grown</code></div><div class="min-track"><span class="min-dot miss" style="left:0.48%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;6,030 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:16.61%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;7,030 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:32.76%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;8,031 prompt tokens (8,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:48.87%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;9,030 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 6989, 6989, 6989"></span><span class="min-dot hit" style="left:65.03%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;10,032 prompt tokens (10,000 words)&lt;br&gt;cached: 0, 7990, 7990, 7990"></span><span class="min-dot miss" style="left:0.48%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;6,030 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:97.32%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;12,034 prompt tokens (12,000 words)&lt;br&gt;cached: 0, 9990, 9990, 9990"></span><span class="min-dot miss" style="left:16.65%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;7,032 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:32.76%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;8,031 prompt tokens (8,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:48.89%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;9,031 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 6990, 6990, 6990"></span><span class="min-dot hit" style="left:65.00%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;10,030 prompt tokens (10,000 words)&lt;br&gt;cached: 0, 7988, 7988, 7988"></span><span class="min-dot hit" style="left:97.27%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;12,031 prompt tokens (12,000 words)&lt;br&gt;cached: 0, 0, 9987, 9987"></span><span class="min-dot miss" style="left:0.48%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;6,030 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:16.63%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;7,031 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:32.76%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;8,031 prompt tokens (8,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:48.87%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;9,030 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 6989, 6989, 6989"></span><span class="min-dot hit" style="left:65.03%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;10,032 prompt tokens (10,000 words)&lt;br&gt;cached: 0, 7990, 7990, 7990"></span><span class="min-dot hit" style="left:97.29%" tabindex="0" data-tip="&lt;strong&gt;3.1 two_grown&lt;/strong&gt;&lt;br&gt;12,032 prompt tokens (12,000 words)&lt;br&gt;cached: 0, 9988, 9988, 9988"></span></div></div>
+<div class="min-row"><div class="bar-label"><code>many_cold</code></div><div class="min-track"><span class="min-dot hit" style="left:1.11%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;6,069 prompt tokens (6,000 words)&lt;br&gt;cached: 0, 4248, 0, 0"></span><span class="min-dot miss" style="left:17.32%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;7,074 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:33.35%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;8,068 prompt tokens (8,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:49.58%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;9,074 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 7038, 7038, 7038"></span><span class="min-dot hit" style="left:65.73%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;10,075 prompt tokens (10,000 words)&lt;br&gt;cached: 0, 8169, 8169, 8169"></span><span class="min-dot hit" style="left:97.92%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;12,071 prompt tokens (12,000 words)&lt;br&gt;cached: 0, 10031, 10031, 10031"></span><span class="min-dot miss" style="left:1.16%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;6,072 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:17.32%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;7,074 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:33.42%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;8,072 prompt tokens (8,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:49.58%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;9,074 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 7038, 7038, 7038"></span><span class="min-dot hit" style="left:65.74%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;10,076 prompt tokens (10,000 words)&lt;br&gt;cached: 0, 8038, 8038, 8038"></span><span class="min-dot hit" style="left:97.95%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;12,073 prompt tokens (12,000 words)&lt;br&gt;cached: 0, 10145, 10145, 10145"></span><span class="min-dot miss" style="left:1.18%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;6,073 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:17.32%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;7,074 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:33.47%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;8,075 prompt tokens (8,000 words)&lt;br&gt;cached: 0, 6202, 6202, 6202"></span><span class="min-dot hit" style="left:49.55%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;9,072 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 7036, 7036, 7036"></span><span class="min-dot hit" style="left:65.69%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;10,073 prompt tokens (10,000 words)&lt;br&gt;cached: 0, 8035, 8035, 8035"></span><span class="min-dot hit" style="left:97.97%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_cold&lt;/strong&gt;&lt;br&gt;12,074 prompt tokens (12,000 words)&lt;br&gt;cached: 0, 10034, 10034, 10034"></span></div></div>
+<div class="min-row"><div class="bar-label"><code>many_grown</code></div><div class="min-track"><span class="min-dot miss" style="left:1.19%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;6,074 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:17.31%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;7,073 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:33.44%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;8,073 prompt tokens (8,000 words)&lt;br&gt;cached: 0, 6200, 6200, 6200"></span><span class="min-dot hit" style="left:65.69%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;10,073 prompt tokens (10,000 words)&lt;br&gt;cached: 6770, 8035, 8035, 8035"></span><span class="min-dot hit" style="left:49.55%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;9,072 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 7036, 7036, 7036"></span><span class="min-dot hit" style="left:97.95%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;12,073 prompt tokens (12,000 words)&lt;br&gt;cached: 7799, 10145, 10145, 10145"></span><span class="min-dot miss" style="left:33.47%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;8,075 prompt tokens (8,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:17.34%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;7,075 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:49.56%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;9,073 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 7037, 7037, 7037"></span><span class="min-dot miss" style="left:1.19%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;6,074 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:65.73%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;10,075 prompt tokens (10,000 words)&lt;br&gt;cached: 6772, 8037, 8037, 8037"></span><span class="min-dot hit" style="left:97.97%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;12,074 prompt tokens (12,000 words)&lt;br&gt;cached: 8714, 10146, 10146, 10146"></span><span class="min-dot miss" style="left:1.18%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;6,073 prompt tokens (6,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:17.31%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;7,073 prompt tokens (7,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot miss" style="left:33.42%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;8,072 prompt tokens (8,000 words)&lt;br&gt;never cached: 0, 0, 0, 0"></span><span class="min-dot hit" style="left:49.56%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;9,073 prompt tokens (9,000 words)&lt;br&gt;cached: 0, 7182, 7182, 7182"></span><span class="min-dot hit" style="left:65.74%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;10,076 prompt tokens (10,000 words)&lt;br&gt;cached: 6772, 8038, 8038, 8038"></span><span class="min-dot hit" style="left:97.92%" tabindex="0" data-tip="&lt;strong&gt;3.1 many_grown&lt;/strong&gt;&lt;br&gt;12,071 prompt tokens (12,000 words)&lt;br&gt;cached: 8516, 10031, 10031, 10031"></span></div></div>
+<div class="min-row"><span></span><div class="min-ticks"><span style="left:0.00%">6,000</span><span style="left:25.00%">7,550</span><span style="left:50.00%">9,100</span><span style="left:75.00%">10,650</span><span style="left:100.00%">12,200</span></div></div>
+<p class="chart-note">Filled dot: cached on some send of the final request. Hollow ring: never cached. Hover a dot for its sends.</p>
+</figure><details class="table-view" open><summary>3.1: trials cached / trials, by size and shape</summary><div class="table-scroll"><table><thead><tr><th class="num">Words</th><th class="num"><code>one</code></th><th class="num"><code>two_cold</code></th><th class="num"><code>two_grown</code></th><th class="num"><code>many_cold</code></th><th class="num"><code>many_grown</code></th></tr></thead><tbody><tr><td class="num">6,000</td><td class="num">0 / 3</td><td class="num">0 / 3</td><td class="num">0 / 3</td><td class="num">1 / 3</td><td class="num">0 / 3</td></tr>
+<tr><td class="num">7,000</td><td class="num">0 / 3</td><td class="num">0 / 3</td><td class="num">0 / 3</td><td class="num">0 / 3</td><td class="num">0 / 3</td></tr>
+<tr><td class="num">8,000</td><td class="num">1 / 3</td><td class="num">0 / 3</td><td class="num">0 / 3</td><td class="num">1 / 3</td><td class="num">1 / 3</td></tr>
+<tr><td class="num">9,000</td><td class="num">3 / 3</td><td class="num">3 / 3</td><td class="num">3 / 3</td><td class="num">3 / 3</td><td class="num">3 / 3</td></tr>
+<tr><td class="num">10,000</td><td class="num">3 / 3</td><td class="num">3 / 3</td><td class="num">3 / 3</td><td class="num">3 / 3</td><td class="num">3 / 3</td></tr>
+<tr><td class="num">12,000</td><td class="num">3 / 3</td><td class="num">3 / 3</td><td class="num">3 / 3</td><td class="num">3 / 3</td><td class="num">3 / 3</td></tr></tbody></table></div></details><p class="chart-note">From <code>scripts/run-minimum.ts</code> → <code>results/minimum.csv</code>, 180 trials.</p><p>We expected the history to matter on 3.x: a thread that grew turn by turn past the threshold might cache where the same tokens in one or two big messages, sent cold, would not. These data don’t show that on either model. At 3.1’s edge (8,000 words) the five shapes hit 1, 0, 0, 1 and 1 times out of 3, and argon’s edge is identical across shapes. The grown threads’ earlier turns were themselves below the threshold, so they left nothing to reuse. History does matter, but in a different way: it decides which entries a later request can reuse, which the next sections show. This is three trials per cell on synthetic filler, so a small shape effect on 3.1 can’t be ruled out. Claim tests: <code>src/claims/threshold.test.ts</code>.</p>
+<h3 id="the-last-2049-tokens-are-never-cached">The last 2,049 tokens are never cached</h3>
+<p>When a request is sent, the cache saves its beginning for later reuse: everything except the last 2,049 tokens (on argon; about 2,043–2,050 on 3.1). A later request that starts the same way gets those saved tokens billed as cached, and pays full price for the rest. So:</p>
+<ul>
+<li><strong>An identical resend</strong> pays full price for exactly its last 2,049 tokens.</li>
+<li><strong>The next request in a growing thread</strong> pays full price for the previous request’s last 2,049 tokens plus everything appended since, as long as less than 2,049 tokens were appended (more on that below). That’s the “held back” column in the chain table above.</li>
+</ul>
+<p>Here is what that looks like on real requests from this experiment. Hover a segment for its size:</p>
+<figure class="chart examples"><figcaption>Real argon requests from this experiment</figcaption><div class="legend"><span class="legend-item"><span class="swatch cached"></span>billed as cached</span><span class="legend-item"><span class="swatch full"></span>full price</span><span class="legend-item"><span class="swatch new"></span>full price, new since the previous request</span></div><div class="ex"><h4>An identical resend</h4><div class="ex-row"><div class="ex-title">Send 2 · 8,052 tokens</div><div class="ex-bar"><span class="seg cached" style="flex-grow:6003;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;6,003 tokens&lt;/strong&gt;&lt;br&gt;billed as cached"></span><span class="seg full" style="flex-grow:2049;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;2,049 tokens&lt;/strong&gt;&lt;br&gt;full price (the last 2,049)"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch cached"></span>6,003 billed as cached</span><span class="seg-key"><span class="swatch full"></span>2,049 full price (the last 2,049)</span></div></div><p class="chart-note">The same 8,052-token request sent a second time: everything but the last 2,049 tokens is billed as cached.</p></div><div class="ex"><h4>Either side of the minimum</h4><div class="ex-row"><div class="ex-title">4,071 tokens · never cached</div><div class="ex-bar"><span class="seg full" style="flex-grow:4071;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;4,071 tokens&lt;/strong&gt;&lt;br&gt;full price (nothing cached)"></span><span class="seg-pad" style="flex-grow:64;flex-basis:0"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch full"></span>4,071 full price (nothing cached)</span></div></div><div class="ex-row"><div class="ex-title">4,135 tokens · cached</div><div class="ex-bar"><span class="seg cached" style="flex-grow:2086;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;2,086 tokens&lt;/strong&gt;&lt;br&gt;billed as cached"></span><span class="seg full" style="flex-grow:2049;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;2,049 tokens&lt;/strong&gt;&lt;br&gt;full price (the last 2,049)"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch cached"></span>2,086 billed as cached</span><span class="seg-key"><span class="swatch full"></span>2,049 full price (the last 2,049)</span></div></div><p class="chart-note">The largest request that never cached and the smallest that did. With 2,049 tokens always held back, 4,071 tokens would leave only 2,022 to cache, and argon cached nothing. 4,135 tokens left 2,086, and every request that size or larger cached. That fits a minimum of 2,048 cached tokens on top of the tail (4,096 ≈ 2,048 + 2,049), though the data only bracket it between 2,023 and 2,086.</p></div><div class="ex"><h4>A 128k-token request</h4><div class="ex-row"><div class="ex-title">Send 2 · 128,053 tokens</div><div class="ex-bar"><span class="seg cached" style="flex-grow:126004;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;126,004 tokens&lt;/strong&gt;&lt;br&gt;billed as cached"></span><span class="seg full" style="flex-grow:2049;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;2,049 tokens&lt;/strong&gt;&lt;br&gt;full price (the last 2,049)"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch cached"></span>126,004 billed as cached</span><span class="seg-key"><span class="swatch full"></span>2,049 full price (the last 2,049)</span></div></div><p class="chart-note">The same 2,049 tokens, now 1.6% of the request. At the minimum size above, it was half.</p></div><div class="ex"><h4>The next request in a conversation</h4><div class="ex-row"><div class="ex-title">Request 1 · 20,054 tokens</div><div class="ex-bar"><span class="seg full" style="flex-grow:20054;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;20,054 tokens&lt;/strong&gt;&lt;br&gt;full price (first send)"></span><span class="seg-pad" style="flex-grow:28;flex-basis:0"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch full"></span>20,054 full price (first send)</span></div></div><div class="ex-row"><div class="ex-title">Request 2 · 20,082 tokens</div><div class="ex-bar"><span class="seg cached" style="flex-grow:18005;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;18,005 tokens&lt;/strong&gt;&lt;br&gt;billed as cached"></span><span class="seg full" style="flex-grow:2049;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;2,049 tokens&lt;/strong&gt;&lt;br&gt;full price (request 1’s last 2,049)"></span><span class="seg new" style="flex-grow:28;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;28 tokens&lt;/strong&gt;&lt;br&gt;full price (new since request 1)"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch cached"></span>18,005 billed as cached</span><span class="seg-key"><span class="swatch full"></span>2,049 full price (request 1’s last 2,049)</span><span class="seg-key"><span class="swatch new"></span>28 full price (new since request 1)</span></div></div><p class="chart-note">Request 2 is request 1 plus the model’s one-word reply and a short new message (28 tokens). It reuses request 1’s saved part, so it pays full price for request 1’s last 2,049 tokens plus the 28 new ones.</p></div><div class="ex"><h4>After appending more than 2,049 tokens</h4><div class="ex-row"><div class="ex-title">Request 1 · 20,064 tokens</div><div class="ex-bar"><span class="seg full" style="flex-grow:20064;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;20,064 tokens&lt;/strong&gt;&lt;br&gt;full price (first send)"></span><span class="seg-pad" style="flex-grow:3417;flex-basis:0"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch full"></span>20,064 full price (first send)</span></div></div><div class="ex-row"><div class="ex-title">Request 2 · 23,481 tokens</div><div class="ex-bar"><span class="seg cached" style="flex-grow:20065;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;20,065 tokens&lt;/strong&gt;&lt;br&gt;billed as cached"></span><span class="seg new" style="flex-grow:3416;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;3,416 tokens&lt;/strong&gt;&lt;br&gt;full price (the reply and the new message)"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch cached"></span>20,065 billed as cached</span><span class="seg-key"><span class="swatch new"></span>3,416 full price (the reply and the new message)</span></div></div><p class="chart-note">Request 1’s reply was 3,394 tokens long, so request 2 appends more than 2,049 tokens. It reuses all of request 1’s prompt (20,065 cached, one more than request 1’s 20,064), and pays full price only for the reply and the new message.</p></div><p class="chart-note">Each bar is one request, drawn to scale within its example. Numbers are <code>promptTokenCount</code> and <code>cachedContentTokenCount</code> from <code>results/repeats.csv</code>, <code>minimum.csv</code>, <code>tail.csv</code> and <code>extend.csv</code>, picked by the report script.</p></figure><p>The 2,049 is measured from the end, not in blocks from the start. A cache built from fixed blocks would report the same cached count for every prompt between two block edges. argon’s count moves one token at a time instead: prompts of 4,150, 4,151 and 4,152 tokens cached 2,101, 2,102 and 2,103. Across 77 distinct prompt sizes, the cached counts fall on 76 different positions within any 2,048-token block. Whatever Google stores internally, the billed count is “all but the last 2,049”. The table below is from identical repeats:</p>
+<div class="table-scroll"><table><thead><tr><th>Model</th><th class="num">Words</th><th>Reply</th><th class="num">Prompt</th><th class="num">Repeats that hit</th><th class="num">Held back (prompt − cached)</th><th class="num">Output tokens</th><th class="num">n</th></tr></thead><tbody><tr><td>argon</td><td class="num">4,200</td><td>short</td><td class="num">4,253</td><td class="num">4 / 4</td><td class="num">2,049</td><td class="num">5</td><td class="num">2</td></tr>
+<tr><td>argon</td><td class="num">8,000</td><td>short</td><td class="num">8,052</td><td class="num">2 / 2</td><td class="num">2,049</td><td class="num">5</td><td class="num">1</td></tr>
+<tr><td>argon</td><td class="num">8,000</td><td>long</td><td class="num">8,069</td><td class="num">1 / 2</td><td class="num">2,049</td><td class="num">4,859–8,192</td><td class="num">1</td></tr>
+<tr><td>argon</td><td class="num">16,000</td><td>short</td><td class="num">16,054</td><td class="num">4 / 4</td><td class="num">2,049</td><td class="num">5</td><td class="num">2</td></tr>
+<tr><td>argon</td><td class="num">20,000</td><td>short</td><td class="num">20,052</td><td class="num">2 / 2</td><td class="num">2,049</td><td class="num">5</td><td class="num">1</td></tr>
+<tr><td>argon</td><td class="num">20,000</td><td>long</td><td class="num">20,070</td><td class="num">2 / 2</td><td class="num">2,049</td><td class="num">5,094–6,756</td><td class="num">1</td></tr>
+<tr><td>argon</td><td class="num">32,000</td><td>short</td><td class="num">32,053</td><td class="num">4 / 4</td><td class="num">2,049</td><td class="num">5</td><td class="num">2</td></tr>
+<tr><td>argon</td><td class="num">64,000</td><td>short</td><td class="num">64,052</td><td class="num">4 / 4</td><td class="num">2,049</td><td class="num">5</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td class="num">4,200</td><td>short</td><td class="num">4,223</td><td class="num">0 / 4</td><td class="num">–</td><td class="num">1–2</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td class="num">8,000</td><td>short</td><td class="num">8,024</td><td class="num">0 / 2</td><td class="num">–</td><td class="num">2</td><td class="num">1</td></tr>
+<tr><td>3.1</td><td class="num">8,000</td><td>long</td><td class="num">8,040</td><td class="num">0 / 2</td><td class="num">–</td><td class="num">800–2,586</td><td class="num">1</td></tr>
+<tr><td>3.1</td><td class="num">16,000</td><td>short</td><td class="num">16,024</td><td class="num">4 / 4</td><td class="num">2,046</td><td class="num">1–2</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td class="num">20,000</td><td>short</td><td class="num">20,024</td><td class="num">2 / 2</td><td class="num">2,047</td><td class="num">1–2</td><td class="num">1</td></tr>
+<tr><td>3.1</td><td class="num">20,000</td><td>long</td><td class="num">20,038</td><td class="num">2 / 2</td><td class="num">2,047</td><td class="num">1,087–1,947</td><td class="num">1</td></tr>
+<tr><td>3.1</td><td class="num">32,000</td><td>short</td><td class="num">32,024</td><td class="num">4 / 4</td><td class="num">2,048</td><td class="num">2</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td class="num">64,000</td><td>short</td><td class="num">64,023</td><td class="num">4 / 4</td><td class="num">2,049</td><td class="num">1–2</td><td class="num">2</td></tr></tbody></table></div><p class="chart-note">From <code>scripts/run-repeats.ts</code> → <code>results/repeats.csv</code>, 24 trials.</p><p>To check that 2,049 isn’t an artefact of this setup, one factor at a time was changed from a baseline (filler words in one user message, <code>thinkingLevel: &quot;low&quot;</code>, ~8,000 tokens). The tail stayed exactly 2,049 on argon in every case. The 3.1 baseline rows at ~8,000 tokens never cached because they’re below its threshold, so 3.1 was rerun at ~12,000:</p>
+<div class="table-scroll"><table><thead><tr><th>Model</th><th>Variant</th><th class="num">Prompt</th><th class="num">Tail (prompt − cached)</th><th class="num">n</th></tr></thead><tbody><tr><td>argon</td><td>baseline: filler words, one user message, thinking low</td><td class="num">8,053</td><td class="num">2,049</td><td class="num">2</td></tr>
+<tr><td>argon</td><td>random alphanumeric strings</td><td class="num">8,799–8,923</td><td class="num">2,049</td><td class="num">2</td></tr>
+<tr><td>argon</td><td>JSON records</td><td class="num">9,379–9,403</td><td class="num">2,049</td><td class="num">2</td></tr>
+<tr><td>argon</td><td>thinkingLevel high</td><td class="num">8,054–8,055</td><td class="num">2,049</td><td class="num">2</td></tr>
+<tr><td>argon</td><td>no thinkingConfig</td><td class="num">8,051–8,052</td><td class="num">2,049</td><td class="num">2</td></tr>
+<tr><td>argon</td><td>content in the system instruction</td><td class="num">8,057–8,059</td><td class="num">2,049</td><td class="num">2</td></tr>
+<tr><td>argon</td><td>~128k tokens</td><td class="num">128,053–128,054</td><td class="num">2,049</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td>baseline: filler words, one user message, thinking low</td><td class="num">8,022–12,024</td><td class="num">2,045</td><td class="num">4</td></tr>
+<tr><td>3.1</td><td>random alphanumeric strings</td><td class="num">9,027–9,098</td><td class="num">2,043</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td>JSON records</td><td class="num">9,496</td><td class="num">2,044</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td>thinkingLevel high</td><td class="num">8,023–12,024</td><td class="num">2,047</td><td class="num">4</td></tr>
+<tr><td>3.1</td><td>no thinkingConfig</td><td class="num">8,024–12,026</td><td class="num">2,047</td><td class="num">4</td></tr>
+<tr><td>3.1</td><td>content in the system instruction</td><td class="num">8,022–12,023</td><td class="num">2,044</td><td class="num">4</td></tr>
+<tr><td>3.1</td><td>~128k tokens</td><td class="num">128,022–128,023</td><td class="num">2,050</td><td class="num">2</td></tr></tbody></table></div><p class="chart-note">From <code>scripts/run-tail.ts</code> → <code>results/tail.csv</code>, 36 trials.</p><p>There is one way past the tail, on both models: <strong>append more than 2,049 tokens.</strong> Each request leaves two points the next request can reuse: its prompt minus the last 2,049 tokens, and the end of its whole prompt (argon: the prompt + 1; 3.1: within a few tokens). The next request can’t reuse anything inside its own last 2,049 tokens, so it gets whichever saved point fits:</p>
+<ul>
+<li><strong>Less than 2,049 tokens appended:</strong> the end of the previous prompt falls inside the new request’s last 2,049, so only the shorter point is usable. You pay for the previous request’s last 2,049 tokens again.</li>
+<li><strong>More than 2,049 tokens appended:</strong> the end of the previous prompt is usable, so the whole previous prompt is cached and only what you appended is full price.</li>
+</ul>
+<p>There is no partial benefit in between, because there are only those two points. It doesn’t matter whether the appended tokens are the model’s reply or your own text. The <code>mid_chain</code> and <code>para_chain</code> rows in the chain table show it with replies, and the next section shows it with both. Claim tests: <code>src/claims/tail.test.ts</code>, <code>src/claims/two-turns.test.ts</code>, and the appended-size cases in <code>src/claims/chain.test.ts</code>.</p>
+<h3 id="two-conversations-same-size-different-bill">Two conversations, same size, different bill</h3>
+<p>Both conversations open with the same 10,000-token message, and both reach about 13,000 tokens on turn 2:</p>
+<ul>
+<li><strong>A.</strong> The model replies with one word, then you append 3,000 tokens of your own.</li>
+<li><strong>B.</strong> The model replies with about 3,400 tokens, then you send a one-line follow-up.</li>
+</ul>
+<p>In both, turn 2 caches all of turn 1’s prompt, because more than 2,049 tokens were appended. If you appended only ~2,000 tokens instead, turn 2 would cache 2,049 fewer tokens and bill them at full price again. Across both models the edge sits between about 2,030 and 2,115 appended tokens, which fits 2,049.</p>
+<figure class="chart examples"><figcaption>Both conversations, turn 2 (argon)</figcaption><div class="legend"><span class="legend-item"><span class="swatch cached"></span>billed as cached</span><span class="legend-item"><span class="swatch full"></span>full price</span><span class="legend-item"><span class="swatch new"></span>full price, new since turn 1</span></div><div class="ex"><h4>A. You append 3,000 tokens</h4><div class="ex-row"><div class="ex-title">Turn 1 · 10,059 tokens</div><div class="ex-bar"><span class="seg full" style="flex-grow:10059;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;10,059 tokens&lt;/strong&gt;&lt;br&gt;full price (first send)"></span><span class="seg-pad" style="flex-grow:3425;flex-basis:0"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch full"></span>10,059 full price (first send)</span></div></div><div class="ex-row"><div class="ex-title">Turn 2 · 13,086 tokens</div><div class="ex-bar"><span class="seg cached" style="flex-grow:10060;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;10,060 tokens&lt;/strong&gt;&lt;br&gt;billed as cached"></span><span class="seg new" style="flex-grow:3026;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;3,026 tokens&lt;/strong&gt;&lt;br&gt;full price (new since turn 1)"></span><span class="seg-pad" style="flex-grow:398;flex-basis:0"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch cached"></span>10,060 billed as cached</span><span class="seg-key"><span class="swatch new"></span>3,026 full price (new since turn 1)</span></div></div><p class="chart-note">Turn 2 is 13,086 tokens. 10,060 are billed as cached: all of turn 1’s 10,059-token prompt, plus one. Only 3,026 are full price: your 3,000 tokens and the model’s one-word reply.</p></div><div class="ex"><h4>B. The model replies with ~3,400 tokens</h4><div class="ex-row"><div class="ex-title">Turn 1 · 10,071 tokens</div><div class="ex-bar"><span class="seg full" style="flex-grow:10071;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;10,071 tokens&lt;/strong&gt;&lt;br&gt;full price (first send)"></span><span class="seg-pad" style="flex-grow:3413;flex-basis:0"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch full"></span>10,071 full price (first send)</span></div></div><div class="ex-row"><div class="ex-title">Turn 2 · 13,484 tokens</div><div class="ex-bar"><span class="seg cached" style="flex-grow:10072;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;10,072 tokens&lt;/strong&gt;&lt;br&gt;billed as cached"></span><span class="seg new" style="flex-grow:3412;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;3,412 tokens&lt;/strong&gt;&lt;br&gt;full price (new since turn 1)"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch cached"></span>10,072 billed as cached</span><span class="seg-key"><span class="swatch new"></span>3,412 full price (new since turn 1)</span></div></div><p class="chart-note">Turn 2 is 13,484 tokens. 10,072 are billed as cached: all of turn 1’s 10,071-token prompt, plus one. Only 3,412 are full price: the model’s reply and your short follow-up.</p></div></figure><details class="table-view" open><summary><code>src/two-turns.ts</code>, the exact code behind both examples</summary><pre><code>// Two conversations that both open with a 10,000-token message and grow to
+// about 13,000 tokens on the second request, billed very differently.
+// `openingWords` and `appendWords` change the sizes (e.g. 4,050 + 1,000 for
+// a ~4,100-token opening followed by 1,000 more tokens).
+//
+//   your_text   turn 1 asks for a one-word reply; turn 2 appends 3,000 tokens
+//               of your own text (`appendWords` changes the amount).
+//   long_reply  turn 1 asks for a ~3,500-token reply; turn 2 appends a short
+//               follow-up, so the model's reply is the 3,000 tokens.
+//
+// Each turn is one plain generateContent call; `generate` POSTs the body
+// below unchanged to
+//   https://generativelanguage.googleapis.com/v1beta/models/&lt;model&gt;:generateContent
+import { filler } from &quot;./filler.js&quot;;
+import {
+  countTokens,
+  generate,
+  sleep,
+  type Content,
+  type Request,
+} from &quot;./gemini.js&quot;;
+
+export const KINDS = [&quot;your_text&quot;, &quot;long_reply&quot;] as const;
+export type Kind = (typeof KINDS)[number];
+
+const ASK = {
+  your_text: &quot;Reply with the single word OK.&quot;,
+  long_reply:
+    &quot;Write 40 numbered paragraphs of about 80 words each, using the words above.&quot;,
+};
+
+function request(contents: Content[]): Request {
+  return {
+    contents,
+    generationConfig: {
+      maxOutputTokens: 8192,
+      thinkingConfig: { thinkingLevel: &quot;low&quot; },
+    },
+  };
+}
+
+export interface Turn {
+  prompt: number; // usageMetadata.promptTokenCount
+  cached: number; // usageMetadata.cachedContentTokenCount
+  output: number; // usageMetadata.candidatesTokenCount
+  counted: number; // countTokens of the same request (detects argon's hidden block)
+}
+
+export async function twoTurns(opts: {
+  model: string;
+  kind: Kind;
+  seed: number;
+  nonce: string;
+  delayMs: number;
+  openingWords?: number;
+  appendWords?: number;
+}): Promise&lt;{ turn1: Turn; turn2: Turn }&gt; {
+  // Turn 1: the opening message (10,000 tokens unless `openingWords` says).
+  const words = opts.openingWords ?? 10_000;
+  const opening = `Reference ${opts.nonce}.\n${filler(opts.seed, &quot;opening&quot;, words)}`;
+  const turn1 = request([
+    { role: &quot;user&quot;, parts: [{ text: `${opening}\n\n${ASK[opts.kind]}` }] },
+  ]);
+  const r1 = await generate(opts.model, turn1);
+  if (!r1.usage || !r1.content) throw new Error(`turn 1: ${r1.error}`);
+
+  // Turn 2: the same conversation, plus the model's reply, plus a new message.
+  const followUp =
+    opts.kind === &quot;your_text&quot;
+      ? `${filler(opts.seed + 1, &quot;more&quot;, opts.appendWords ?? 3_000)}\n\nReply with the single word OK.`
+      : &quot;Thanks. Reply with the single word OK.&quot;;
+  const turn2 = request([
+    ...turn1.contents,
+    r1.content, // the reply, sent back exactly as returned
+    { role: &quot;user&quot;, parts: [{ text: followUp }] },
+  ]);
+  await sleep(opts.delayMs);
+  const r2 = await generate(opts.model, turn2);
+  if (!r2.usage) throw new Error(`turn 2: ${r2.error}`);
+
+  const turn = (u: NonNullable&lt;typeof r1.usage&gt;, counted: number): Turn =&gt; ({
+    prompt: u.prompt,
+    cached: u.cached,
+    output: u.output,
+    counted,
+  });
+  return {
+    turn1: turn(r1.usage, await countTokens(opts.model, turn1)),
+    turn2: turn(r2.usage, await countTokens(opts.model, turn2)),
+  };
+}
+</code></pre></details><h4>Where the edge is</h4><div class="table-scroll"><table><thead><tr><th>Model</th><th>Appended</th><th class="num">Tokens appended</th><th class="num">Turn 2 cached − turn 1 prompt</th><th class="num">Reused all of turn 1</th><th class="num">Missed (hidden block or random)</th><th class="num">n</th></tr></thead><tbody><tr><td>argon</td><td>your text (1,700 words)</td><td class="num">1,727–2,424</td><td class="num">−2,049</td><td class="num">0 / 1</td><td class="num">1</td><td class="num">2</td></tr>
+<tr><td>argon</td><td>your text (1,900 words)</td><td class="num">1,927</td><td class="num">−2,049</td><td class="num">0 / 2</td><td class="num">0</td><td class="num">2</td></tr>
+<tr><td>argon</td><td>your text (2,000 words)</td><td class="num">2,027</td><td class="num">−2,049</td><td class="num">0 / 1</td><td class="num">1</td><td class="num">2</td></tr>
+<tr><td>argon</td><td>your text (2,100 words)</td><td class="num">2,127</td><td class="num">1</td><td class="num">1 / 1</td><td class="num">1</td><td class="num">2</td></tr>
+<tr><td>argon</td><td>your text (2,200 words)</td><td class="num">2,227–2,924</td><td class="num">1</td><td class="num">1 / 1</td><td class="num">1</td><td class="num">2</td></tr>
+<tr><td>argon</td><td>your text (2,400 words)</td><td class="num">2,427</td><td class="num">1</td><td class="num">2 / 2</td><td class="num">0</td><td class="num">2</td></tr>
+<tr><td>argon</td><td>your text (3,000 words)</td><td class="num">3,027</td><td class="num">1</td><td class="num">3 / 3</td><td class="num">0</td><td class="num">3</td></tr>
+<tr><td>argon</td><td>the model’s reply (~3,000–3,900)</td><td class="num">3,413–3,747</td><td class="num">1</td><td class="num">3 / 3</td><td class="num">0</td><td class="num">3</td></tr>
+<tr><td>3.1</td><td>your text (1,700 words)</td><td class="num">1,716</td><td class="num">−2,046</td><td class="num">0 / 1</td><td class="num">1</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td>your text (1,900 words)</td><td class="num">1,916</td><td class="num">−2,045</td><td class="num">0 / 2</td><td class="num">0</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td>your text (2,000 words)</td><td class="num">2,015–2,016</td><td class="num">−2,045</td><td class="num">0 / 2</td><td class="num">0</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td>your text (2,100 words)</td><td class="num">2,115–2,116</td><td class="num">−2</td><td class="num">2 / 2</td><td class="num">0</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td>your text (2,200 words)</td><td class="num">2,216</td><td class="num">−1</td><td class="num">2 / 2</td><td class="num">0</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td>your text (2,400 words)</td><td class="num">2,416</td><td class="num">−1</td><td class="num">2 / 2</td><td class="num">0</td><td class="num">2</td></tr>
+<tr><td>3.1</td><td>your text (3,000 words)</td><td class="num">3,016–3,017</td><td class="num">1</td><td class="num">3 / 3</td><td class="num">0</td><td class="num">3</td></tr>
+<tr><td>3.1</td><td>the model’s reply (~3,000–3,900)</td><td class="num">3,635–3,756</td><td class="num">2</td><td class="num">3 / 3</td><td class="num">0</td><td class="num">3</td></tr></tbody></table></div><p class="chart-note">“Turn 2 cached − turn 1 prompt” is about −2,049 when turn 2 used turn 1’s shorter saved point, and +1 (argon) or −1 to −3 (3.1) when it used the end of turn 1.</p><p class="chart-note">From <code>scripts/run-two-turns.ts</code> → <code>results/two_turns.csv</code>, 36 trials.</p><h3 id="a-small-conversation-4100-tokens-then-1000-more">A small conversation: 4,100 tokens, then 1,000 more</h3>
+<p>What most people would expect: turn 2 caches the 4,100 tokens of turn 1 and pays full price only for the 1,000 new ones. That isn’t what happens on argon. Turn 2 is about 5,100 tokens, so it can’t use anything after its own token 3,050 or so (its last 2,049 are never served from cache). The end of turn 1, at about 4,100, is past that, so turn 2 falls back to turn 1’s other saved point, turn 1 minus 2,049. It pays full price for about 3,076 tokens: turn 1’s last 2,049 a second time, plus the 1,027 new ones. Append 2,100 instead of 1,000 and the end of turn 1 is usable again, so you get exactly what you’d expect.</p>
+<figure class="chart examples"><figcaption>A 4,100-token opening, then more (argon)</figcaption><div class="legend"><span class="legend-item"><span class="swatch cached"></span>billed as cached</span><span class="legend-item"><span class="swatch full"></span>full price, paid again</span><span class="legend-item"><span class="swatch new"></span>full price, new</span></div><div class="ex"><h4>4,108 tokens, then 1,027 more</h4><div class="ex-row"><div class="ex-title">What you’d expect · turn 2, 5,135 tokens</div><div class="ex-bar"><span class="seg cached" style="flex-grow:4108;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;4,108 tokens&lt;/strong&gt;&lt;br&gt;cached (all of turn 1)"></span><span class="seg new" style="flex-grow:1027;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;1,027 tokens&lt;/strong&gt;&lt;br&gt;full price (new)"></span><span class="seg-pad" style="flex-grow:1101;flex-basis:0"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch cached"></span>4,108 cached (all of turn 1)</span><span class="seg-key"><span class="swatch new"></span>1,027 full price (new)</span></div></div><div class="ex-row"><div class="ex-title">What argon did · turn 2, 5,135 tokens</div><div class="ex-bar"><span class="seg cached" style="flex-grow:2059;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;2,059 tokens&lt;/strong&gt;&lt;br&gt;billed as cached"></span><span class="seg full" style="flex-grow:2049;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;2,049 tokens&lt;/strong&gt;&lt;br&gt;full price (turn 1’s last 2,049, again)"></span><span class="seg new" style="flex-grow:1027;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;1,027 tokens&lt;/strong&gt;&lt;br&gt;full price (new)"></span><span class="seg-pad" style="flex-grow:1101;flex-basis:0"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch cached"></span>2,059 billed as cached</span><span class="seg-key"><span class="swatch full"></span>2,049 full price (turn 1’s last 2,049, again)</span><span class="seg-key"><span class="swatch new"></span>1,027 full price (new)</span></div></div><p class="chart-note">Less than 2,049 tokens were appended, so turn 2 can’t use the end of turn 1 (it is inside turn 2’s own last 2,049 tokens). It falls back to turn 1 minus 2,049: 2,059 cached, and 3,076 at full price, 2,049 of them turn 1’s tail paid for a second time.</p></div><div class="ex"><h4>4,109 tokens, then 2,127 more</h4><div class="ex-row"><div class="ex-title">What you’d expect · turn 2, 6,236 tokens</div><div class="ex-bar"><span class="seg cached" style="flex-grow:4109;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;4,109 tokens&lt;/strong&gt;&lt;br&gt;cached (all of turn 1)"></span><span class="seg new" style="flex-grow:2127;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;2,127 tokens&lt;/strong&gt;&lt;br&gt;full price (new)"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch cached"></span>4,109 cached (all of turn 1)</span><span class="seg-key"><span class="swatch new"></span>2,127 full price (new)</span></div></div><div class="ex-row"><div class="ex-title">What argon did · turn 2, 6,236 tokens</div><div class="ex-bar"><span class="seg cached" style="flex-grow:4110;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;4,110 tokens&lt;/strong&gt;&lt;br&gt;billed as cached"></span><span class="seg new" style="flex-grow:2126;flex-basis:0" tabindex="0" data-tip="&lt;strong&gt;2,126 tokens&lt;/strong&gt;&lt;br&gt;full price (new)"></span></div><div class="ex-legend"><span class="seg-key"><span class="swatch cached"></span>4,110 billed as cached</span><span class="seg-key"><span class="swatch new"></span>2,126 full price (new)</span></div></div><p class="chart-note">More than 2,049 tokens were appended, so turn 2 reuses the whole of turn 1 (4,110 cached) and pays full price only for the 2,126 new tokens. What you’d expect.</p></div></figure><div class="table-scroll"><table><thead><tr><th>Model</th><th>Appended</th><th class="num">Turn 1</th><th class="num">Turn 2</th><th class="num">Turn 2 cached</th><th class="num">Turn 2 full price</th><th class="num">Hidden block (cached 0)</th><th class="num">n</th></tr></thead><tbody><tr><td>argon</td><td>1,000 words</td><td class="num">4,106–4,110</td><td class="num">5,134–5,833</td><td class="num">2,058–2,061</td><td class="num">3,076</td><td class="num">3</td><td class="num">7</td></tr>
+<tr><td>argon</td><td>2,100 words</td><td class="num">4,106–4,109</td><td class="num">6,233–6,236</td><td class="num">4,107–4,110</td><td class="num">2,126</td><td class="num">0</td><td class="num">3</td></tr>
+<tr><td>3.1</td><td>1,000 words</td><td class="num">4,077–4,079</td><td class="num">5,092–5,094</td><td class="num">0 (below 3.1’s threshold)</td><td class="num">everything</td><td class="num">0</td><td class="num">3</td></tr>
+<tr><td>3.1</td><td>2,100 words</td><td class="num">4,077–4,079</td><td class="num">6,193–6,195</td><td class="num">0 (below 3.1’s threshold)</td><td class="num">everything</td><td class="num">0</td><td class="num">3</td></tr></tbody></table></div><p class="chart-note">From <code>scripts/run-two-turns.ts</code> → <code>results/two_turns.csv</code>, 16 trials.</p><p>On 3.1 neither version caches anything: both turns are below its ~9,000-token threshold. The code is the same <code>src/two-turns.ts</code> as above, with <code>openingWords: 4050</code> and <code>appendWords: 1000</code> or <code>2100</code>. Claim tests: <code>src/claims/two-turns.test.ts</code>.</p>
+<h3 id="the-same-case-at-exact-sizes-on-openai-too">The same case at exact sizes, on OpenAI too</h3>
+<p><code>src/exact-4100.ts</code> runs the case with exact sizes on both OpenAI (<code>gpt-5.6-sol</code>) and Gemini 4. Turn 1 is exactly 4,100 prompt tokens (or 4,000). Turn 2 is exactly 1,000 or 2,100 tokens more, reply and new message together. Each request is sized with the provider’s token-counting endpoint, which can’t warm a cache, and checked against the billed count.</p>
+<div class="table-scroll"><table><thead><tr><th>Provider</th><th class="num">Turn 1</th><th class="num">Appended</th><th class="num">Turn 2 cached</th><th class="num">Turn 2 full price</th><th class="num">Exact-size trials / all</th></tr></thead><tbody><tr><td>Gemini <code>gemini-4-argon</code></td><td class="num">4,000</td><td class="num">1,000</td><td class="num">0</td><td class="num">5,000</td><td class="num">3 / 8</td></tr>
+<tr><td>Gemini <code>gemini-4-argon</code></td><td class="num">4,000</td><td class="num">2,100</td><td class="num">0</td><td class="num">6,100</td><td class="num">2 / 3</td></tr>
+<tr><td>Gemini <code>gemini-4-argon</code></td><td class="num">4,000</td><td class="num">2,500</td><td class="num">0</td><td class="num">6,500</td><td class="num">4 / 4</td></tr>
+<tr><td>Gemini <code>gemini-4-argon</code></td><td class="num">4,100</td><td class="num">1,000</td><td class="num">2,051</td><td class="num">3,049</td><td class="num">5 / 5</td></tr>
+<tr><td>Gemini <code>gemini-4-argon</code></td><td class="num">4,100</td><td class="num">2,100</td><td class="num">4,101</td><td class="num">2,099</td><td class="num">3 / 3</td></tr>
+<tr><td>Gemini <code>gemini-4-argon</code></td><td class="num">4,100</td><td class="num">2,500</td><td class="num">4,101</td><td class="num">2,499</td><td class="num">3 / 3</td></tr>
+<tr><td>OpenAI <code>gpt-5.6-sol</code></td><td class="num">4,000</td><td class="num">1,000</td><td class="num">3,997</td><td class="num">1,003</td><td class="num">9 / 9</td></tr>
+<tr><td>OpenAI <code>gpt-5.6-sol</code></td><td class="num">4,000</td><td class="num">2,100</td><td class="num">3,997</td><td class="num">2,103</td><td class="num">8 / 8</td></tr>
+<tr><td>OpenAI <code>gpt-5.6-sol</code></td><td class="num">4,000</td><td class="num">2,500</td><td class="num">3,997</td><td class="num">2,503</td><td class="num">5 / 5</td></tr>
+<tr><td>OpenAI <code>gpt-5.6-sol</code></td><td class="num">4,100</td><td class="num">1,000</td><td class="num">4,097</td><td class="num">1,003</td><td class="num">9 / 9</td></tr>
+<tr><td>OpenAI <code>gpt-5.6-sol</code></td><td class="num">4,100</td><td class="num">2,100</td><td class="num">4,097</td><td class="num">2,103</td><td class="num">9 / 9</td></tr>
+<tr><td>OpenAI <code>gpt-5.6-sol</code></td><td class="num">4,100</td><td class="num">2,500</td><td class="num">4,097</td><td class="num">2,503</td><td class="num">5 / 5</td></tr></tbody></table></div><p class="chart-note">Only trials whose billed sizes came out exactly as asked are counted. The rest were Gemini requests blocked with <code>blockReason: OTHER</code> or carrying the hidden 697-token block.</p><p class="chart-note">From <code>scripts/run-exact-4100.ts</code> → <code>results/exact_4100.csv</code>, 71 trials.</p><ul>
+<li><strong>OpenAI resumes at the end of the previous request</strong>, minus 3 tokens, whatever was appended: 4,097 cached after 4,100.</li>
+<li><strong>Gemini 4 resumes 2,049 tokens before the end</strong> when less than 2,049 is appended (2,051 cached, 3,049 full price), and at the end (+1) when more is (4,101 cached, 2,099 full price).</li>
+<li><strong>A 4,000-token request saves nothing on Gemini 4</strong>, even when the next request appends 2,100 tokens. The ~4,096 minimum applies to the request, not just to the point 2,049 before its end.</li>
+</ul>
+<p><strong>A third request</strong> (<code>scripts/run-exact-turn3.ts</code> → <code>results/exact_turn3.csv</code>) adds exactly 1,500 more tokens to each chain. OpenAI again resumes at the end of turn 2, minus 3. On Gemini 4, after 4,100 → +1,000, turn 3 caches only 3,051 (turn 2 minus 2,049), in every completed trial. Turn 1’s end breakpoint (4,100) would have cached more and is within turn 3’s reach, but it is gone: turn 2 had resumed from turn 1’s other point, and turn 1’s end point didn’t survive. So small appends cost 2,049 tokens on every turn, with no way back to an older, better point. After 4,100 → +2,100 → +1,500, turn 3 caches 4,151, and after 4,000 → +2,100 → +1,500 it caches 4,051, both turn 2 minus 2,049.</p>
+<p>Gemini blocked a share of turn-2 requests (<code>blockReason: OTHER</code>) in this probe but not in the others. The one difference is that this file sends the model’s text reply back without its <code>thoughtSignature</code> (to keep the sizes exact), so that is the likely trigger. Claim tests: <code>src/claims/exact-4100.test.ts</code>.</p>
+<h3 id="edits-all-or-nothing-and-argon-needs-a-message-boundary">Edits: all or nothing, and argon needs a message boundary</h3>
+<p>One word replaced in a warm 20,000-token text, at four positions. The text is sent either as one message or split into two messages at 40%:</p>
+<div class="table-scroll"><table><thead><tr><th>Model</th><th>Shape</th><th class="num">Warm repeat</th><th class="num">Edit at 10%</th><th class="num">50%</th><th class="num">90%</th><th class="num">98%</th><th class="num">n</th></tr></thead><tbody><tr><td>argon</td><td>one message</td><td class="num">18,002–18,005</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">3</td></tr>
+<tr><td>argon</td><td>two messages, split at 40%</td><td class="num">18,011–18,013</td><td class="num">0</td><td class="num">22</td><td class="num">18,011–18,013</td><td class="num">18,012–18,014</td><td class="num">3</td></tr>
+<tr><td>3.1</td><td>one message</td><td class="num">0–17,977</td><td class="num">0</td><td class="num">22</td><td class="num">17,974–17,977</td><td class="num">17,975–17,977</td><td class="num">3</td></tr>
+<tr><td>3.1</td><td>two messages, split at 40%</td><td class="num">17,975–17,979</td><td class="num">0</td><td class="num">22</td><td class="num">17,975–17,979</td><td class="num">17,976–17,980</td><td class="num">3</td></tr></tbody></table></div><p class="chart-note">Cached tokens. One word replaced, each edit sent once; the text is ~20,000 tokens, and its cached part ends about 90% of the way in.</p><p class="chart-note">From <code>scripts/run-edit.ts</code> → <code>results/edit.csv</code>, 12 trials.</p><p><strong>Both models reuse a stored entry whole or not at all.</strong> An edit inside the part that was cached (10% or 50% of the way in) leaves nothing, not even the tokens before the edit. The 22 tokens at 50% are a tiny entry other requests share. An edit after the cached part (90% or 98%, inside the last 2,049 tokens) keeps all of it.</p>
+<p><strong>argon adds one condition: it can only find a stored entry through the end of a message both requests share.</strong> As one long message, the edited request shares no complete message with the stored one, so even an edit at 98% loses everything, although the cached part is byte-identical. Split into two messages, the first message is shared, and argon keeps the whole entry exactly as 3.1 does. Real requests nearly always have several messages, or a system instruction and tools, before the part that changes. The cache-breaker results below show argon keeping the cache through edits to the latest messages. Claim tests: <code>src/claims/edit.test.ts</code>.</p>
+<h3 id="which-earlier-requests-count">Which earlier requests count</h3>
+<p>The edit result raises a question: if a request edits its last message, can it still reuse an earlier, shorter request that ended before that message?</p>
+<div class="table-scroll"><table><thead><tr><th>Model</th><th>Procedure</th><th class="num">A’s first send reused [u1]</th><th class="num">Edited request reused something</th><th class="num">Edited request cached</th><th class="num">Both</th><th class="num">n</th></tr></thead><tbody><tr><td>argon</td><td>edit the last message (no shorter request sent before)</td><td class="num">–</td><td class="num">0 / 5</td><td class="num">22</td><td class="num">–</td><td class="num">5</td></tr>
+<tr><td>argon</td><td>send [u1] first, then edit the last message</td><td class="num">5 / 5</td><td class="num">5 / 5</td><td class="num">14,043–14,048</td><td class="num">5 / 5</td><td class="num">5</td></tr>
+<tr><td>argon</td><td>send [u1] first, then edit inside u1</td><td class="num">5 / 5</td><td class="num">0 / 5</td><td class="num">0</td><td class="num">–</td><td class="num">5</td></tr>
+<tr><td>3.1</td><td>edit the last message (no shorter request sent before)</td><td class="num">–</td><td class="num">0 / 5</td><td class="num">22</td><td class="num">–</td><td class="num">5</td></tr>
+<tr><td>3.1</td><td>send [u1] first, then edit the last message</td><td class="num">3 / 5</td><td class="num">2 / 5</td><td class="num">22–14,022</td><td class="num">0 / 5</td><td class="num">5</td></tr>
+<tr><td>3.1</td><td>send [u1] first, then edit inside u1</td><td class="num">5 / 5</td><td class="num">0 / 5</td><td class="num">0</td><td class="num">–</td><td class="num">5</td></tr></tbody></table></div><p class="chart-note">From <code>scripts/run-boundary.ts</code> → <code>results/boundary.csv</code>, 30 trials.</p><ul>
+<li><strong>argon: yes, any of them.</strong> After <code>[u1]</code> was sent on its own, a request with <code>u2</code> edited reused all of <code>u1</code> (its prompt + 1), in 5 of 5 trials. With no earlier <code>[u1]</code> request, the same edit reused nothing: the only stored entry, A’s, covers part of <code>u2</code>, which the edit changed. argon keeps the shorter entry even after a longer request has extended it.</li>
+<li><strong>3.1: only the latest one.</strong> In 5 of 5 trials, A’s first send and the edited request never <em>both</em> reused <code>[u1]</code>. When A reused it (3 trials), the edited request then found nothing. When A missed it (2 trials), the edited request reused it. Once a longer request has reused 3.1’s entry, the shorter one is gone. These data can’t tell “replaced by the longer entry” from “used up by the hit”.</li>
+</ul>
+<p>In practice: on argon, a client that branches back to an earlier turn keeps every request it sent that ended at or before the branch point. On 3.1, branching back is cheap only if nothing has grown past the branch point. Claim tests: <code>src/claims/boundary.test.ts</code>.</p>
+<h3 id="what-breaks-argons-cache">What breaks argon’s cache</h3>
+<p>The cache-breaker matrix: a warm request with a system instruction (~1,500 tokens), two tool declarations, a four-message history and a final message, ~6,840 tokens in all, of which ~4,790 are cached. Each trial changes exactly one thing and sends the request once. Every request is also counted with <code>countTokens</code>, so a trial where argon’s hidden block switched on or off is listed separately rather than blamed on the change.</p>
+<div class="table-scroll"><table class="compare"><thead><tr><th>Change</th><th>Outcome</th><th class="num">Kept the cache</th><th class="num">Lost it</th><th class="num">Hidden block switched</th><th class="num">n</th></tr></thead><tbody><tr class="group-row"><td colspan="6">Controls</td></tr>
+<tr><td><code>control</code><span class="var-name">Resend the base request unchanged.</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>no_tools_control</code><span class="var-name">Control for json_mime_type: warm a copy of the base without tools, then resend it unchanged.</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr class="group-row"><td colspan="6">Content</td></tr>
+<tr><td><code>early_edit_end</code><span class="var-name">Append a word to the first history message.</span></td><td class="cmp-zero">lost</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>late_edit_end</code><span class="var-name">Append a word to the fourth history message (the last model turn).</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>system_edit_end</code><span class="var-name">Append a word to the system instruction.</span></td><td class="cmp-zero">lost</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>final_edit</code><span class="var-name">Append a word to the final user message.</span></td><td class="">kept</td><td class="num">3</td><td class="num">0</td><td class="num">1</td><td class="num">4</td></tr>
+<tr><td><code>system_as_two_parts</code><span class="var-name">Split the system instruction into two text parts (same text).</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>image_in_final</code><span class="var-name">Add a 1x1 PNG to the final user message.</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>late_question_edit_end</code><span class="var-name">Append a word to the third history message (the late question), the message the cached span ends in.</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr class="group-row"><td colspan="6">Tools</td></tr>
+<tr><td><code>tool_description_edit</code><span class="var-name">Append a word to the last tool’s description.</span></td><td class="cmp-zero">lost</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>tool_add</code><span class="var-name">Append a third function declaration.</span></td><td class="cmp-zero">lost</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>tools_reorder</code><span class="var-name">Swap the two function declarations.</span></td><td class="cmp-zero">lost</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>tools_remove_all</code><span class="var-name">Send no tools (and no toolConfig).</span></td><td class="cmp-zero">lost</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>tool_schema_key_order</code><span class="var-name">Reorder the keys of the first tool’s parameter properties.</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr class="group-row"><td colspan="6">Thread</td></tr>
+<tr><td><code>append_turn</code><span class="var-name">Append a model reply and a new user message (normal conversation growth).</span></td><td class="">kept</td><td class="num">1</td><td class="num">0</td><td class="num">3</td><td class="num">4</td></tr>
+<tr><td><code>prev_turn_then_final_edit</code><span class="var-name">First send the thread as it was one turn earlier (ending at the late question), then edit the final message.</span></td><td class="">kept</td><td class="num">3</td><td class="num">0</td><td class="num">1</td><td class="num">4</td></tr>
+<tr class="group-row"><td colspan="6">Generation config</td></tr>
+<tr><td><code>temperature</code><span class="var-name"><code>temperature</code>: unset → 0.5.</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>max_output_tokens</code><span class="var-name"><code>maxOutputTokens</code>: 256 → 512.</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>top_p</code><span class="var-name"><code>topP</code>: unset → 0.5.</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>stop_sequences</code><span class="var-name"><code>stopSequences</code>: none → <code>[&quot;###&quot;]</code>.</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>seed</code><span class="var-name"><code>seed</code>: unset → 7.</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>thinking_high</code><span class="var-name"><code>thinkingLevel</code>: low → high.</span></td><td class="cmp-zero">lost</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>thinking_omitted</code><span class="var-name">Omit <code>thinkingConfig</code> (the model’s default).</span></td><td class="cmp-zero">lost</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>include_thoughts</code><span class="var-name"><code>thinkingConfig.includeThoughts</code>: unset → true.</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>json_mime_type</code><span class="var-name"><code>responseMimeType</code>: unset → <code>&quot;application/json&quot;</code>. JSON mode can’t be combined with tools, so a copy of the base without tools is warmed first and the variant is that copy in JSON mode.</span></td><td class="cmp-zero">lost</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num">4</td></tr>
+<tr class="group-row"><td colspan="6">toolConfig</td></tr>
+<tr><td><code>tool_mode_any</code><span class="var-name"><code>functionCallingConfig.mode</code>: AUTO → ANY.</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>tool_mode_none</code><span class="var-name"><code>functionCallingConfig.mode</code>: AUTO → NONE.</span></td><td class="cmp-zero">lost</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num">4</td></tr>
+<tr><td><code>tool_config_omitted</code><span class="var-name">Omit <code>toolConfig</code> (AUTO is the default).</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr>
+<tr class="group-row"><td colspan="6">Other fields</td></tr>
+<tr><td><code>safety_settings</code><span class="var-name">Add one <code>safetySettings</code> entry (harassment: BLOCK_ONLY_HIGH).</span></td><td class="">kept</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">4</td></tr></tbody></table></div><p class="chart-note">“Kept” means the variant reported cached tokens (more than 200). Trials whose base never cached, and trials where argon’s hidden block switched on or off between the base and the variant, are not counted as kept or lost.</p><p class="chart-note">From <code>scripts/run-breakers.ts</code> → <code>results/breakers.csv</code>, 116 trials.</p><ul>
+<li><strong>Anything before the cached part’s end breaks it:</strong> the system instruction, the first history message, and every change to the tools (a description, adding, reordering or removing one). The tools sit before the conversation.</li>
+<li><strong>Edits after it don’t:</strong> the late question (the message the cached part ends in), the last model turn, the final message, an image added to the final message.</li>
+<li><strong>Appending a turn keeps it, unless argon adds its hidden block.</strong> Here it did in 3 of 4 trials, and each of those lost everything. The one clean trial kept the whole cache. This is the same effect as the <code>long_chain</code> step-2 misses: on argon, normal conversation growth can switch the block on.</li>
+<li><strong>Some settings are part of the key:</strong> changing <code>thinkingLevel</code>, or omitting <code>thinkingConfig</code>, loses everything though the prompt’s token count doesn’t change. JSON mode (<code>responseMimeType: &quot;application/json&quot;</code>) loses it and adds 67 hidden prompt tokens. toolConfig <code>NONE</code> loses it because it removes the tool declarations from the prompt (5,504 tokens instead of 6,840).</li>
+<li><strong>Most settings aren’t:</strong> temperature, topP, maxOutputTokens, stop sequences, seed, <code>includeThoughts</code>, safety settings, toolConfig <code>ANY</code>, omitting toolConfig, and the key order inside a tool’s JSON schema all kept the cache in every trial.</li>
+</ul>
+<p>Claim tests: <code>src/claims/breakers.test.ts</code>.</p>
+<h3 id="thought-signatures">Thought signatures</h3>
+<p>On 3.x, a model turn that calls a function carries a <code>thoughtSignature</code>, which must be sent back. The probe sends a function call after 18,000 words of filler, then its response plus 5,000 more words (A), then extends the thread past it (C). A is a strict prefix of C.</p>
+<div class="table-scroll"><table><thead><tr><th>Model</th><th>Turn m1</th><th>Signature bytes</th><th class="num">C kept all of A</th><th class="num">C lost everything</th><th class="num">C inflated</th><th class="num">n</th></tr></thead><tbody><tr><td>argon</td><td>function call + signature</td><td>124</td><td class="num">6 / 9</td><td class="num">3 / 9</td><td class="num">0 / 9</td><td class="num">0</td><td>3</td><td>9</td></tr>
+<tr><td>argon</td><td>text only (control)</td><td>–</td><td class="num">8 / 8</td><td class="num">0 / 8</td><td class="num">0 / 8</td><td class="num">1</td><td>1</td><td>9</td></tr>
+<tr><td>3.1</td><td>function call + signature</td><td>348–4,456</td><td class="num">0 / 7</td><td class="num">6 / 7</td><td class="num">1 / 7</td><td class="num">2</td><td>–</td><td>9</td></tr>
+<tr><td>3.1</td><td>text only (control)</td><td>–</td><td class="num">5 / 8</td><td class="num">3 / 8</td><td class="num">0 / 8</td><td class="num">1</td><td>–</td><td>9</td></tr></tbody></table></div><p class="chart-note">“C kept all of A”: the first send of the extended thread cached within 50 tokens of A’s warm repeat. Counted over trials where A’s repeat was cached; the others are counted in “A’s repeat not cached”.</p><h4>Billing and countTokens, function-call variant</h4><div class="table-scroll"><table><thead><tr><th>Model</th><th class="num">A: generateContent − countTokens</th><th class="num">countTokens same with signature stripped</th><th class="num">C: generateContent = countTokens</th><th class="num">C billed less than A</th><th class="num">countTokens rejects stripped signature</th></tr></thead><tbody><tr><td>argon</td><td class="num">8</td><td class="num">rejected</td><td class="num">0 / 9</td><td class="num">0 / 9</td><td class="num">9 / 9</td></tr>
+<tr><td>3.1</td><td class="num">38–975</td><td class="num">9 / 9</td><td class="num">9 / 9</td><td class="num">8 / 9</td><td class="num">0 / 9</td></tr></tbody></table></div><p class="chart-note">From <code>scripts/run-sig.ts</code> → <code>results/sig.csv</code>, 36 trials.</p><p><strong>On 3.1, extending past the signature usually lost the whole cache:</strong> in 6 of the 7 trials where A had been cached on its own repeat, C’s first send reused nothing. The seventh kept 20,905 of A’s 21,322 tokens. The text-only control, with the same sizes and no function call, kept all of A in 5 of 8. So on 3.1 even a plain extension right after a repeat isn’t dependable, and the signature makes a loss much more likely. 3.1 was flaky in this probe in another way too: in 2 of 9 trials, A’s <em>identical</em> repeat cached only 161 tokens.</p>
+<p>The billing columns show what changes. While the function call is the latest model turn, <code>generateContent</code> bills its signature: A’s <code>promptTokenCount</code> exceeds <code>countTokens</code> by roughly a fifth of the signature’s bytes. Once the thread moves on, it stops. C bills exactly what <code>countTokens</code> says, <em>less</em> than A, though C contains all of A. So C is not a byte-for-byte extension of A as the model sees it. One explanation fits most trials: the dropped signature makes C diverge from A about 18,000 tokens in, inside A’s stored span, and 3.1 reuses an entry only whole (see the edit results). The one partial hit doesn’t fit that, so treat it as a hypothesis. The real threads above didn’t run into this. Their signatures sat in the last ~100 tokens of each request, inside the tail that is never cached anyway. An agent loop whose tool results are large might.</p>
+<p><code>countTokens</code> never counts the signature on 3.1, with or without it in the request.</p>
+<p><strong>On argon, signatures are a constant 124 bytes, billed at most a few tokens, and never dropped.</strong> Extending past the function call reused all of A whenever argon didn’t add its hidden block. argon’s <code>countTokens</code> also rejects a function call whose signature was removed (“Function call is missing a thought_signature in functionCall parts”), which 3.1’s accepts. Claim tests: <code>src/claims/signature.test.ts</code>.</p>
+<h3 id="gemini-4-sometimes-bills-697-hidden-tokens">Gemini 4 sometimes bills 697 hidden tokens</h3>
+<p>On some requests argon’s <code>promptTokenCount</code> is exactly 697 tokens higher than <code>countTokens</code> for the same request (701 with a short system instruction). On every other request the two agree exactly.</p>
+<div class="table-scroll"><table><thead><tr><th>Model</th><th>Shape</th><th class="num">Words</th><th>System instruction</th><th class="num">Sends inflated</th><th class="num">Hidden tokens</th><th class="num">Trials where the one-word change flipped it</th><th class="num">n</th></tr></thead><tbody><tr><td>argon</td><td><code>one</code></td><td class="num">4,000</td><td>none</td><td class="num">0 / 18</td><td class="num">–</td><td class="num">0</td><td class="num">9</td></tr>
+<tr><td>argon</td><td><code>one</code></td><td class="num">4,000</td><td>short</td><td class="num">0 / 18</td><td class="num">–</td><td class="num">0</td><td class="num">9</td></tr>
+<tr><td>argon</td><td><code>one</code></td><td class="num">16,000</td><td>none</td><td class="num">0 / 18</td><td class="num">–</td><td class="num">0</td><td class="num">9</td></tr>
+<tr><td>argon</td><td><code>one</code></td><td class="num">16,000</td><td>short</td><td class="num">0 / 18</td><td class="num">–</td><td class="num">0</td><td class="num">9</td></tr>
+<tr><td>argon</td><td><code>two_cold</code></td><td class="num">4,000</td><td>none</td><td class="num">3 / 18</td><td class="num">697</td><td class="num">1</td><td class="num">9</td></tr>
+<tr><td>argon</td><td><code>two_cold</code></td><td class="num">4,000</td><td>short</td><td class="num">2 / 18</td><td class="num">701</td><td class="num">2</td><td class="num">9</td></tr>
+<tr><td>argon</td><td><code>two_cold</code></td><td class="num">16,000</td><td>none</td><td class="num">0 / 18</td><td class="num">–</td><td class="num">0</td><td class="num">9</td></tr>
+<tr><td>argon</td><td><code>two_cold</code></td><td class="num">16,000</td><td>short</td><td class="num">0 / 18</td><td class="num">–</td><td class="num">0</td><td class="num">9</td></tr>
+<tr><td>argon</td><td><code>many_cold</code></td><td class="num">4,000</td><td>none</td><td class="num">6 / 18</td><td class="num">697</td><td class="num">2</td><td class="num">9</td></tr>
+<tr><td>argon</td><td><code>many_cold</code></td><td class="num">4,000</td><td>short</td><td class="num">8 / 18</td><td class="num">701</td><td class="num">2</td><td class="num">9</td></tr>
+<tr><td>argon</td><td><code>many_cold</code></td><td class="num">16,000</td><td>none</td><td class="num">4 / 18</td><td class="num">697</td><td class="num">4</td><td class="num">9</td></tr>
+<tr><td>argon</td><td><code>many_cold</code></td><td class="num">16,000</td><td>short</td><td class="num">4 / 18</td><td class="num">701</td><td class="num">2</td><td class="num">9</td></tr>
+<tr><td>3.1</td><td><code>two_cold</code></td><td class="num">4,000</td><td>none</td><td class="num">0 / 12</td><td class="num">–</td><td class="num">0</td><td class="num">6</td></tr>
+<tr><td>3.1</td><td><code>many_cold</code></td><td class="num">4,000</td><td>none</td><td class="num">0 / 12</td><td class="num">–</td><td class="num">0</td><td class="num">6</td></tr></tbody></table></div><p class="chart-note">From <code>scripts/run-inflation.ts</code> → <code>results/inflation.csv</code>, 120 trials.</p><ul>
+<li><strong>It is a property of the request’s content.</strong> Identical resends always get the same count: in 0 of 180 threshold trials did the prompt change between sends. Yet changing the last word of the final question flipped it in some trials.</li>
+<li><strong>It depends on the shape of the request.</strong> In the inflation probe it never appeared on a single user message (0 of 72 sends), and it was more frequent with more, smaller messages: about a third of eight-message requests, fewer with two. A system instruction doesn’t prevent it. The signature probe, whose opening message asks for a tool call, also showed a smaller variant of about 414–420 tokens on two single-message requests, so the 697-token block isn’t the only form.</li>
+<li><strong>3.1 never does it</strong> (0 of 24 sends in the cells where argon does it most).</li>
+<li><strong>It costs the whole cache when it appears.</strong> When one request of a thread gains the block and the previous one didn’t, nothing is reused (<code>long_chain</code> step 2, 4 of 4 trials). Every argon miss in the signature probe came with it too. Requests that both carry it reuse each other normally.</li>
+</ul>
+<p>What the block is, we can’t say from outside. It is billed as input, invisible to <code>countTokens</code>, and it breaks prefix reuse, so it sits somewhere before the end of the earlier request. Claim tests: <code>src/claims/inflation.test.ts</code>.</p>
+<h2 id="takeaways">Takeaways</h2>
+<ul>
+<li><strong>For ordinary chat and agent loops, both models just work.</strong> Append turns, never edit the past, and nearly every request reuses the previous one. Expect the last ~2,048 tokens of each request to be billed in full again on the next turn, unless more than that was appended since (the reply and your new message together).</li>
+<li><strong>argon caches much smaller prompts.</strong> Anything over ~4,096 tokens qualifies, against ~9,000 for 3.1 to be dependable. Below 9,000 tokens, 3.1’s hits are luck.</li>
+<li><strong>Keep what changes at the end.</strong> On both models, any change before the cached part’s end discards the whole cache, including the system instruction and tool declarations. Put anything that changes per request (timestamps, retrieved snippets, counters) in the latest message. On argon, avoid one giant message: with no message boundary before the change, even a late edit loses everything.</li>
+<li><strong>On argon, don’t switch <code>thinkingLevel</code> or JSON mode mid-conversation.</strong> Both are part of the cache key. Sampling settings, output limits and safety settings are not.</li>
+<li><strong>On 3.1, mind big tool results after a function call.</strong> Extending past a function call whose signature sits well inside the request (5,000 tokens from its end here) usually discarded the cache. Signatures within the last ~100 tokens, as in a tight tool loop, were harmless.</li>
+<li><strong>Don’t predict argon’s bill with <code>countTokens</code>.</strong> It misses the 697-token block, and on 3.1 it misses the signature on the latest turn.</li>
+</ul>
+<p>Every claim here is at the scope of this setup: synthetic text, these two model versions in October 2026, <code>thinkingLevel: &quot;low&quot;</code> except where a probe varies it, text-only requests apart from one tiny image, up to 128,000 tokens, and 2–9 trials per cell, shown as <code>n</code> beside each number.</p>
+<h2 id="verify-it-yourself">Verify it yourself</h2>
+<p>Every claim above has a test in <code>src/claims/</code> that runs the same procedure as the scripts and asserts what this page says. The recordings are committed, so the first command checks every claim offline. The second re-runs them all against the live API with fresh nonces (it needs <code>GEMINI_API_KEY</code> in <code>.env</code>).</p>
+<pre><code class="language-sh">pnpm --filter @experiments/gemini4_cache test              # replay every claim offline
+RECORD=true pnpm --filter @experiments/gemini4_cache test  # re-run every claim live
+</code></pre>
+<p>To add trials to any table, re-run its script with <code>RUNS=N</code>, then <code>pnpm --filter @experiments/gemini4_cache report</code> to rebuild this page.</p>
+
+<p class="chart-note">Generated by <code>scripts/build-report.ts</code> from <code>blog.md</code> and <code>results/*.csv</code> (917 rows).</p>
+</main>
+<div class="tip" role="tooltip"></div>
+<script>
+const tip = document.querySelector(".tip");
+function show(el, x, y) {
+  tip.innerHTML = el.dataset.tip;
+  tip.style.display = "block";
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = Math.max(8, Math.min(x + 14, innerWidth - w - 8)) + "px";
+  tip.style.top = (y + h + 20 > innerHeight ? y - h - 14 : y + 14) + "px";
+}
+for (const el of document.querySelectorAll("[data-tip]")) {
+  el.addEventListener("mousemove", (e) => show(el, e.clientX, e.clientY));
+  el.addEventListener("mouseleave", () => (tip.style.display = "none"));
+  el.addEventListener("focus", () => {
+    const r = el.getBoundingClientRect();
+    show(el, r.left + r.width / 2, r.bottom);
+  });
+  el.addEventListener("blur", () => (tip.style.display = "none"));
+}
+</script>
+</body>
+</html>

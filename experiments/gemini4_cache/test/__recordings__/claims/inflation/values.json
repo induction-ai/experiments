@@ -1,0 +1,22 @@
+{
+  "argon’s hidden prompt tokens > argon bills a fixed hidden block of 697 tokens on some multi-message requests, which countTokens doesn't count, the same on every identical resend :: nonce:inflation:find:0": "35e7d81c918f",
+  "argon’s hidden prompt tokens > argon bills a fixed hidden block of 697 tokens on some multi-message requests, which countTokens doesn't count, the same on every identical resend :: seed:inflation:find:0": "1341995167",
+  "argon’s hidden prompt tokens > argon adds no hidden tokens to a single user message :: nonce:inflation:one:0": "769926b87c20",
+  "argon’s hidden prompt tokens > argon adds no hidden tokens to a single user message :: seed:inflation:one:0": "1305927398",
+  "argon’s hidden prompt tokens > argon adds no hidden tokens to a single user message :: nonce:inflation:one:1": "11ad8ecf8cef",
+  "argon’s hidden prompt tokens > argon adds no hidden tokens to a single user message :: seed:inflation:one:1": "687407480",
+  "argon’s hidden prompt tokens > argon adds no hidden tokens to a single user message :: nonce:inflation:one:2": "c9d70a6b4f36",
+  "argon’s hidden prompt tokens > argon adds no hidden tokens to a single user message :: seed:inflation:one:2": "12964994",
+  "argon’s hidden prompt tokens > argon adds no hidden tokens to a single user message :: nonce:inflation:one:3": "fd0414ecf515",
+  "argon’s hidden prompt tokens > argon adds no hidden tokens to a single user message :: seed:inflation:one:3": "1381782652",
+  "argon’s hidden prompt tokens > 3.1 adds no hidden tokens where argon does :: nonce:inflation:pro:0": "9e413d723da2",
+  "argon’s hidden prompt tokens > 3.1 adds no hidden tokens where argon does :: seed:inflation:pro:0": "338191464",
+  "argon’s hidden prompt tokens > 3.1 adds no hidden tokens where argon does :: nonce:inflation:pro:1": "9eddc245c02d",
+  "argon’s hidden prompt tokens > 3.1 adds no hidden tokens where argon does :: seed:inflation:pro:1": "836875646",
+  "argon’s hidden prompt tokens > 3.1 adds no hidden tokens where argon does :: nonce:inflation:pro:2": "bec2298ddc57",
+  "argon’s hidden prompt tokens > 3.1 adds no hidden tokens where argon does :: seed:inflation:pro:2": "1672182932",
+  "argon’s hidden prompt tokens > 3.1 adds no hidden tokens where argon does :: nonce:inflation:pro:3": "d4a1fedd0e26",
+  "argon’s hidden prompt tokens > 3.1 adds no hidden tokens where argon does :: seed:inflation:pro:3": "741077189",
+  "argon’s hidden prompt tokens > argon: when the next request of a thread gains the hidden block, it misses the cache entirely, and later requests reuse it again :: nonce:inflation:chain": "12ba0031006e",
+  "argon’s hidden prompt tokens > argon: when the next request of a thread gains the hidden block, it misses the cache entirely, and later requests reuse it again :: seed:inflation:chain": "1762482709"
+}

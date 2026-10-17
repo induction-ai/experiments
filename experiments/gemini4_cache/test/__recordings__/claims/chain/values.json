@@ -1,0 +1,18 @@
+{
+  "append-only threads > gemini-4-argon text_chain: each request reuses the previous request, short of a ~2048-token tail (3.1 rarely misses one) :: nonce:chain:gemini-4-argon:text_chain:0": "5eec97fa0f9a",
+  "append-only threads > gemini-4-argon text_chain: each request reuses the previous request, short of a ~2048-token tail (3.1 rarely misses one) :: seed:chain:gemini-4-argon:text_chain:0": "1183686892",
+  "append-only threads > gemini-4-argon tool_chain: each request reuses the previous request, short of a ~2048-token tail (3.1 rarely misses one) :: nonce:chain:gemini-4-argon:tool_chain:0": "32da32f18593",
+  "append-only threads > gemini-4-argon tool_chain: each request reuses the previous request, short of a ~2048-token tail (3.1 rarely misses one) :: seed:chain:gemini-4-argon:tool_chain:0": "825773597",
+  "append-only threads > gemini-3.1-pro-preview text_chain: each request reuses the previous request, short of a ~2048-token tail (3.1 rarely misses one) :: nonce:chain:gemini-3.1-pro-preview:text_chain:0": "dfcaad2ca6cd",
+  "append-only threads > gemini-3.1-pro-preview text_chain: each request reuses the previous request, short of a ~2048-token tail (3.1 rarely misses one) :: seed:chain:gemini-3.1-pro-preview:text_chain:0": "1876775582",
+  "append-only threads > gemini-3.1-pro-preview tool_chain: each request reuses the previous request, short of a ~2048-token tail (3.1 rarely misses one) :: nonce:chain:gemini-3.1-pro-preview:tool_chain:0": "fa2f23f27e83",
+  "append-only threads > gemini-3.1-pro-preview tool_chain: each request reuses the previous request, short of a ~2048-token tail (3.1 rarely misses one) :: seed:chain:gemini-3.1-pro-preview:tool_chain:0": "1568675677",
+  "append-only threads > gemini-4-argon: when less than ~2,049 tokens are appended (a short reply), the next request still falls ~2,049 short of the previous prompt :: nonce:chain:gemini-4-argon:mid_chain:0": "17caec6c0b49",
+  "append-only threads > gemini-4-argon: when less than ~2,049 tokens are appended (a short reply), the next request still falls ~2,049 short of the previous prompt :: seed:chain:gemini-4-argon:mid_chain:0": "888985070",
+  "append-only threads > gemini-3.1-pro-preview: when less than ~2,049 tokens are appended (a short reply), the next request still falls ~2,049 short of the previous prompt :: nonce:chain:gemini-3.1-pro-preview:mid_chain:0": "95035b5bdc7c",
+  "append-only threads > gemini-3.1-pro-preview: when less than ~2,049 tokens are appended (a short reply), the next request still falls ~2,049 short of the previous prompt :: seed:chain:gemini-3.1-pro-preview:mid_chain:0": "332180840",
+  "append-only threads > gemini-4-argon: when more than ~2,049 tokens are appended (here a long reply), the next request reuses the whole previous prompt :: nonce:chain:gemini-4-argon:para_chain:0": "b5319fc5b745",
+  "append-only threads > gemini-4-argon: when more than ~2,049 tokens are appended (here a long reply), the next request reuses the whole previous prompt :: seed:chain:gemini-4-argon:para_chain:0": "1070115919",
+  "append-only threads > gemini-3.1-pro-preview: when more than ~2,049 tokens are appended (here a long reply), the next request reuses the whole previous prompt :: nonce:chain:gemini-3.1-pro-preview:para_chain:0": "1c5c3d38b669",
+  "append-only threads > gemini-3.1-pro-preview: when more than ~2,049 tokens are appended (here a long reply), the next request reuses the whole previous prompt :: seed:chain:gemini-3.1-pro-preview:para_chain:0": "665972033"
+}
